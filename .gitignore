@@ -1,0 +1,45 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Gradle and Java build output
+.gradle/
+**/.gradle/
+build/
+**/build/
+out/
+target/
+
+# Keep the Gradle wrapper jar tracked.
+!gradle/wrapper/gradle-wrapper.jar
+
+# Paperweight generated worktrees and patched source output
+paper-api/
+paper-server/
+leaf-server/src/minecraft/
+leaf-server/src/generated/
+
+# Release artifacts generated locally
+dist/
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# Logs, reports, and local crash output
+*.log
+*.tmp
+*.temp
+hs_err_pid*
+replay_pid*
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example

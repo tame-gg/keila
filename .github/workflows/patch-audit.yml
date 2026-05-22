@@ -1,0 +1,16 @@
+name: Patch Audit
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - "keila/**"
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check patch names and unresolved markers
+        run: scripts/checkPatches.sh

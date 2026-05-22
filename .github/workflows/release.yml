@@ -1,0 +1,91 @@
+name: keila
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version
+        required: false
+        default: "0.1.1"
+  push:
+    branches:
+      - main
+      - "keila/**"
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+env:
+  KEILA_RELEASE_NAME: keila
+  KEILA_RELEASE_AUTHORS: tame.gg, asianrizz, koels
+  KEILA_RELEASE_VERSION: "0.1.1"
+
+jobs:
+  compile:
+    name: Compile release jar
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: gradle/actions/setup-gradle@v5
+
+      - name: Resolve release metadata
+        id: release
+        shell: bash
+        env:
+          INPUT_VERSION: ${{ github.event.inputs.version }}
+        run: |
+          version="$KEILA_RELEASE_VERSION"
+          if [ "${GITHUB_REF_TYPE:-}" = "tag" ]; then
+            version="${GITHUB_REF_NAME#v}"
+          elif [ -n "${INPUT_VERSION:-}" ]; then
+            version="$INPUT_VERSION"
+          fi
+
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          echo "artifact=$KEILA_RELEASE_NAME-$version.jar" >> "$GITHUB_OUTPUT"
+
+      - name: Apply patches
+        run: ./gradlew applyAllPatches --stacktrace
+
+      - name: Check
+        run: ./gradlew check --stacktrace
+
+      - name: Build paperclip jar
+        run: ./gradlew createMojmapPaperclipJar --stacktrace
+
+      - name: Rename release artifact
+        env:
+          KEILA_RELEASE_VERSION: ${{ steps.release.outputs.version }}
+        run: scripts/prepareRelease.sh dist
+
+      - uses: actions/upload-artifact@v5
+        with:
+          name: ${{ steps.release.outputs.artifact }}
+          path: dist/*
+          if-no-files-found: error
+
+      - name: Publish GitHub release
+        if: github.event_name == 'workflow_dispatch' || github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+          RELEASE_VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          notes="dist/keila-${RELEASE_VERSION}-notes.md"
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" dist/* --clobber
+          else
+            gh release create "$RELEASE_TAG" dist/* \
+              --target "$GITHUB_SHA" \
+              --title "keila ${RELEASE_VERSION}" \
+              --notes-file "$notes"
+          fi

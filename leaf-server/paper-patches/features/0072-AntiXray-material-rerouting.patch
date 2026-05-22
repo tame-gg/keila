@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Keila <dev@tame.gg>
+Date: Mon, 18 May 2026 22:22:00 -0400
+Subject: [PATCH] Add AntiXray material rerouting
+
+Keila exposes AntiXrayAdapter through the API with a Material parameter, so
+legacy-material plugin remapping needs a matching MaterialRerouting entry.
+
+diff --git a/src/main/java/org/bukkit/craftbukkit/legacy/MaterialRerouting.java b/src/main/java/org/bukkit/craftbukkit/legacy/MaterialRerouting.java
+index 9f50bfc899d747f4e9287a646c6c6103bf501660..35c190605ef22da51ab3b417283aef17330b847e 100644
+--- a/src/main/java/org/bukkit/craftbukkit/legacy/MaterialRerouting.java
++++ b/src/main/java/org/bukkit/craftbukkit/legacy/MaterialRerouting.java
+@@ -730,4 +730,10 @@ public class MaterialRerouting {
+         return itemStack.getBlockData(MaterialRerouting.transformToBlockType(material));
+     }
+     // Purpur end - Adopt MaterialRerouting
++
++    // Keila start - AntiXray SDK material rerouting
++    public static void callBlockChange(final dev.imanity.antixray.sdk.AntiXrayAdapter adapter, final World world, final int x, final int y, final int z, final Material material) {
++        adapter.callBlockChange(world, x, y, z, MaterialRerouting.transformToBlockType(material));
++    }
++    // Keila end - AntiXray SDK material rerouting
+ }
