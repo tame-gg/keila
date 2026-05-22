@@ -19,15 +19,15 @@ class KeilaFeatureCatalogTest {
             .map(KeilaFeature::title)
             .collect(Collectors.toUnmodifiableSet());
 
-        assertTrue(titles.contains("Async chunk-send stress harness"));
-        assertTrue(titles.contains("Built-in queue metrics command"));
-        assertTrue(titles.contains("Config migration framework"));
-        assertTrue(titles.contains("Patch source attribution validator"));
-        assertTrue(titles.contains("Release artifact verifier"));
-        assertTrue(titles.contains("Synthetic redstone benchmark"));
-        assertTrue(titles.contains("Spark profile auto-summary"));
-        assertTrue(titles.contains("Build environment doctor"));
-        assertTrue(titles.contains("One-command local verification script"));
+        assertTrue(titles.contains("Server summary"));
+        assertTrue(titles.contains("MSPT report"));
+        assertTrue(titles.contains("Config search"));
+        assertTrue(titles.contains("Pathfinding queue"));
+        assertTrue(titles.contains("Async chunk send"));
+        assertTrue(titles.contains("Rollout check"));
+        assertTrue(titles.contains("Safe mode profile"));
+        assertTrue(titles.contains("Support bundle"));
+        assertTrue(titles.contains("Command help"));
     }
 
     @Test
@@ -39,14 +39,14 @@ class KeilaFeatureCatalogTest {
         assertEquals(KeilaFeatureCatalog.all().size(), ids.size());
         assertTrue(KeilaFeatureCatalog.byId("KF-001").isPresent());
         assertTrue(KeilaFeatureCatalog.byId("kf-050").isPresent());
-        assertTrue(KeilaFeatureCatalog.byId("KF-050").orElseThrow().surface().contains("verifyLocal"));
+        assertTrue(KeilaFeatureCatalog.byId("KF-050").orElseThrow().surface().contains("/keila features"));
     }
 
     @Test
     void categoriesAndSurfacesArePopulated() {
         assertFalse(KeilaFeatureCatalog.categories().isEmpty());
-        assertTrue(KeilaFeatureCatalog.categories().contains("Runtime Safety"));
-        assertTrue(KeilaFeatureCatalog.categories().contains("Build Governance"));
+        assertTrue(KeilaFeatureCatalog.categories().contains("Performance"));
+        assertTrue(KeilaFeatureCatalog.categories().contains("Operations"));
 
         for (KeilaFeature feature : KeilaFeatureCatalog.all()) {
             assertFalse(feature.id().isBlank(), "id must be populated");
