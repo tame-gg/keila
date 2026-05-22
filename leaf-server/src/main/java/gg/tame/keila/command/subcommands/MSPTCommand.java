@@ -5,7 +5,6 @@ import net.kyori.adventure.text.Component;
 import net.minecraft.server.MinecraftServer;
 import gg.tame.keila.command.KeilaCommand;
 import gg.tame.keila.command.PermissionedKeilaSubcommand;
-import gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.PermissionDefault;
 
@@ -31,19 +30,6 @@ public final class MSPTCommand extends PermissionedKeilaSubcommand {
 
     @Override
     public boolean execute(final CommandSender sender, final String subCommand, final String[] args) {
-        // Check if parallel world ticking is enabled
-        if (!SparklyPaperParallelWorldTicking.enabled) {
-            sender.sendMessage(Component.text()
-                .content("Per-world MSPT tracking is only available when parallel world ticking is enabled.")
-                .color(RED)
-                .build());
-            sender.sendMessage(Component.text()
-                .content("Please enable it in your Keila configuration to use this command.")
-                .color(GRAY)
-                .build());
-            return true;
-        }
-
         // Check if compact mode is requested
         boolean compactMode = args.length > 0 && args[0].equalsIgnoreCase("compact");
 
@@ -237,10 +223,6 @@ public final class MSPTCommand extends PermissionedKeilaSubcommand {
 
     @Override
     public List<String> tabComplete(final CommandSender sender, final String subCommand, final String[] args) {
-        if (!SparklyPaperParallelWorldTicking.enabled) {
-            return Collections.emptyList();
-        }
-
         if (args.length == 1) {
             return Collections.singletonList("compact");
         }

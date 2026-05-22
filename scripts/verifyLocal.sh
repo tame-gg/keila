@@ -6,8 +6,8 @@ if [ -z "${JAVA_HOME:-}" ] && [ -x /Library/Java/JavaVirtualMachines/temurin-21.
   export PATH="$JAVA_HOME/bin:$PATH"
 fi
 
-scripts/checkPatches.sh
+bash scripts/checkPatches.sh
 ./gradlew applyAllPatches --stacktrace
 ./gradlew check --stacktrace
 ./gradlew createMojmapPaperclipJar --stacktrace
-scripts/verifyReleaseArtifact.sh
+bash scripts/verifyReleaseArtifact.sh

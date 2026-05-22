@@ -19,7 +19,7 @@ trap 'rm -f "$manifest" "$listing"' EXIT
 unzip -p "$artifact" META-INF/MANIFEST.MF > "$manifest"
 unzip -l "$artifact" > "$listing"
 
-rg -q '^Main-Class: ' "$manifest"
-rg -q 'LICENSE.txt|META-INF/MANIFEST.MF' "$listing"
+grep -Eq '^Main-Class: ' "$manifest"
+grep -Eq 'LICENSE.txt|META-INF/MANIFEST.MF' "$listing"
 
 echo "Release artifact verified: $artifact"

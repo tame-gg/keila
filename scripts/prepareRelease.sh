@@ -22,7 +22,7 @@ notes_file="${release_name}-${release_version}-notes.md"
 target_artifact="$dist_dir/$release_file"
 
 cp "$source_artifact" "$target_artifact"
-scripts/verifyReleaseArtifact.sh "$target_artifact"
+bash scripts/verifyReleaseArtifact.sh "$target_artifact"
 
 (
   cd "$dist_dir"

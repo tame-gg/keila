@@ -90,7 +90,7 @@ This runs the patch audit, applies all patches, executes Gradle checks, builds t
 | `/keila perf queues` | Inspect async pathfinding queue counters. |
 | `/keila perf async` | Inspect high-risk async feature state. |
 | `/keila perf memory` | Inspect JVM memory and processor data. |
-| `/keila features` | Browse the 50-feature Keila foundation catalog. |
+| `/keila features` | List and run 50 live operator feature commands. |
 
 ## Documentation
 
