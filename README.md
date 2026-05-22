@@ -1,5 +1,4 @@
 <p align="center">
-  <img src="public/image/leaf_banner.png" alt="Keila" width="880">
 </p>
 
 <div align="center">
