@@ -9,7 +9,7 @@ This file records what has actually landed in code versus what still needs behav
 - `KO-021` and `KO-039`: `gg.tame.keila.roadmap.DirtyIndexSet` provides stable dirty-index tracking for future section and metadata delta hooks.
 - `KO-036`: `gg.tame.keila.roadmap.SpawnWaveScheduler` provides deterministic chunk spawn-wave assignment.
 - `KO-040`: `gg.tame.keila.roadmap.AdaptiveCompressionController` provides MSPT-based compression-level selection.
-- `KF-001` through `KF-050`: `gg.tame.keila.feature.KeilaFeatureCatalog` tracks the 50-feature foundation and exposes the entries through `/keila features`, scripts, and docs.
+- `KF-001` through `KF-050`: `gg.tame.keila.command.subcommands.FeaturesCommand` implements the 50-feature foundation as live `/keila features <key>` operator commands, mirrored by `gg.tame.keila.feature.KeilaFeatureCatalog`.
 
 ## Namespace Rebrand
 

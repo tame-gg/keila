@@ -36,6 +36,11 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v5
 
+      - name: Configure git identity for paperweight
+        run: |
+          git config --global user.name "keila-ci"
+          git config --global user.email "ci@tame.gg"
+
       - name: Resolve release metadata
         id: release
         shell: bash
@@ -65,7 +70,7 @@ jobs:
       - name: Rename release artifact
         env:
           KEILA_RELEASE_VERSION: ${{ steps.release.outputs.version }}
-        run: scripts/prepareRelease.sh dist
+        run: bash scripts/prepareRelease.sh dist
 
       - uses: actions/upload-artifact@v5
         with:
