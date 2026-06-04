@@ -3,6 +3,7 @@ package gg.tame.keila.command;
 import net.minecraft.server.MinecraftServer;
 import org.bukkit.command.Command;
 import org.bukkit.craftbukkit.util.permissions.CraftDefaultPermissions;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 
 import java.util.HashMap;
@@ -23,7 +24,16 @@ public final class KeilaCommands {
     }
 
     public static void registerCommands(final MinecraftServer server) {
-        FeaturesAliasCommand.registerPermission(server.server.getPluginManager());
+        final PluginManager pluginManager = server.server.getPluginManager();
+        registerPermissions(pluginManager);
         COMMANDS.forEach((s, command) -> server.server.getCommandMap().register(s, "Keila", command));
+    }
+
+    private static void registerPermissions(final PluginManager pluginManager) {
+        for (final Permission permission : KeilaCommand.permissionsToRegister()) {
+            if (pluginManager.getPermission(permission.getName()) == null) {
+                pluginManager.addPermission(permission);
+            }
+        }
     }
 }

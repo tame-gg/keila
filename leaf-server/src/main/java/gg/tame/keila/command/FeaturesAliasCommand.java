@@ -10,7 +10,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
-import org.bukkit.plugin.PluginManager;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
@@ -31,10 +30,6 @@ public final class FeaturesAliasCommand extends Command {
         this.description = "Deprecated alias for Keila diagnostics (use /keila list)";
         this.usageMessage = "/keila list";
         this.setPermission(PERM);
-    }
-
-    static void registerPermission(PluginManager pluginManager) {
-        pluginManager.addPermission(permission);
     }
 
     @Override

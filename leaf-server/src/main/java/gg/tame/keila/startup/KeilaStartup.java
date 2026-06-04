@@ -68,13 +68,12 @@ public final class KeilaStartup {
     private static void printBanner(Logger logger) {
         String version = versionSimple();
         logger.info("");
-        logger.info("  ██╗  ██╗███████╗██╗██╗      █████╗ ");
-        logger.info("  ██║ ██╔╝██╔════╝██║██║     ██╔══██╗");
-        logger.info("  █████╔╝ █████╗  ██║██║     ███████║");
-        logger.info("  ██╔═██╗ ██╔══╝  ██║██║     ██╔══██║");
-        logger.info("  ██║  ██╗███████╗██║███████╗██║  ██║");
-        logger.info("  ╚═╝  ╚═╝╚══════╝╚═╝╚══════╝╚═╝  ╚═╝");
-        logger.info("  tame.gg/keila  ·  {}  ·  {}", version, KeilaVersionFetcher.DOWNLOAD_PAGE);
+        logger.info("  _  __ _  __    _    ");
+        logger.info(" | |/ /| |/ /  / \\   ");
+        logger.info(" | ' / | ' /  / _ \\  ");
+        logger.info(" | . \\ | . \\ / ___ \\ ");
+        logger.info(" |_|\\_\\|_|\\_\\/_/   \\_\\");
+        logger.info("  tame.gg/keila  |  {}  |  {}", version, KeilaVersionFetcher.DOWNLOAD_PAGE);
         logger.info("  Built on Leaf, Purpur, and Paper — upstream performance work, Keila-owned operator tooling.");
         logger.info("");
     }

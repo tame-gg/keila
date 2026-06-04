@@ -50,10 +50,6 @@ import org.bukkit.permissions.Permission;
 
 import org.bukkit.permissions.PermissionDefault;
 
-import org.bukkit.plugin.PluginManager;
-
-
-
 import java.util.ArrayList;
 
 import java.util.Arrays;
@@ -71,8 +67,6 @@ import java.util.List;
 import java.util.Locale;
 
 import java.util.Map;
-
-import java.util.Objects;
 
 import java.util.Set;
 
@@ -209,27 +203,22 @@ public final class KeilaCommand extends Command {
 
 
     public KeilaCommand() {
-
         super(COMMAND_LABEL);
-
         this.description = "Keila related commands";
-
         this.usageMessage = this.createUsageMessage(HELP_SUBCOMMANDS);
-
-        final List<Permission> permissions = SUBCOMMANDS.values().stream().map(KeilaSubcommand::getPermission).filter(Objects::nonNull).distinct().toList();
-
         this.setPermission(BASE_PERM);
+    }
 
-        final PluginManager pluginManager = Bukkit.getServer().getPluginManager();
-
-        pluginManager.addPermission(basePermission);
-
-        for (final Permission permission : permissions) {
-
-            pluginManager.addPermission(permission);
-
+    static java.util.Collection<Permission> permissionsToRegister() {
+        final Map<String, Permission> byName = new HashMap<>();
+        byName.put(basePermission.getName(), basePermission);
+        for (final KeilaSubcommand subcommand : SUBCOMMANDS.values()) {
+            final Permission permission = subcommand.getPermission();
+            if (permission != null) {
+                byName.putIfAbsent(permission.getName(), permission);
+            }
         }
-
+        return byName.values();
     }
 
 
