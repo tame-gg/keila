@@ -26,11 +26,11 @@ public class SparklyPaperParallelWorldTicking extends ConfigModules {
     @Override
     public void onLoaded() {
         config.addCommentRegionBased(getBasePath(), """
-                **Experimental feature**
-                Enables parallel world ticking to improve performance on multi-core systems.""",
+                Experimental Keila parallel world ticking for multi-core hosts. High plugin-interaction risk;
+                see docs/keila/runtime-safety.md and /keila list (parallel world ticking).""",
             """
-                **实验性功能**
-                启用并行世界处理以提高多核 CPU 使用率.""");
+                Keila 实验性并行世界 tick，适合多核主机。插件交互风险高；
+                参见 docs/keila/runtime-safety.md 与 /keila parallel-worlds。""");
 
         enabled = config.getBoolean(getBasePath() + ".enabled", enabled);
         threads = config.getInt(getBasePath() + ".threads", threads);

@@ -15,6 +15,8 @@ public class OptimizeMobSpawning extends ConfigModules {
 
     @Override
     public void onLoaded() {
-        enabled = config.getBoolean(getBasePath(), enabled);
+        enabled = config.getBoolean(getBasePath(), enabled, config.pickStringRegionBased(
+            "Main-thread micro-optimizations for natural mob spawning (not async.async-mob-spawning).",
+            "主线程自然生物生成微优化（不是 async.async-mob-spawning）。"));
     }
 }

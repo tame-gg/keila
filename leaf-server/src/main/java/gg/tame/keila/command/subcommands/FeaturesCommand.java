@@ -10,6 +10,9 @@ import gg.tame.keila.config.modules.async.AsyncPlayerDataSave;
 import gg.tame.keila.config.modules.async.MultithreadedTracker;
 import gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking;
 import gg.tame.keila.config.modules.opt.VirtualThreadSupport;
+import gg.tame.keila.startup.KeilaStartup;
+import gg.tame.keila.version.KeilaVersionFetcher;
+import io.papermc.paper.ServerBuildInfo;
 import net.kyori.adventure.text.Component;
 import net.minecraft.server.MinecraftServer;
 import org.bukkit.Bukkit;
@@ -26,6 +29,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.lang.management.ThreadMXBean;
@@ -33,6 +37,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,6 +51,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -120,6 +127,7 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
         action("KF-047", "world-files", "World file report", "Worlds", "Inspect world folder size and region file count.", FeaturesCommand::worldFiles),
         action("KF-048", "plugin-authors", "Plugin author report", "Plugins", "Group installed plugins by declared authors.", FeaturesCommand::pluginAuthors),
         action("KF-049", "support-bundle", "Support bundle", "Operations", "Print compact support facts for bug reports.", FeaturesCommand::supportBundle),
+        action("KF-049", "export", "Support bundle export", "Operations", "Write keila-support-<timestamp>.txt for bug reports.", FeaturesCommand::supportExport),
         action("KF-050", "command-help", "Command help", "Operations", "Show feature command examples and argument forms.", FeaturesCommand::commandHelp)
     );
     private static final Map<String, FeatureAction> ACTIONS_BY_KEY = buildActionLookup(ACTIONS);
@@ -130,62 +138,74 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
 
     @Override
     public boolean execute(final CommandSender sender, final String subCommand, final String[] args) {
-        if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
-            commandHelp(sender, args);
+        sender.sendMessage(text("/keila features is deprecated — use /keila, /keila list, or /keila info <#|title>", YELLOW));
+        if (args.length == 0) {
+            commandHelp(sender);
             return true;
         }
-
-        if (args[0].equalsIgnoreCase("list")) {
-            listActions(sender, args);
-            return true;
-        }
-
-        if (args[0].equalsIgnoreCase("categories")) {
-            listCategories(sender);
-            return true;
-        }
-
-        FeatureAction action = ACTIONS_BY_KEY.get(args[0].toLowerCase(Locale.ROOT));
-        if (action == null) {
-            listCategoryOrUnknown(sender, args[0]);
-            return true;
-        }
-
-        sendHeader(sender, action.id() + " " + action.title());
-        sender.sendMessage(line("use-case", action.useCase()));
-        action.handler().run(sender, Arrays.copyOfRange(args, 1, args.length));
+        sender.sendMessage(text("Keys are no longer accepted. Run /keila list, then /keila info <number> or a partial title.", GRAY));
         return true;
     }
 
     @Override
     public List<String> tabComplete(final CommandSender sender, final String subCommand, final String[] args) {
+        return List.of();
+    }
+
+    public static boolean runAction(final CommandSender sender, final String idOrInternalKey, final String[] args) {
+        FeatureAction action = ACTIONS_BY_KEY.get(idOrInternalKey.toLowerCase(Locale.ROOT));
+        if (action == null) {
+            sender.sendMessage(text("Unknown diagnostic.", RED));
+            return true;
+        }
+        sendHeader(sender, action.id() + " " + action.title());
+        sender.sendMessage(line("use-case", action.useCase()));
+        action.handler().run(sender, args);
+        return true;
+    }
+
+    public static boolean executeInfo(final CommandSender sender, final String[] args) {
+        if (args.length == 0) {
+            sender.sendMessage(text("Usage: /keila info <# from /keila list> [args]", GRAY));
+            sender.sendMessage(text("       /keila info <partial title> [args]", GRAY));
+            return true;
+        }
+
+        Optional<ResolvedAction> resolved = resolveActionQuery(args);
+        if (resolved.isEmpty()) {
+            sender.sendMessage(text("No diagnostic matched. Run /keila list first.", RED));
+            return true;
+        }
+
+        return runAction(sender, resolved.get().action().key(), resolved.get().handlerArgs());
+    }
+
+    public static List<String> tabCompleteInfo(final CommandSender sender, final String[] args) {
+        if (args.length != 1) {
+            return tabCompleteHandlerArgs(args);
+        }
+        String prefix = args[0].toLowerCase(Locale.ROOT);
+        List<String> suggestions = new ArrayList<>();
+        for (int index = 1; index <= ACTIONS.size(); index++) {
+            suggestions.add(Integer.toString(index));
+        }
+        for (FeatureAction action : ACTIONS) {
+            if (action.title().toLowerCase(Locale.ROOT).contains(prefix)) {
+                suggestions.add(action.title());
+            }
+        }
+        return suggestions;
+    }
+
+    public static boolean listFeatures(final CommandSender sender, final String[] args) {
+        listActions(sender, args);
+        return true;
+    }
+
+    public static List<String> tabCompleteList(final CommandSender sender, final String[] args) {
         if (args.length == 1) {
-            List<String> completions = new ArrayList<>();
-            completions.add("help");
-            completions.add("list");
-            completions.add("categories");
-            completions.addAll(ACTIONS.stream().map(FeatureAction::id).toList());
-            completions.addAll(ACTIONS.stream().map(FeatureAction::key).toList());
-            completions.addAll(categories());
-            return completions;
+            return categories();
         }
-
-        if (args.length == 2) {
-            String key = args[0].toLowerCase(Locale.ROOT);
-            if (key.equals("world") || key.equals("gamerules") || key.equals("world-files")) {
-                return Bukkit.getWorlds().stream().map(World::getName).toList();
-            }
-            if (key.equals("player")) {
-                return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
-            }
-            if (key.equals("plugin")) {
-                return Arrays.stream(Bukkit.getPluginManager().getPlugins()).map(Plugin::getName).toList();
-            }
-            if (key.equals("config-search")) {
-                return List.of("async", "enabled", "view-distance", "simulation-distance");
-            }
-        }
-
         return List.of();
     }
 
@@ -200,12 +220,17 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
             return;
         }
 
-        sendHeader(sender, "Keila runnable features (" + actions.size() + ")");
-        for (FeatureAction action : actions) {
-            sender.sendMessage(text(action.id() + " ", AQUA)
-                .append(text(action.key(), YELLOW))
-                .append(text(" - " + action.title(), GRAY)));
+        sendHeader(sender, "Keila diagnostics (" + actions.size() + ")");
+        for (int index = 0; index < ACTIONS.size(); index++) {
+            FeatureAction action = ACTIONS.get(index);
+            if (!actions.contains(action)) {
+                continue;
+            }
+            sender.sendMessage(text((index + 1) + ". ", AQUA)
+                .append(text(action.title(), YELLOW))
+                .append(text(" — " + action.category(), GRAY)));
         }
+        sender.sendMessage(text("Run /keila info <#> or /keila info <partial title> for details.", GRAY));
     }
 
     private static void listCategories(CommandSender sender) {
@@ -223,22 +248,76 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
             .toList();
 
         if (actions.isEmpty()) {
-            sender.sendMessage(text("Unknown Keila feature: " + query, RED));
-            sender.sendMessage(text("Use /keila features list or /keila features help.", GRAY));
+            sender.sendMessage(text("No category matched: " + query, RED));
+            sender.sendMessage(text("Use /keila list.", GRAY));
             return;
         }
 
-        listActions(sender, new String[] {"list", query});
+        listActions(sender, new String[] {query});
     }
 
-    private static void commandHelp(CommandSender sender, String[] args) {
-        sendHeader(sender, "Keila feature commands");
-        sender.sendMessage(line("run", "/keila features <KF-###|key> [args]"));
-        sender.sendMessage(line("list", "/keila features list [category]"));
-        sender.sendMessage(line("examples", "/keila features health"));
-        sender.sendMessage(line("examples", "/keila features player <name>"));
-        sender.sendMessage(line("examples", "/keila features config-search async"));
-        sender.sendMessage(line("count", ACTIONS.size() + " runnable feature commands"));
+    private static void commandHelp(CommandSender sender) {
+        sendHeader(sender, "Keila diagnostics");
+        sender.sendMessage(line("menu", "/keila"));
+        sender.sendMessage(line("list", "/keila list [category]"));
+        sender.sendMessage(line("info", "/keila info <#|partial title> [args]"));
+        sender.sendMessage(line("health", "/keila health"));
+        sender.sendMessage(line("perf", "/keila perf"));
+        sender.sendMessage(line("export", "/keila export"));
+        sender.sendMessage(line("rollout", "/keila rollout"));
+        sender.sendMessage(line("count", ACTIONS.size() + " diagnostics in /keila list"));
+    }
+
+    static Optional<ResolvedAction> resolveActionQuery(String[] args) {
+        String first = args[0].trim();
+        try {
+            int index = Integer.parseInt(first);
+            if (index >= 1 && index <= ACTIONS.size()) {
+                FeatureAction action = ACTIONS.get(index - 1);
+                return Optional.of(new ResolvedAction(action, Arrays.copyOfRange(args, 1, args.length)));
+            }
+        } catch (NumberFormatException ignored) {
+        }
+
+        String joined = String.join(" ", args).toLowerCase(Locale.ROOT);
+        List<FeatureAction> titleMatches = ACTIONS.stream()
+            .filter(action -> action.title().toLowerCase(Locale.ROOT).contains(joined))
+            .toList();
+        if (titleMatches.size() == 1) {
+            return Optional.of(new ResolvedAction(titleMatches.getFirst(), new String[0]));
+        }
+
+        String prefix = first.toLowerCase(Locale.ROOT);
+        List<FeatureAction> prefixMatches = ACTIONS.stream()
+            .filter(action -> action.title().toLowerCase(Locale.ROOT).contains(prefix))
+            .toList();
+        if (prefixMatches.size() == 1) {
+            return Optional.of(new ResolvedAction(prefixMatches.getFirst(), Arrays.copyOfRange(args, 1, args.length)));
+        }
+
+        return Optional.empty();
+    }
+
+    private static List<String> tabCompleteHandlerArgs(String[] args) {
+        if (args.length < 2) {
+            return List.of();
+        }
+        Optional<ResolvedAction> resolved = resolveActionQuery(args);
+        if (resolved.isEmpty()) {
+            return List.of();
+        }
+        String internalKey = resolved.get().action().key();
+        String[] handlerArgs = resolved.get().handlerArgs();
+        if (handlerArgs.length != 1) {
+            return List.of();
+        }
+        return switch (internalKey) {
+            case "world", "gamerules", "world-files" -> Bukkit.getWorlds().stream().map(World::getName).toList();
+            case "player" -> Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+            case "plugin" -> Arrays.stream(Bukkit.getPluginManager().getPlugins()).map(Plugin::getName).toList();
+            case "config-search" -> List.of("async", "enabled", "view-distance", "simulation-distance");
+            default -> List.of();
+        };
     }
 
     private static void serverSummary(CommandSender sender, String[] args) {
@@ -410,7 +489,7 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
     private static void playerReport(CommandSender sender, String[] args) {
         Optional<Player> player = findPlayer(args);
         if (player.isEmpty()) {
-            sender.sendMessage(text("Player not found. Usage: /keila features player <name>", RED));
+            sender.sendMessage(text("Player not found. Usage: /keila info player <name>", RED));
             return;
         }
         Player value = player.get();
@@ -448,7 +527,7 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
     private static void pluginReport(CommandSender sender, String[] args) {
         Optional<Plugin> plugin = findPlugin(args);
         if (plugin.isEmpty()) {
-            sender.sendMessage(text("Plugin not found. Usage: /keila features plugin <name>", RED));
+            sender.sendMessage(text("Plugin not found. Usage: /keila info plugin <name>", RED));
             return;
         }
         Plugin value = plugin.get();
@@ -480,7 +559,7 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
     private static void gamerulesReport(CommandSender sender, String[] args) {
         Optional<World> world = findWorld(args);
         if (world.isEmpty()) {
-            sender.sendMessage(text("World not found. Usage: /keila features gamerules <world>", RED));
+            sender.sendMessage(text("World not found. Usage: /keila info gamerules <world>", RED));
             return;
         }
         for (String rule : world.get().getGameRules()) {
@@ -551,7 +630,7 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
 
     private static void configSearch(CommandSender sender, String[] args) {
         if (args.length == 0) {
-            sender.sendMessage(text("Usage: /keila features config-search <text>", RED));
+            sender.sendMessage(text("Usage: /keila info config-search <text>", RED));
             return;
         }
         String needle = String.join(" ", args).toLowerCase(Locale.ROOT);
@@ -644,6 +723,8 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
     }
 
     private static void safeMode(CommandSender sender, String[] args) {
+        sender.sendMessage(line("profile-script", "scripts/safeModeProfile.sh"));
+        sender.sendMessage(line("apply", "merge script YAML into config/keila-global.yml, then restart"));
         sender.sendMessage(line("async.async-chunk-send.enabled", "false"));
         sender.sendMessage(line("async.async-playerdata-save.enabled", "false"));
         sender.sendMessage(line("async.async-pathfinding.enabled", "false"));
@@ -670,7 +751,7 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
     private static void worldFiles(CommandSender sender, String[] args) {
         Optional<World> world = findWorld(args);
         if (world.isEmpty()) {
-            sender.sendMessage(text("World not found. Usage: /keila features world-files <world>", RED));
+            sender.sendMessage(text("World not found. Usage: /keila info world-files <world>", RED));
             return;
         }
         Path folder = world.get().getWorldFolder().toPath();
@@ -699,11 +780,42 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
     }
 
     private static void supportBundle(CommandSender sender, String[] args) {
-        serverSummary(sender, args);
-        sender.sendMessage(line("avg-mspt-5s", formatMs(tickAverage(MinecraftServer.getServer().tickTimes5s))));
-        sender.sendMessage(line("async-pathfinding", Boolean.toString(AsyncPathfinding.enabled)));
-        sender.sendMessage(line("parallel-world-ticking", Boolean.toString(SparklyPaperParallelWorldTicking.enabled)));
-        sender.sendMessage(line("java", System.getProperty("java.version")));
+        for (String line : buildSupportLines()) {
+            sender.sendMessage(line("support", line));
+        }
+    }
+
+    private static void supportExport(CommandSender sender, String[] args) {
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
+        Path output = Path.of("keila-support-" + timestamp + ".txt");
+        try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(output))) {
+            for (String line : buildSupportLines()) {
+                writer.println(line);
+            }
+            sender.sendMessage(line("written", output.toString()));
+        } catch (IOException ex) {
+            sender.sendMessage(text("Failed to write support bundle: " + ex.getMessage(), RED));
+        }
+    }
+
+    private static List<String> buildSupportLines() {
+        List<String> lines = new ArrayList<>();
+        lines.add("keila-support-bundle");
+        lines.add("site=" + KeilaVersionFetcher.DOWNLOAD_PAGE);
+        lines.add("version=" + ServerBuildInfo.buildInfo().asString(ServerBuildInfo.StringRepresentation.VERSION_SIMPLE));
+        lines.add("bukkit=" + Bukkit.getBukkitVersion());
+        lines.add("players=" + Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers());
+        lines.add("worlds=" + Bukkit.getWorlds().size());
+        lines.add("avg-mspt-5s=" + formatMs(tickAverage(MinecraftServer.getServer().tickTimes5s)));
+        lines.add("async-enabled=" + KeilaStartup.countEnabledAsyncFeatures() + "/5");
+        lines.add("async-chunk-send=" + AsyncChunkSend.enabled);
+        lines.add("async-playerdata-save=" + AsyncPlayerDataSave.enabled);
+        lines.add("async-pathfinding=" + AsyncPathfinding.enabled);
+        lines.add("async-entity-tracker=" + MultithreadedTracker.enabled);
+        lines.add("parallel-world-ticking=" + SparklyPaperParallelWorldTicking.enabled);
+        lines.add("java=" + System.getProperty("java.version"));
+        lines.add("os=" + System.getProperty("os.name") + " " + System.getProperty("os.version"));
+        return lines;
     }
 
     private static void sendTickLine(CommandSender sender, String label, TickData data) {
@@ -814,6 +926,9 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
             lookup.put(action.key().toLowerCase(Locale.ROOT), action);
         }
         return lookup;
+    }
+
+    private record ResolvedAction(FeatureAction action, String[] handlerArgs) {
     }
 
     private record FeatureAction(String id, String key, String title, String category, String useCase, FeatureHandler handler) {

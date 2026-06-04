@@ -186,11 +186,10 @@ public class KeilaGlobalConfig {
         return configFile.getList(path, null);
     }
 
-    // TODO, check
+    /** Ensures a section exists for reload paths that only need structure preserved. */
     public ConfigSection getConfigSection(String path) {
         configFile.addDefault(path, null);
         configFile.makeSectionLenient(path);
-        //defaultKeyValue.forEach((string, object) -> configFile.addExample(path + "." + string, object));
         return configFile.getConfigSection(path);
     }
 

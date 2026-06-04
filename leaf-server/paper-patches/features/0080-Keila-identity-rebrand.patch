@@ -1,0 +1,74 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Keila <ci@tame.gg>
+Date: Thu, 4 Jun 2026 12:00:00 +0000
+Subject: [PATCH] Keila identity rebrand
+
+Update remaining Leaf-default Paper surfaces to Keila branding.
+---
+ .../java/com/destroystokyo/paper/console/PaperConsole.java  |  2 +-
+ .../main/java/io/papermc/paper/ServerBuildInfoImpl.java     | 11 +++++++----
+ .../org/bukkit/craftbukkit/scheduler/CraftScheduler.java    |  2 +-
+ 3 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/src/main/java/com/destroystokyo/paper/console/PaperConsole.java b/src/main/java/com/destroystokyo/paper/console/PaperConsole.java
+index f59879ae7d3c73cd4c4233d30667988bf22f12f1..f59879ae7d3c73cd4c4233d30667988bf22f12f1 100644
+--- a/src/main/java/com/destroystokyo/paper/console/PaperConsole.java
++++ b/src/main/java/com/destroystokyo/paper/console/PaperConsole.java
+@@ -20,7 +20,7 @@ public final class PaperConsole extends SimpleTerminalConsole {
+     @Override
+     protected LineReader buildReader(LineReaderBuilder builder) {
+         builder
+-                .appName("Leaf") // Gale - branding changes // Leaf - Rebrand
++                .appName("Keila") // Keila - Rebrand
+                 .variable(LineReader.HISTORY_FILE, java.nio.file.Paths.get(".console_history"))
+                 .completer(new ConsoleCommandCompleter(this.server))
+                 .option(LineReader.Option.COMPLETE_IN_WORD, true);
+diff --git a/src/main/java/io/papermc/paper/ServerBuildInfoImpl.java b/src/main/java/io/papermc/paper/ServerBuildInfoImpl.java
+index ca846f76d5ff53c547e1ce943e4e68cf4d5aa046..ca846f76d5ff53c547e1ce943e4e68cf4d5aa046 100644
+--- a/src/main/java/io/papermc/paper/ServerBuildInfoImpl.java
++++ b/src/main/java/io/papermc/paper/ServerBuildInfoImpl.java
+@@ -34,6 +34,8 @@ public record ServerBuildInfoImpl(
+     // Leaf start - Rebrand
+     private static final String BRAND_PUFFERFISH_NAME = "Pufferfish";
+     private static final String BRAND_PURPUR_NAME = "Purpur";
++    private static final String BRAND_KEILA_NAME = "Keila";
++    private static final Key BRAND_KEILA_ID = Key.key("tamegg", "keila");
+     private static final String BRAND_LEAF_NAME = "Leaf";
+     // Leaf end - Rebrand
+ 
+@@ -45,9 +47,9 @@ public record ServerBuildInfoImpl(
+         this(
+             getManifestAttribute(manifest, ATTRIBUTE_BRAND_ID)
+                 .map(Key::key)
+-                .orElse(BRAND_LEAF_ID), // Gale - branding changes // Leaf - Rebrand
++                .orElse(BRAND_KEILA_ID), // Keila - Rebrand
+             getManifestAttribute(manifest, ATTRIBUTE_BRAND_NAME)
+-                .orElse(BRAND_LEAF_NAME), // Gale - branding changes // Leaf - Rebrand
++                .orElse(BRAND_KEILA_NAME), // Keila - Rebrand
+             SharedConstants.getCurrentVersion().id(),
+             SharedConstants.getCurrentVersion().name(),
+             getManifestAttribute(manifest, ATTRIBUTE_BUILD_NUMBER)
+@@ -61,7 +63,8 @@ public record ServerBuildInfoImpl(
+         return brandId.equals(this.brandId)
+             || brandId.equals(BRAND_PAPER_ID)
+             || brandId.equals(BRAND_GALE_ID) // Gale - branding changes
+             || brandId.equals(BRAND_PUFFERFISH_ID)
+-            || brandId.equals(BRAND_PURPUR_ID);
++            || brandId.equals(BRAND_PURPUR_ID)
++            || brandId.equals(BRAND_KEILA_ID); // Keila - Rebrand
+             // Leaf end - Rebrand
+     }
+ 
+diff --git a/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java b/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
+index c3713b6653bcd595c0a40788cd4ffa12e3ce2e4b..c3713b6653bcd595c0a40788cd4ffa12e3ce2e4b 100644
+--- a/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
++++ b/src/main/java/org/bukkit/craftbukkit/scheduler/CraftScheduler.java
+@@ -491,7 +491,7 @@ public class CraftScheduler implements BukkitScheduler {
+                 this.parsePending();
+             } else {
+                 // this.debugTail = this.debugTail.setNext(new CraftAsyncDebugger(this.currentTick + CraftScheduler.RECENT_TICKS, task.getOwner(), task.getTaskClass())); // Paper
+-                task.getOwner().getLogger().log(Level.SEVERE, "Unexpected Async Task in the Sync Scheduler. Report this to Leaf"); // Paper // Gale - branding changes // Leaf - Rebrand
++                task.getOwner().getLogger().log(Level.SEVERE, "Unexpected Async Task in the Sync Scheduler. Report this to Keila"); // Keila - Rebrand
+                 // We don't need to parse pending
+                 // (async tasks must live with race-conditions if they attempt to cancel between these few lines of code)
+             }

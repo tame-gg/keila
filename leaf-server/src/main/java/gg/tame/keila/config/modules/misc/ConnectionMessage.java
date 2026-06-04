@@ -10,9 +10,9 @@ public class ConnectionMessage extends ConfigModules {
     }
 
     public static boolean joinEnabled = true;
-    public static String joinMessage = "default";
+    public static String joinMessage = "<dark_gray>[</dark_gray><#6EC6FF>Keila</#6EC6FF><dark_gray>]</dark_gray> <white><player_name></white> <gray>joined</gray>";
     public static boolean quitEnabled = true;
-    public static String quitMessage = "default";
+    public static String quitMessage = "<dark_gray>[</dark_gray><#6EC6FF>Keila</#6EC6FF><dark_gray>]</dark_gray> <gray><player_name> left</gray>";
 
     @Override
     public void onLoaded() {
@@ -38,8 +38,7 @@ public class ConnectionMessage extends ConfigModules {
             "Quit message of player",
             "玩家退出服务器时的消息"));
 
-        // Legacy compatibility
-        // TODO: config migration
+        // Legacy %player_*% placeholders (no YAML key change)
         joinMessage = joinMessage
             .replace("%player_name%", "<player_name>")
             .replace("%player_displayname%", "<player_displayname>");

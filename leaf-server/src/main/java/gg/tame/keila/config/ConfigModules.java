@@ -10,6 +10,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.*;
 
+/**
+ * One module class maps to a section of {@code keila-global.yml}. Modules are discovered by package scan and
+ * sorted by class name for stable YAML ordering.
+ */
 public abstract class ConfigModules extends KeilaConfig {
 
     private static final Set<ConfigModules> MODULES = new HashSet<>();

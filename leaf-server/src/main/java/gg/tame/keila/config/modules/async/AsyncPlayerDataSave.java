@@ -16,9 +16,11 @@ public class AsyncPlayerDataSave extends ConfigModules {
     @Override
     public void onLoaded() {
         config.addCommentRegionBased(getBasePath(), """
-                Make PlayerData saving asynchronously.""",
+                Save player data on a background thread. High-risk: requires ordering tests before production use.
+                See docs/keila/runtime-safety.md.""",
             """
-                异步保存玩家数据.""");
+                在后台线程保存玩家数据。高风险：上线前需通过排序与 soak 测试。
+                参见 docs/keila/runtime-safety.md。""");
 
         enabled = config.getBoolean(getBasePath() + ".enabled", enabled);
 

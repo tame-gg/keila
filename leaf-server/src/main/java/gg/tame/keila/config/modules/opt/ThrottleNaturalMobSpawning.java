@@ -17,9 +17,8 @@ public class ThrottleNaturalMobSpawning extends ConfigModules {
     @Override
     public void onLoaded() {
         config.addCommentRegionBased(getBasePath(), """
-            Skip mob spawning for chunks with repeated failures exceeding `min-failed`.
-            Randomly skip 1-`spawn-chance`% of these chunks from spawning attempts.
-            Failure counter does not increment when spawn limits are reached.""",
+            Skip natural spawn attempts in chunks that repeatedly fail eligibility checks.
+            Per-category min-failed and spawn-chance apply. Not the same as async.async-mob-spawning.""",
             """
             跳过区块中重复失败次数超过 `min-failed` 的生物生成.
             随机跳过这些区块中 1-`spawn-chance`% 的生物生成尝试.

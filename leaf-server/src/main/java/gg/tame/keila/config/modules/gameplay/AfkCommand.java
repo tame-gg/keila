@@ -14,10 +14,10 @@ public class AfkCommand extends ConfigModules {
     @Override
     public void onLoaded() {
         enabled = config.getBoolean(getBasePath() + ".enabled", enabled, config.pickStringRegionBased("""
-                The AFK command based on Minecraft built-in idle-timeout mechanism
-                Rest of AFK settings are in the Purpur config""",
+                Enable Keila's /afk command (uses the vanilla idle-timeout mechanism).
+                Other AFK options remain in purpur.yml.""",
             """
-                基于原版 idle-timeout 系统的 AFK 指令
-                剩余配置项在 Purpur 配置里"""));
+                启用 Keila 的 /afk 指令（基于原版 idle-timeout）。
+                其余 AFK 选项仍在 purpur.yml 中配置。"""));
     }
 }

@@ -22,12 +22,10 @@ public class MultithreadedTracker extends ConfigModules {
     @Override
     public void onLoaded() {
         config.addCommentRegionBased(getBasePath(), """
-                ** Experimental Feature **
-                Make entity tracking asynchronously, can improve performance significantly,
-                especially in some massive entities in small area situations.""", """
-                ** 实验性功能 **
-                异步实体跟踪,
-                在实体数量多且密集的情况下效果明显.""");
+                Experimental: run entity tracking off the main thread. Can help when many entities share few chunks.
+                Requires packet-order regression tests; see docs/keila/runtime-safety.md.""", """
+                实验性功能：在后台线程执行实体跟踪，实体密集时收益明显。
+                需通过数据包顺序回归测试，参见 docs/keila/runtime-safety.md。""");
 
         if (asyncMultithreadedTrackerInitialized) {
             config.getConfigSection(getBasePath());

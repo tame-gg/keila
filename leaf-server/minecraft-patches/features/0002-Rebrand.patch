@@ -44,7 +44,7 @@ index 5d1c81c93e3925deb31681bd84c3a938cc17315d..c03336adf6fc41ffbcc155570a524c77
              // Paper start - Improve outdated version checking
 -            if (false && System.getProperty("paper.disableStartupVersionCheck") == null && io.papermc.paper.configuration.GlobalConfiguration.get().updateChecker.enabled) { // Purpur - disable paper startup check
 +            if (false && System.getProperty("paper.disableStartupVersionCheck") == null && io.papermc.paper.configuration.GlobalConfiguration.get().updateChecker.enabled) { // Purpur - disable paper startup check // Leaf - Rebrand - diff on change
-                 CompletableFuture.runAsync(com.destroystokyo.paper.PaperVersionFetcher::getUpdateStatusStartupMessage, io.papermc.paper.util.MCUtil.ASYNC_EXECUTOR);
+                 CompletableFuture.runAsync(gg.tame.keila.version.KeilaVersionFetcher::getUpdateStatusStartupMessage, io.papermc.paper.util.MCUtil.ASYNC_EXECUTOR); // Keila - version fetch
              }
              // Paper end - Improve outdated version checking
 diff --git a/net/minecraft/world/damagesource/DamageSource.java b/net/minecraft/world/damagesource/DamageSource.java

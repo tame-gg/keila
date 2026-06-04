@@ -23,6 +23,12 @@ public class AsyncPathfinding extends ConfigModules {
 
     @Override
     public void onLoaded() {
+        config.addCommentRegionBased(getBasePath(), """
+                Offload pathfinding to worker threads with bounded queues. Inspect via /keila perf queues.
+                High-risk: see docs/keila/runtime-safety.md.""",
+            """
+                在 worker 线程上执行寻路并使用有界队列。通过 /keila perf queues 查看状态。
+                高风险：参见 docs/keila/runtime-safety.md。""");
         config.addCommentRegionBased(getBasePath() + ".reject-policy", """
                 The policy to use when the queue is full and a new task is submitted.
                 FLUSH_ALL: All pending tasks will be run on server thread.

@@ -17,8 +17,8 @@ public class AsyncChunkSend extends ConfigModules {
     @Override
     public void onLoaded() {
         config.addCommentRegionBased(getBasePath(), """
-                Makes chunk packet preparation and sending asynchronous to improve server performance.
-                This can significantly reduce main thread load when many players are loading chunks.""",
+                Prepare and send chunk packets off the main thread to reduce MSPT during chunk loads.
+                High-risk: enable only after queue and packet-order tests; see docs/keila/runtime-safety.md.""",
             """
                 使区块数据包准备和发送异步化以提高服务器性能.
                 当许多玩家同时加载区块时, 这可以显著减少主线程负载.""");

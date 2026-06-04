@@ -14,7 +14,11 @@ public class ServerBrand extends ConfigModules {
 
     @Override
     public void onLoaded() {
-        serverModName = config.getString(getBasePath() + ".server-mod-name", serverModName);
-        serverGUIName = config.getString(getBasePath() + ".server-gui-name", serverGUIName);
+        serverModName = config.getString(getBasePath() + ".server-mod-name", serverModName, config.pickStringRegionBased(
+            "Brand string shown to clients (defaults to the Keila build brand).",
+            "向客户端展示的服务器品牌名（默认为 Keila 构建品牌）。"));
+        serverGUIName = config.getString(getBasePath() + ".server-gui-name", serverGUIName, config.pickStringRegionBased(
+            "Title for the server console window.",
+            "服务器控制台窗口标题。"));
     }
 }

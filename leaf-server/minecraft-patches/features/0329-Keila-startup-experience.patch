@@ -1,0 +1,47 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Keila <ci@tame.gg>
+Date: Thu, 4 Jun 2026 12:00:00 -0400
+Subject: [PATCH] Keila startup experience
+
+Banner, onboarding, health snapshot, feature splash, and operator welcome hooks.
+---
+ .../net/minecraft/server/Main.java                 | 2 ++
+ .../server/dedicated/DedicatedServer.java          | 1 +
+ .../net/minecraft/server/players/PlayerList.java   | 2 ++
+ 3 files changed, 5 insertions(+)
+
+diff --git a/net/minecraft/server/Main.java b/net/minecraft/server/Main.java
+index 170d2bac2c280921248c86d266add46260c5a76d..a1b2c3d4e5f6789012345678abcdef0123456789 100644
+--- a/net/minecraft/server/Main.java
++++ b/net/minecraft/server/Main.java
+@@ -101,6 +101,7 @@ public class Main {
+             }
+ 
+             gg.tame.keila.config.KeilaConfig.loadConfig(); // Keila - Keila config
++            gg.tame.keila.startup.KeilaStartup.onConfigLoaded(); // Keila - startup experience
+ 
+             CrashReport.preload();
+             if (optionSet.has("jfrProfile")) { // CraftBukkit
+diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
+index 86fb0f46759fa2884f335d12bfc27ccdd82f7dfa..b2c3d4e5f6789012345678abcdef0123456789a 100644
+--- a/net/minecraft/server/dedicated/DedicatedServer.java
++++ b/net/minecraft/server/dedicated/DedicatedServer.java
+@@ -586,6 +586,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+             if (org.purpurmc.purpur.PurpurConfig.beeCountPayload) org.purpurmc.purpur.task.BeehiveTask.instance().register(); // Purpur - Give bee counts in beehives to Purpur clients
+ 
+             this.notificationManager().serverStarted();
++            gg.tame.keila.startup.KeilaStartup.onServerReady(this); // Keila - startup experience
+             return true;
+         }
+diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
+index 617f5f9742acaf17c9b954009e5086f9302f1735..c3d4e5f6789012345678abcdef0123456789ab 100644
+--- a/net/minecraft/server/players/PlayerList.java
++++ b/net/minecraft/server/players/PlayerList.java
+@@ -355,6 +355,7 @@ public abstract class PlayerList {
+         org.bukkit.event.player.PlayerJoinEvent playerJoinEvent = new org.bukkit.event.player.PlayerJoinEvent(bukkitPlayer, getJoinMsg(mutableComponent, bukkitPlayer)); // Paper - Adventure // Leaf - Configurable connection message - join message
+         this.cserver.getPluginManager().callEvent(playerJoinEvent);
+ 
++        gg.tame.keila.startup.KeilaOperatorWelcome.onPlayerJoin(bukkitPlayer); // Keila - operator welcome
+         if (!player.connection.isAcceptingMessages()) {
+             return;
+         }

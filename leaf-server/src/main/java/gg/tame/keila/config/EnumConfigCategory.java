@@ -1,6 +1,8 @@
 package gg.tame.keila.config;
 
+/** Top-level YAML sections in {@code keila-global.yml}. */
 public enum EnumConfigCategory {
+    /** High-risk async systems; see {@code docs/keila/runtime-safety.md}. */
     ASYNC("async"),
     PERF("performance"),
     FIXES("fixes"),

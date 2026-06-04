@@ -2,7 +2,9 @@ package gg.tame.keila.config.modules.async;
 
 import gg.tame.keila.config.ConfigModules;
 import gg.tame.keila.config.EnumConfigCategory;
+import gg.tame.keila.config.annotations.HotReloadUnsupported;
 
+@HotReloadUnsupported
 public class AsyncMobSpawning extends ConfigModules {
 
     public String getBasePath() {
@@ -15,15 +17,13 @@ public class AsyncMobSpawning extends ConfigModules {
     @Override
     public void onLoaded() {
         config.addCommentRegionBased(getBasePath(), """
-                Whether or not asynchronous mob spawning should be enabled.
-                On servers with many entities, this can improve performance by up to 15%. You must have
-                paper's per-player-mob-spawns setting set to true for this to work.
-                One quick note - this does not actually spawn mobs async (that would be very unsafe).
-                This just offloads some expensive calculations that are required for mob spawning.""",
+                Offload mob-spawn eligibility work to a background thread (mobs still spawn on the main thread).
+                Requires paper.yml per-player-mob-spawns. Distinct from performance.optimize-mob-spawning and
+                performance.throttle-mob-spawning.""",
             """
-                是否异步化生物生成.
-                在实体较多的服务器上, 异步生成可最高带来 15% 的性能提升.
-                须在Paper配置文件中打开 per-player-mob-spawns 才能生效.""");
+                在后台线程计算生物生成条件（实际生成仍在主线程）。
+                需要 paper.yml 开启 per-player-mob-spawns。与 performance.optimize-mob-spawning、
+                performance.throttle-mob-spawning 不同。""");
 
         // This prevents us from changing the value during a reload.
         if (asyncMobSpawningInitialized) {

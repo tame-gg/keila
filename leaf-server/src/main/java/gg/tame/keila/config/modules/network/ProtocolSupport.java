@@ -20,7 +20,7 @@ public class ProtocolSupport extends ConfigModules {
     public static boolean asteorBarProtocol = false;
     public static boolean chatImageProtocol = false;
     public static boolean xaeroMapProtocol = false;
-    public static int xaeroMapServerID = ThreadLocalRandom.current().nextInt(); // Leaf - Faster Random
+    public static int xaeroMapServerID = ThreadLocalRandom.current().nextInt();
     public static boolean syncmaticaProtocol = false;
     public static boolean syncmaticaQuota = false;
     public static int syncmaticaQuotaLimit = 40000000;

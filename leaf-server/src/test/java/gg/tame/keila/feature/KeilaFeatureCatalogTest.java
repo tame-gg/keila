@@ -39,7 +39,20 @@ class KeilaFeatureCatalogTest {
         assertEquals(KeilaFeatureCatalog.all().size(), ids.size());
         assertTrue(KeilaFeatureCatalog.byId("KF-001").isPresent());
         assertTrue(KeilaFeatureCatalog.byId("kf-050").isPresent());
-        assertTrue(KeilaFeatureCatalog.byId("KF-050").orElseThrow().surface().contains("/keila features"));
+        assertTrue(KeilaFeatureCatalog.byId("KF-050").orElseThrow().surface().equals("/keila"));
+        assertTrue(KeilaFeatureCatalog.byId("KF-002").orElseThrow().surface().equals("/keila health"));
+        assertTrue(KeilaFeatureCatalog.byId("KF-043").orElseThrow().surface().equals("/keila rollout"));
+        assertTrue(KeilaFeatureCatalog.byId("KF-001").orElseThrow().surface().equals("/keila info"));
+    }
+
+    @Test
+    void surfacesDoNotExposeInternalKeys() {
+        for (KeilaFeature feature : KeilaFeatureCatalog.all()) {
+            String surface = feature.surface();
+            assertFalse(surface.contains("summary"), feature.id());
+            assertFalse(surface.contains("chunk-send"), feature.id());
+            assertFalse(surface.contains("KF-"), feature.id());
+        }
     }
 
     @Test

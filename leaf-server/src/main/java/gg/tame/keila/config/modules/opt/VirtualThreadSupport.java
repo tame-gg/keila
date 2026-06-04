@@ -40,19 +40,19 @@ public class VirtualThreadSupport extends ConfigModules {
                 "是否为档案查询执行器使用虚拟线程。"));
         downloadPoolMaxConcurrency = Math.max(1, config.getInt(getBasePath() + ".download-pool-max-concurrency", downloadPoolMaxConcurrency,
             config.pickStringRegionBased(
-                "Maximum concurrent profile download tasks when the virtual thread download pool is enabled.",
-                "启用虚拟线程下载池时的最大并发档案下载任务数。")));
+                "Maximum concurrent profile download tasks (KO-005). Keep conservative until login-storm tests pass; see docs/keila/runtime-safety.md.",
+                "启用虚拟线程下载池时的最大并发档案下载任务数（KO-005）。登录压测通过前请保持较低值。")));
         authPool = config.getBoolean(getBasePath() + ".auth-pool", authPool,
             config.pickStringRegionBased(
                 "Use the new Virtual Thread introduced in JDK 21 for user authentication.",
                 "是否为用户验证使用虚拟线程."));
         authPoolMaxConcurrency = Math.max(1, config.getInt(getBasePath() + ".auth-pool-max-concurrency", authPoolMaxConcurrency,
             config.pickStringRegionBased(
-                "Maximum concurrent user authentication tasks when the virtual thread auth pool is enabled.",
-                "启用虚拟线程验证池时的最大并发用户验证任务数。")));
+                "Maximum concurrent authentication tasks (KO-005). See docs/keila/runtime-safety.md.",
+                "启用虚拟线程验证池时的最大并发用户验证任务数（KO-005）。")));
         paperConfigurationPool = config.getBoolean(getBasePath() + ".paper-configuration-pool", paperConfigurationPool,
             config.pickStringRegionBased(
-                "Use the new Virtual Thread introduced in JDK 21 for Paper task pool in configuration phase.",
-                "是否为 Paper 在配置阶段的任务池使用虚拟线程."));
+                "Use Java 21 virtual threads for Keila server configuration-phase task pools.",
+                "是否为 Keila 在配置阶段的任务池使用虚拟线程."));
     }
 }

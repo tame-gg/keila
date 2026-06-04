@@ -36,9 +36,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-/*
- *  Yoinked from: https://github.com/xGinko/AnarchyExploitFixes/ & https://github.com/LuminolMC/Luminol
- *  @author: @xGinko & @MrHua269
+/**
+ * Loads {@code config/keila-global.yml} and discovers {@link ConfigModules} under {@code gg.tame.keila.config.modules}.
  */
 @NullMarked
 public class KeilaConfig {
@@ -47,18 +46,14 @@ public class KeilaConfig {
     protected static final File I_CONFIG_FOLDER = new File("config");
     protected static final String I_CONFIG_PKG = "gg.tame.keila.config.modules";
     protected static final String I_GLOBAL_CONFIG_FILE = "keila-global.yml";
-    protected static final String I_LEVEL_CONFIG_FILE = "keila-world-defaults.yml"; // Keila TODO - Per level config
+    protected static final String I_LEVEL_CONFIG_FILE = "keila-world-defaults.yml"; // reserved for per-world defaults
 
-    private static final String SPARK_EXTRA_CONFIG_PROPERTY =  "spark.serverconfigs.extra";
-    private static final String SPARK_HIDDEN_PATHS_PROPERTY =  "spark.serverconfigs.hiddenpaths";
+    private static final String SPARK_EXTRA_CONFIG_PROPERTY = "spark.serverconfigs.extra";
+    private static final String SPARK_HIDDEN_PATHS_PROPERTY = "spark.serverconfigs.hiddenpaths";
 
     private static KeilaGlobalConfig keilaGlobalConfig;
     private static boolean initialLoad;
-
-    //private static int preMajorVer;
-    private static int preMinorVer;
-    //private static int currMajorVer;
-    private static int currMinorVer;
+    private static boolean freshConfig;
 
     /* Load & Reload */
 
@@ -115,6 +110,10 @@ public class KeilaConfig {
 
     public static boolean isInitialLoad() {
         return initialLoad;
+    }
+
+    public static boolean isFreshConfig() {
+        return freshConfig;
     }
 
     /* Create config folder */
@@ -212,14 +211,18 @@ public class KeilaConfig {
         }
     }
 
-    // TODO
+    /**
+     * Logs config-version transitions. YAML keys are not renamed here; add explicit migration when bumping {@link KeilaGlobalConfig}.
+     */
     public static void loadConfigVersion(String preVer, String currVer) {
-        int currMinor;
-        int preMinor;
-
-        // First time user
-        if (preVer == null) {
-
+        if (preVer == null || preVer.isBlank()) {
+            freshConfig = true;
+            LOGGER.info("Creating new Keila config (version {}).", currVer);
+            return;
+        }
+        freshConfig = false;
+        if (!preVer.equals(currVer)) {
+            LOGGER.info("Keila config version changed from {} to {}.", preVer, currVer);
         }
     }
 
@@ -271,7 +274,7 @@ public class KeilaConfig {
         }
     }
 
-    /* Purge and backup old Leaf config & Pufferfish config */
+    /* Purge and backup legacy Keila/Leaf config and Pufferfish config */
 
     private static void purgeOutdated() {
         boolean foundLegacy = false;
@@ -306,8 +309,8 @@ public class KeilaConfig {
             }
 
             if (foundLegacy) {
-                LOGGER.warn("Found legacy Leaf config files, move to backup directory: {}", backupDir);
-                LOGGER.warn("New Keila config located at config/ folder, You need to transfer config to the new one manually and restart the server!");
+                LOGGER.warn("Found legacy Leaf or Pufferfish config files; moved to backup directory: {}", backupDir);
+                LOGGER.warn("Keila config now lives under config/. Transfer settings into keila-global.yml manually, then restart the server.");
             }
         } catch (IOException e) {
             LOGGER.error("Failed to purge old configs.", e);
