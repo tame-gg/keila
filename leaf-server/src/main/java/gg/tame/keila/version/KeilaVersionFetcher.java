@@ -9,8 +9,15 @@ public class KeilaVersionFetcher extends AbstractPaperVersionFetcher {
 
     public static final String DOWNLOAD_PAGE = "https://tame.gg/keila";
     public static final String REPOSITORY = "tame-gg/keila";
-    private static final ServerBuildInfo BUILD_INFO = ServerBuildInfo.buildInfo();
-    public static final String USER_AGENT = BUILD_INFO.brandName() + "/" + BUILD_INFO.asString(VERSION_SIMPLE) + " (" + DOWNLOAD_PAGE + ")";
+    public static final String USER_AGENT = "Keila/" + versionSimple() + " (" + DOWNLOAD_PAGE + ")";
+
+    private static String versionSimple() {
+        try {
+            return ServerBuildInfo.buildInfo().asString(VERSION_SIMPLE);
+        } catch (Throwable ex) {
+            return "unknown";
+        }
+    }
 
     public KeilaVersionFetcher() {
         super(

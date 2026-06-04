@@ -5,36 +5,38 @@ Subject: [PATCH] Keila startup experience
 
 Banner, onboarding, health snapshot, feature splash, and operator welcome hooks.
 ---
- .../net/minecraft/server/Main.java                 | 2 ++
+ .../net/minecraft/server/Main.java                 | 1 +
  .../server/dedicated/DedicatedServer.java          | 1 +
- .../net/minecraft/server/players/PlayerList.java   | 2 ++
- 3 files changed, 5 insertions(+)
+ .../net/minecraft/server/players/PlayerList.java   | 1 +
+ 3 files changed, 3 insertions(+)
 
 diff --git a/net/minecraft/server/Main.java b/net/minecraft/server/Main.java
-index 170d2bac2c280921248c86d266add46260c5a76d..a1b2c3d4e5f6789012345678abcdef0123456789 100644
+index 170d2bac2c280921248c86d266add46260c5a76d..8f3a1c2b4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a 100644
 --- a/net/minecraft/server/Main.java
 +++ b/net/minecraft/server/Main.java
-@@ -101,6 +101,7 @@ public class Main {
-             }
- 
+@@ -103,6 +103,7 @@ public class Main {
              gg.tame.keila.config.KeilaConfig.loadConfig(); // Keila - Keila config
-+            gg.tame.keila.startup.KeilaStartup.onConfigLoaded(); // Keila - startup experience
  
++            gg.tame.keila.startup.KeilaStartup.onConfigLoaded(); // Keila - startup experience
              CrashReport.preload();
              if (optionSet.has("jfrProfile")) { // CraftBukkit
+                 JvmProfiler.INSTANCE.start(Environment.SERVER);
+             }
 diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
-index 86fb0f46759fa2884f335d12bfc27ccdd82f7dfa..b2c3d4e5f6789012345678abcdef0123456789a 100644
+index a8970516cd737600ac7fca608ad2d27a083f8dab..b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0 100644
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
-@@ -586,6 +586,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+@@ -453,6 +453,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+             org.purpurmc.purpur.task.BossBarTask.startAll(); // Purpur - Implement TPSBar
              if (org.purpurmc.purpur.PurpurConfig.beeCountPayload) org.purpurmc.purpur.task.BeehiveTask.instance().register(); // Purpur - Give bee counts in beehives to Purpur clients
+             if (gg.tame.keila.config.modules.async.AsyncMobSpawning.enabled) mobSpawnExecutor.start(); // Pufferfish
  
-             this.notificationManager().serverStarted();
 +            gg.tame.keila.startup.KeilaStartup.onServerReady(this); // Keila - startup experience
+             this.notificationManager().serverStarted();
              return true;
          }
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index 617f5f9742acaf17c9b954009e5086f9302f1735..c3d4e5f6789012345678abcdef0123456789ab 100644
+index 617f5f9742acaf17c9b954009e5086f9302f1735..d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
 @@ -355,6 +355,7 @@ public abstract class PlayerList {
@@ -45,3 +47,5 @@ index 617f5f9742acaf17c9b954009e5086f9302f1735..c3d4e5f6789012345678abcdef012345
          if (!player.connection.isAcceptingMessages()) {
              return;
          }
+ 
+         final net.kyori.adventure.text.Component jm = playerJoinEvent.joinMessage();

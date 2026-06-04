@@ -18,7 +18,7 @@ class KeilaStartupTest {
         assertEquals(3, highlights.size());
         assertEquals("KF-002", highlights.get(0).id());
         assertEquals("KF-036", highlights.get(1).id());
-        assertEquals("KF-050", highlights.get(2).id());
+        assertEquals("KF-051", highlights.get(2).id());
         for (KeilaFeature feature : highlights) {
             assertFalse(feature.surface().isBlank());
         }

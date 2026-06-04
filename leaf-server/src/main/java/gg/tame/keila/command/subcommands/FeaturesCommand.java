@@ -127,8 +127,8 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
         action("KF-047", "world-files", "World file report", "Worlds", "Inspect world folder size and region file count.", FeaturesCommand::worldFiles),
         action("KF-048", "plugin-authors", "Plugin author report", "Plugins", "Group installed plugins by declared authors.", FeaturesCommand::pluginAuthors),
         action("KF-049", "support-bundle", "Support bundle", "Operations", "Print compact support facts for bug reports.", FeaturesCommand::supportBundle),
-        action("KF-049", "export", "Support bundle export", "Operations", "Write keila-support-<timestamp>.txt for bug reports.", FeaturesCommand::supportExport),
-        action("KF-050", "command-help", "Command help", "Operations", "Show feature command examples and argument forms.", FeaturesCommand::commandHelp)
+        action("KF-050", "export", "Support bundle export", "Operations", "Write keila-support-<timestamp>.txt for bug reports.", FeaturesCommand::supportExport),
+        action("KF-051", "command-help", "Command help", "Operations", "Show feature command examples and argument forms.", FeaturesCommand::commandHelp)
     );
     private static final Map<String, FeatureAction> ACTIONS_BY_KEY = buildActionLookup(ACTIONS);
 
@@ -140,7 +140,7 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
     public boolean execute(final CommandSender sender, final String subCommand, final String[] args) {
         sender.sendMessage(text("/keila features is deprecated — use /keila, /keila list, or /keila info <#|title>", YELLOW));
         if (args.length == 0) {
-            commandHelp(sender);
+            commandHelp(sender, args);
             return true;
         }
         sender.sendMessage(text("Keys are no longer accepted. Run /keila list, then /keila info <number> or a partial title.", GRAY));
@@ -256,7 +256,7 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
         listActions(sender, new String[] {query});
     }
 
-    private static void commandHelp(CommandSender sender) {
+    private static void commandHelp(CommandSender sender, String[] args) {
         sendHeader(sender, "Keila diagnostics");
         sender.sendMessage(line("menu", "/keila"));
         sender.sendMessage(line("list", "/keila list [category]"));
@@ -928,10 +928,10 @@ public final class FeaturesCommand extends PermissionedKeilaSubcommand {
         return lookup;
     }
 
-    private record ResolvedAction(FeatureAction action, String[] handlerArgs) {
+    record ResolvedAction(FeatureAction action, String[] handlerArgs) {
     }
 
-    private record FeatureAction(String id, String key, String title, String category, String useCase, FeatureHandler handler) {
+    record FeatureAction(String id, String key, String title, String category, String useCase, FeatureHandler handler) {
     }
 
     private record ChunkStat(World world, Chunk chunk, int entities) {

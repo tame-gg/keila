@@ -55,7 +55,15 @@ public abstract class AbstractPaperVersionFetcher implements VersionFetcher {
     protected static final ComponentLogger COMPONENT_LOGGER = ComponentLogger.logger(LogManager.getRootLogger().getName());
     protected static final int DISTANCE_ERROR = -1;
     protected static final int DISTANCE_UNKNOWN = -2;
-    protected static final ServerBuildInfo BUILD_INFO = ServerBuildInfo.buildInfo();
+    protected static final ServerBuildInfo BUILD_INFO = loadBuildInfo();
+
+    private static ServerBuildInfo loadBuildInfo() {
+        try {
+            return ServerBuildInfo.buildInfo();
+        } catch (Throwable ex) {
+            return null;
+        }
+    }
 
     private static final Gson GSON = new Gson();
 
@@ -93,7 +101,7 @@ public abstract class AbstractPaperVersionFetcher implements VersionFetcher {
     @Override
     public Component getVersionMessage() {
         final Component updateMessage;
-        if (BUILD_INFO.buildNumber().isEmpty() && BUILD_INFO.gitCommit().isEmpty()) { // Gale - branding changes - version fetcher
+        if (BUILD_INFO == null || (BUILD_INFO.buildNumber().isEmpty() && BUILD_INFO.gitCommit().isEmpty())) { // Gale - branding changes - version fetcher
             updateMessage = text("You are running a development version without access to version information", color(0xFF5300));
         } else {
             updateMessage = getUpdateStatusMessage(this.gitHubOrganizationName + "/" + this.gitHubRepoName, this.downloadPage, this.apiUrl, this.userAgent, this.apiType); // Gale - branding changes - version fetcher
@@ -122,6 +130,10 @@ public abstract class AbstractPaperVersionFetcher implements VersionFetcher {
     ) {
         int distance = DISTANCE_ERROR;
 
+        if (BUILD_INFO == null) {
+            COMPONENT_LOGGER.warn(text("*** Version information unavailable in this runtime ***"));
+            return;
+        }
         final OptionalInt buildNumber = BUILD_INFO.buildNumber();
         if (buildNumber.isEmpty() && BUILD_INFO.gitCommit().isEmpty()) {
             COMPONENT_LOGGER.warn(text("*** You are running a development version without access to version information ***"));

@@ -58,8 +58,9 @@ public final class KeilaFeatureCatalog {
         feature("KF-046", "Mob density report", "Entities", FeatureStatus.COMMAND, surface("KF-046"), "Shows living entity pressure per loaded chunk."),
         feature("KF-047", "World file report", "Worlds", FeatureStatus.COMMAND, surface("KF-047"), "Shows region, POI, and entity file counts."),
         feature("KF-048", "Plugin author report", "Plugins", FeatureStatus.COMMAND, surface("KF-048"), "Groups installed plugins by declared authors."),
-        feature("KF-049", "Support bundle", "Operations", FeatureStatus.COMMAND, surface("KF-049"), "Prints or exports compact facts for bug reports."),
-        feature("KF-050", "Command help", "Operations", FeatureStatus.COMMAND, surface("KF-050"), "Shows the categorized /keila command menu.")
+        feature("KF-049", "Support bundle", "Operations", FeatureStatus.COMMAND, surface("KF-049"), "Prints compact facts for bug reports."),
+        feature("KF-050", "Support bundle export", "Operations", FeatureStatus.COMMAND, surface("KF-050"), "Writes keila-support-<timestamp>.txt for bug reports."),
+        feature("KF-051", "Command help", "Operations", FeatureStatus.COMMAND, surface("KF-051"), "Shows the categorized /keila command menu.")
     );
 
     private KeilaFeatureCatalog() {
@@ -89,7 +90,7 @@ public final class KeilaFeatureCatalog {
         return List.of(
             byId("KF-002").orElseThrow(),
             byId("KF-036").orElseThrow(),
-            byId("KF-050").orElseThrow()
+            byId("KF-051").orElseThrow()
         );
     }
 
@@ -99,8 +100,9 @@ public final class KeilaFeatureCatalog {
             case "KF-004" -> "/keila mspt";
             case "KF-043" -> "/keila rollout";
             case "KF-044" -> "/keila safe";
-            case "KF-049" -> "/keila export";
-            case "KF-050" -> "/keila";
+            case "KF-049" -> "/keila info support-bundle";
+            case "KF-050" -> "/keila export";
+            case "KF-051" -> "/keila";
             default -> "/keila info";
         };
     }

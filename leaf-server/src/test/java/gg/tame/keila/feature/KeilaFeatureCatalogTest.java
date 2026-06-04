@@ -13,7 +13,7 @@ class KeilaFeatureCatalogTest {
 
     @Test
     void catalogContainsAllRequestedFeatures() {
-        assertEquals(50, KeilaFeatureCatalog.all().size());
+        assertEquals(51, KeilaFeatureCatalog.all().size());
 
         Set<String> titles = KeilaFeatureCatalog.all().stream()
             .map(KeilaFeature::title)
@@ -38,8 +38,8 @@ class KeilaFeatureCatalogTest {
 
         assertEquals(KeilaFeatureCatalog.all().size(), ids.size());
         assertTrue(KeilaFeatureCatalog.byId("KF-001").isPresent());
-        assertTrue(KeilaFeatureCatalog.byId("kf-050").isPresent());
-        assertTrue(KeilaFeatureCatalog.byId("KF-050").orElseThrow().surface().equals("/keila"));
+        assertTrue(KeilaFeatureCatalog.byId("kf-051").isPresent());
+        assertTrue(KeilaFeatureCatalog.byId("KF-051").orElseThrow().surface().equals("/keila"));
         assertTrue(KeilaFeatureCatalog.byId("KF-002").orElseThrow().surface().equals("/keila health"));
         assertTrue(KeilaFeatureCatalog.byId("KF-043").orElseThrow().surface().equals("/keila rollout"));
         assertTrue(KeilaFeatureCatalog.byId("KF-001").orElseThrow().surface().equals("/keila info"));

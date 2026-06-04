@@ -22,8 +22,6 @@ import static io.papermc.paper.ServerBuildInfo.StringRepresentation.VERSION_SIMP
  */
 public final class KeilaStartup {
 
-    private static final ServerBuildInfo BUILD_INFO = ServerBuildInfo.buildInfo();
-
     private KeilaStartup() {
     }
 
@@ -68,7 +66,7 @@ public final class KeilaStartup {
     }
 
     private static void printBanner(Logger logger) {
-        String version = BUILD_INFO.asString(VERSION_SIMPLE);
+        String version = versionSimple();
         logger.info("");
         logger.info("  ██╗  ██╗███████╗██╗██╗      █████╗ ");
         logger.info("  ██║ ██╔╝██╔════╝██║██║     ██╔══██╗");
@@ -110,5 +108,13 @@ public final class KeilaStartup {
     static double averageMspt(TickData tickData) {
         TickData.TickReportData report = tickData.generateTickReport(null, System.nanoTime(), MinecraftServer.getServer().tickRateManager().nanosecondsPerTick());
         return report == null ? 0.0D : report.timePerTickData().segmentAll().average() * 1.0E-6D;
+    }
+
+    private static String versionSimple() {
+        try {
+            return ServerBuildInfo.buildInfo().asString(VERSION_SIMPLE);
+        } catch (Throwable ex) {
+            return "unknown";
+        }
     }
 }
