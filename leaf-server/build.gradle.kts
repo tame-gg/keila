@@ -256,7 +256,7 @@ tasks.withType<JavaCompile> {
 tasks.jar {
     manifest {
         val git = Git(rootProject.layout.projectDirectory.path)
-        val mcVersion = rootProject.providers.gradleProperty("mcVersion").get()
+        val keilaVersion = rootProject.providers.gradleProperty("keilaVersion").get() // Keila - own version, decoupled from the upstream mcVersion build base
         val build = System.getenv("BUILD_NUMBER") ?: null
         val buildTime = Instant.now() // Leaf - project setup - Always use current as build time
         val gitHead = rootProject.layout.projectDirectory.file(".git/HEAD").asFile
@@ -272,7 +272,7 @@ tasks.jar {
             return if (hasGitCommit) runCatching { git.exec(providers, *args).get().trim() }.getOrDefault(default).ifEmpty { default } else default
         }
         val gitHash = gitOrDefault("unknown", "rev-parse", "--short=7", "HEAD") // Keila - tolerate source exports without a HEAD commit
-        val implementationVersion = "$mcVersion-${build ?: "DEV"}-$gitHash"
+        val implementationVersion = "$keilaVersion-${build ?: "DEV"}-$gitHash"
         val date = gitOrDefault(buildTime.toString(), "show", "-s", "--format=%ci", gitHash) // Keila - tolerate source exports without a HEAD commit
         val gitBranch = gitOrDefault("unknown", "rev-parse", "--abbrev-ref", "HEAD") // Keila - tolerate source exports without a HEAD commit
         attributes(

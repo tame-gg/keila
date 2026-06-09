@@ -40,6 +40,7 @@ Keila is the tame.gg fork of [Leaf](https://github.com/Winds-Studio/Leaf), built
 | Maven group | `gg.tame.keila` |
 | Java package | `gg.tame.keila` |
 | Minecraft target | `26.1.2` |
+| Upstream build base | `1.21.11` (Paper) |
 | Java runtime | Temurin 21 LTS |
 
 ## Download
