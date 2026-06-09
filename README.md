@@ -10,7 +10,7 @@ The tame.gg Minecraft server fork for performance-heavy Paper networks.
 [![Build](https://img.shields.io/github/actions/workflow/status/tame-gg/keila/build.yml?style=for-the-badge&label=build&colorA=151a18&colorB=2e8b57)](https://github.com/tame-gg/keila/actions/workflows/build.yml)
 [![Release](https://img.shields.io/github/actions/workflow/status/tame-gg/keila/release.yml?style=for-the-badge&label=release&colorA=151a18&colorB=3b82f6)](https://github.com/tame-gg/keila/actions/workflows/release.yml)
 [![Java 21](https://img.shields.io/badge/java-21-ef4444?style=for-the-badge&colorA=151a18)](https://adoptium.net/temurin/releases/?version=21)
-[![Minecraft](https://img.shields.io/badge/minecraft-1.21.11-f59e0b?style=for-the-badge&colorA=151a18)](https://www.minecraft.net/)
+[![Minecraft](https://img.shields.io/badge/minecraft-26.1.2-f59e0b?style=for-the-badge&colorA=151a18)](https://www.minecraft.net/)
 
 **English** | [中文](public/readme/README_CN.md)
 
@@ -39,7 +39,7 @@ Keila is the tame.gg fork of [Leaf](https://github.com/Winds-Studio/Leaf), built
 | Release version | `0.1.1` |
 | Maven group | `gg.tame.keila` |
 | Java package | `gg.tame.keila` |
-| Minecraft target | `1.21.11` |
+| Minecraft target | `26.1.2` |
 | Java runtime | Temurin 21 LTS |
 
 ## Download
@@ -119,7 +119,7 @@ Keila keeps inherited Paper/Purpur/Leaf API compatibility and reserves `gg.tame.
 <dependency>
     <groupId>gg.tame.keila</groupId>
     <artifactId>leaf-api</artifactId>
-    <version>1.21.11-R0.1-SNAPSHOT</version>
+    <version>26.1.2-R0.1-SNAPSHOT</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -132,7 +132,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("gg.tame.keila:leaf-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly("gg.tame.keila:leaf-api:26.1.2-R0.1-SNAPSHOT")
 }
 
 java {

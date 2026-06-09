@@ -15,7 +15,7 @@ val paperMavenPublicUrl = "https://repo.papermc.io/repository/maven-public/"
 val leafMavenPublicUrl = "https://maven.leafmc.one/snapshots/" // Leaf - project setup - Add publish repo
 
 dependencies {
-    mache("io.papermc:mache:1.21.11+build.1")
+    mache("io.papermc:mache:26.1.2+build.1")
     paperclip("cn.dreeam:quantumleaper:1.0.0-SNAPSHOT") // Leaf - project setup - Use own paperclip fork
 }
 
