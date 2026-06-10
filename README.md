@@ -16,7 +16,10 @@ The tame.gg Minecraft server fork for performance-heavy Paper networks.
 
 </div>
 
-Keila is the tame.gg fork of [Leaf](https://github.com/Winds-Studio/Leaf), built on top of [Purpur](https://github.com/PurpurMC/Purpur), [Paper](https://papermc.io/), and the performance work of the wider Paper fork ecosystem. It keeps compatibility with Paper-style server operations while adding Keila-owned runtime safety, benchmark, release, and operator tooling around high-risk performance changes.
+Keila is the tame.gg fork of [Purpur](https://github.com/PurpurMC/Purpur), built on top of [Paper](https://papermc.io/) and the performance work of the wider Paper fork ecosystem. It keeps compatibility with Paper-style server operations while adding Keila-owned runtime safety, benchmark, release, and operator tooling around high-risk performance changes.
+
+> [!NOTE]
+> **Rebase in progress (Purpur 26.1.2).** Keila's base has moved off Leaf and onto [Purpur](https://github.com/PurpurMC/Purpur) `ver/26.1.2`, which builds on the Paper 26.1.2 (Java 25) platform. Keila's bespoke async subsystems and `/keila` operator commands are being re-layered onto the new base — see [docs/upstream/26.1.2-purpur-rebase.md](docs/upstream/26.1.2-purpur-rebase.md). Sections below that describe those features reflect the target state.
 
 > [!WARNING]
 > Keila is performance-oriented server software. Back up worlds and configs before switching, test plugins in a staging environment, and treat experimental async features as opt-in until they have passed your workload.
@@ -106,7 +109,7 @@ This runs the patch audit, applies all patches, executes Gradle checks, builds t
 
 ## API
 
-Keila keeps inherited Paper/Purpur/Leaf API compatibility and reserves `gg.tame.keila` for Keila-owned API surfaces.
+Keila keeps inherited Paper/Purpur API compatibility and reserves `gg.tame.keila` for Keila-owned API surfaces.
 
 ### Maven
 
@@ -118,7 +121,7 @@ Keila keeps inherited Paper/Purpur/Leaf API compatibility and reserves `gg.tame.
 
 <dependency>
     <groupId>gg.tame.keila</groupId>
-    <artifactId>leaf-api</artifactId>
+    <artifactId>purpur-api</artifactId>
     <version>26.1.2-R0.1-SNAPSHOT</version>
     <scope>provided</scope>
 </dependency>
@@ -132,7 +135,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("gg.tame.keila:leaf-api:26.1.2-R0.1-SNAPSHOT")
+    compileOnly("gg.tame.keila:purpur-api:26.1.2-R0.1-SNAPSHOT")
 }
 
 java {
@@ -144,8 +147,9 @@ java {
 
 | Path | Purpose |
 | --- | --- |
-| `leaf-api/` | API module and inherited API patch surface. |
-| `leaf-server/` | Server module, patch queues, and Keila-owned server code. |
+| `purpur-api/` | API module: Purpur API source + Paper-API patch surface. |
+| `purpur-server/` | Server module: Purpur server source, access transformers, and the Paper/Minecraft patch queues. |
+| `build-data/` | Access transformers (`purpur.at`) and dev-import config. |
 | `docs/keila/` | Keila-specific identity, runtime safety, roadmap, and tuning docs. |
 | `docs/upstream/` | Upstream sync and patch-risk maintenance docs. |
 | `scripts/` | Patch audit, release, benchmark, and verification helpers. |

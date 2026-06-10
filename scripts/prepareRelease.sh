@@ -8,7 +8,7 @@ dist_dir="${1:-dist}"
 
 source_artifact="${KEILA_SOURCE_ARTIFACT:-}"
 if [ -z "$source_artifact" ]; then
-  source_artifact="$(find leaf-server/build/libs -maxdepth 1 -type f -name '*paperclip*-mojmap.jar' | sort | tail -n 1)"
+  source_artifact="$(find purpur-server/build/libs -maxdepth 1 -type f -name '*paperclip*-mojmap.jar' | sort | tail -n 1)"
 fi
 
 test -n "$source_artifact"

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if [ "$#" -eq 0 ]; then
-  set -- leaf-server/build/libs/*paperclip*-mojmap.jar
+  set -- purpur-server/build/libs/*paperclip*-mojmap.jar
 fi
 
 for artifact in "$@"; do
