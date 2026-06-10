@@ -64,7 +64,7 @@ cd keila
 
 ./gradlew applyAllPatches
 ./gradlew check
-./gradlew createMojmapPaperclipJar
+./gradlew createMojmapBundlerJar
 scripts/prepareRelease.sh dist
 ```
 

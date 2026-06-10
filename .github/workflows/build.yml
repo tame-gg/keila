@@ -25,5 +25,5 @@ jobs:
         run: ./gradlew applyAllPatches --stacktrace
       - name: Check
         run: ./gradlew check --stacktrace
-      - name: Build paperclip jar
-        run: ./gradlew createMojmapPaperclipJar --stacktrace
+      - name: Build bundler jar
+        run: ./gradlew createMojmapBundlerJar --stacktrace
