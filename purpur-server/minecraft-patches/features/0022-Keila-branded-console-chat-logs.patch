@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Keila <ci@tame.gg>
+Date: Fri, 22 May 2026 01:30:00 -0400
+Subject: [PATCH] Keila branded console chat logs
+
+Add Keila-prefixed console logs for player chat and command activity so
+operators can quickly filter player-originated messages in production logs.
+---
+ .../server/network/ServerGamePacketListenerImpl.java         | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+index cd9c97b..99e06c2 100644
+--- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
++++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
+@@ -2444,5 +2444,5 @@ public class ServerGamePacketListenerImpl
+         // CraftBukkit start
+         String prefixedCommand = "/" + command;
+         if (org.spigotmc.SpigotConfig.logCommands) { // Paper - Add missing SpigotConfig logCommands check
+-            LOGGER.info("{} issued server command: {}", this.player.getScoreboardName(), prefixedCommand);
++            LOGGER.info("[KEILA-LOGS] Command | {}: {}", this.player.getScoreboardName(), prefixedCommand); // Keila - branded console logs
+         }
+@@ -2487,5 +2487,5 @@ public class ServerGamePacketListenerImpl
+         // CraftBukkit start
+         String command = "/" + packet.command();
+         if (org.spigotmc.SpigotConfig.logCommands) { // Paper - Add missing SpigotConfig logCommands check
+-            LOGGER.info("{} issued server command: {}", this.player.getScoreboardName(), command);
++            LOGGER.info("[KEILA-LOGS] Command | {}: {}", this.player.getScoreboardName(), command); // Keila - branded console logs
+         } // Paper - Add missing SpigotConfig logCommands check
+@@ -2719,6 +2719,7 @@ public class ServerGamePacketListenerImpl
+         } else if (this.player.getChatVisibility() == ChatVisiblity.SYSTEM) { // Re-add "Command Only" flag check
+             this.send(new ClientboundSystemChatPacket(Component.translatable("chat.cannotSend").withStyle(ChatFormatting.RED), false));
+         } else {
++            LOGGER.info("[KEILA-LOGS] Chat | {}: {}", this.player.getScoreboardName(), rawMessage); // Keila - branded console logs
+             this.chat(rawMessage, message, true);
+         }
+         // this.server.getPlayerList().broadcastChatMessage(message, this.player, ChatType.bind(ChatType.CHAT, this.player));
