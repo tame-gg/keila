@@ -9,7 +9,7 @@ The tame.gg Minecraft server fork for performance-heavy Paper networks.
 
 [![Build](https://img.shields.io/github/actions/workflow/status/tame-gg/keila/build.yml?style=for-the-badge&label=build&colorA=151a18&colorB=2e8b57)](https://github.com/tame-gg/keila/actions/workflows/build.yml)
 [![Release](https://img.shields.io/github/actions/workflow/status/tame-gg/keila/release.yml?style=for-the-badge&label=release&colorA=151a18&colorB=3b82f6)](https://github.com/tame-gg/keila/actions/workflows/release.yml)
-[![Java 21](https://img.shields.io/badge/java-21-ef4444?style=for-the-badge&colorA=151a18)](https://adoptium.net/temurin/releases/?version=21)
+[![Java 25](https://img.shields.io/badge/java-25-ef4444?style=for-the-badge&colorA=151a18)](https://adoptium.net/temurin/releases/?version=25)
 [![Minecraft](https://img.shields.io/badge/minecraft-26.1.2-f59e0b?style=for-the-badge&colorA=151a18)](https://www.minecraft.net/)
 
 **English** | [中文](public/readme/README_CN.md)
@@ -40,8 +40,7 @@ Keila is the tame.gg fork of [Leaf](https://github.com/Winds-Studio/Leaf), built
 | Maven group | `gg.tame.keila` |
 | Java package | `gg.tame.keila` |
 | Minecraft target | `26.1.2` |
-| Upstream build base | `1.21.11` (Paper) |
-| Java runtime | Temurin 21 LTS |
+| Java runtime | Temurin 25 LTS |
 
 ## Download
 
@@ -80,7 +79,7 @@ Use the one-command verifier when you want the same basic checks CI runs:
 scripts/verifyLocal.sh
 ```
 
-This runs the patch audit, applies all patches, executes Gradle checks, builds the Mojmap paperclip jar, and verifies the release artifact. Use Java 21 LTS. If you switch Java runtimes, rerun paperweight tasks with `--rerun-tasks` or clear stale `.gradle/caches/paperweight` output.
+This runs the patch audit, applies all patches, executes Gradle checks, builds the Mojmap paperclip jar, and verifies the release artifact. Use Java 25 LTS. If you switch Java runtimes, rerun paperweight tasks with `--rerun-tasks` or clear stale `.gradle/caches/paperweight` output.
 
 ## Operator Commands
 
@@ -137,7 +136,7 @@ dependencies {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
 }
 ```
 

@@ -248,7 +248,7 @@ tasks.withType<JavaCompile> {
     compilerArgs.add("-Xlint:-module")
     compilerArgs.add("-Xlint:-removal")
     compilerArgs.add("-Xlint:-dep-ann")
-    compilerArgs.add("--enable-preview") // Keila - required by source using Java 21 preview patterns
+    compilerArgs.add("--enable-preview") // Keila - WIP 26.1.2: audit for Java 25; some Java 21 preview APIs are now final and may no longer need --enable-preview
     compilerArgs.add("--add-modules=jdk.incubator.vector") // Gale - Pufferfish - SIMD support
 }
 // Gale end - hide irrelevant compilation warnings
@@ -256,7 +256,7 @@ tasks.withType<JavaCompile> {
 tasks.jar {
     manifest {
         val git = Git(rootProject.layout.projectDirectory.path)
-        val keilaVersion = rootProject.providers.gradleProperty("keilaVersion").get() // Keila - own version, decoupled from the upstream mcVersion build base
+        val mcVersion = rootProject.providers.gradleProperty("mcVersion").get()
         val build = System.getenv("BUILD_NUMBER") ?: null
         val buildTime = Instant.now() // Leaf - project setup - Always use current as build time
         val gitHead = rootProject.layout.projectDirectory.file(".git/HEAD").asFile
@@ -272,7 +272,7 @@ tasks.jar {
             return if (hasGitCommit) runCatching { git.exec(providers, *args).get().trim() }.getOrDefault(default).ifEmpty { default } else default
         }
         val gitHash = gitOrDefault("unknown", "rev-parse", "--short=7", "HEAD") // Keila - tolerate source exports without a HEAD commit
-        val implementationVersion = "$keilaVersion-${build ?: "DEV"}-$gitHash"
+        val implementationVersion = "$mcVersion-${build ?: "DEV"}-$gitHash"
         val date = gitOrDefault(buildTime.toString(), "show", "-s", "--format=%ci", gitHash) // Keila - tolerate source exports without a HEAD commit
         val gitBranch = gitOrDefault("unknown", "rev-parse", "--abbrev-ref", "HEAD") // Keila - tolerate source exports without a HEAD commit
         attributes(
@@ -368,7 +368,7 @@ fun TaskContainer.registerRunTask(
         .dir(providers.gradleProperty("paper.runWorkDir").getOrElse("run"))
         .asFile
     javaLauncher.set(project.javaToolchains.launcherFor {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(25))
         vendor.set(JvmVendorSpec.JETBRAINS)
     })
     jvmArgs("-XX:+AllowEnhancedClassRedefinition")
