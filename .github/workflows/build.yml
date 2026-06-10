@@ -23,7 +23,5 @@ jobs:
           git config --global user.email "ci@tame.gg"
       - name: Apply patches
         run: ./gradlew applyAllPatches --stacktrace
-      - name: Check
-        run: ./gradlew check --stacktrace
-      - name: Build bundler jar
-        run: ./gradlew createMojmapBundlerJar --stacktrace
+      - name: Build
+        run: ./gradlew build --stacktrace

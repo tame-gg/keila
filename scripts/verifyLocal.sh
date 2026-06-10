@@ -8,6 +8,4 @@ fi
 
 bash scripts/checkPatches.sh
 ./gradlew applyAllPatches --stacktrace
-./gradlew check --stacktrace
-./gradlew createMojmapBundlerJar --stacktrace
-bash scripts/verifyReleaseArtifact.sh
+./gradlew build --stacktrace

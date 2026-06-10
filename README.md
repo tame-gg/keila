@@ -63,9 +63,7 @@ git clone https://github.com/tame-gg/keila.git
 cd keila
 
 ./gradlew applyAllPatches
-./gradlew check
-./gradlew createMojmapBundlerJar
-scripts/prepareRelease.sh dist
+./gradlew build
 ```
 
 The release-ready jar will be written to:
