@@ -12,7 +12,7 @@ plugins {
 }
 
 if (!file(".git").exists()) {
-    // Leaf start - project setup
+    // Keila start - project setup
     val errorText = """
         
         =====================[ ERROR ]=====================
@@ -28,13 +28,13 @@ if (!file(".git").exists()) {
          for further information on building and modifying Paper forks.
         ===================================================
     """.trimIndent()
-    // Leaf end - project setup
+    // Keila end - project setup
     error(errorText)
 }
 
 rootProject.name = "keila"
 
-for (name in listOf("leaf-api", "leaf-server")) {
+for (name in listOf("purpur-api", "purpur-server")) {
     val projName = name.lowercase(Locale.ENGLISH)
     include(projName)
 }

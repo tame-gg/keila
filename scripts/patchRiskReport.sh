@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-find leaf-api/paper-patches leaf-server/paper-patches leaf-server/minecraft-patches -type f -name '*.patch' | sort | while read -r patch; do
+find purpur-api/paper-patches purpur-server/paper-patches purpur-server/minecraft-patches -type f -name '*.patch' | sort | while read -r patch; do
   score=0
   rg -qi 'async|thread|executor|volatile|synchronized|queue' "$patch" && score=$((score + 3))
   rg -qi 'packet|network|connection|payload' "$patch" && score=$((score + 2))

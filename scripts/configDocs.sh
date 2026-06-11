@@ -7,10 +7,10 @@ mkdir -p "$(dirname "$out")"
 {
   echo "# Keila Config Modules"
   echo
-  echo "Generated from \`leaf-server/src/main/java/gg/tame/keila/config/modules\`."
+  echo "Generated from \`purpur-server/src/main/java/gg/tame/keila/config/modules\`."
   echo
-  find leaf-server/src/main/java/gg/tame/keila/config/modules -type f -name '*.java' | sort | while read -r file; do
-    module=${file#leaf-server/src/main/java/}
+  find purpur-server/src/main/java/gg/tame/keila/config/modules -type f -name '*.java' | sort | while read -r file; do
+    module=${file#purpur-server/src/main/java/}
     module=${module%.java}
     echo "- \`${module//\//.}\`"
   done

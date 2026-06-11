@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-artifact="${1:-$(find leaf-server/build/libs -maxdepth 1 -name '*paperclip*-mojmap.jar' | sort | tail -n 1)}"
+artifact="${1:-$(find purpur-server/build/libs -maxdepth 1 -name '*paperclip*-mojmap.jar' | sort | tail -n 1)}"
 test -n "$artifact"
 test -f "$artifact"
 test -s "$artifact"

@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: "25"
       - uses: gradle/actions/setup-gradle@v5
       - name: Configure git identity for paperweight
         run: |
@@ -23,7 +23,5 @@ jobs:
           git config --global user.email "ci@tame.gg"
       - name: Apply patches
         run: ./gradlew applyAllPatches --stacktrace
-      - name: Check
-        run: ./gradlew check --stacktrace
-      - name: Build paperclip jar
-        run: ./gradlew createMojmapPaperclipJar --stacktrace
+      - name: Build
+        run: ./gradlew build --stacktrace

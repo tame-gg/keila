@@ -1,6 +1,6 @@
 # Keila Upstream Sync Policy
 
-Keila tracks Paper, Purpur, Leaf, and Keila-specific patches.
+Keila tracks Paper, Purpur, and Keila-specific patches.
 
 ## Sync Steps
 
@@ -17,7 +17,6 @@ Every upstream sync should list:
 
 - Paper commits pulled in.
 - Purpur commits pulled in.
-- Leaf commits pulled in.
 - Keila patches touched.
 - High-risk systems touched.
 - Tests and benchmarks run.

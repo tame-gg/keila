@@ -1,6 +1,6 @@
 # Keila Identity
 
-Keila is the tame.gg fork of Leaf, which itself carries Purpur, Paper, Gale, Pufferfish, Leaves, Lithium-inspired, and other fork work.
+Keila is the tame.gg fork of Purpur, which itself builds on Paper, Spigot, and Bukkit, alongside performance work from the wider Paper fork ecosystem.
 
 Keila-owned surfaces should use:
 
@@ -12,6 +12,6 @@ Keila-owned surfaces should use:
 - Brand id: `tamegg:keila`
 - Public owner string: `tame.gg`
 
-Upstream attribution remains required. Keila docs should state that the fork builds on Leaf, Purpur, and Paper rather than presenting upstream work as Keila-only work.
+Upstream attribution remains required. Keila docs should state that the fork builds on Purpur and Paper rather than presenting upstream work as Keila-only work.
 
 Before a public release, configure the final Maven repository, download API, docs URL, bStats implementation name, and support channel under tame.gg-owned infrastructure.

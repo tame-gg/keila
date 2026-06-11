@@ -2,7 +2,7 @@
 set -euo pipefail
 
 range="${1:-HEAD~20..HEAD}"
-artifact="${2:-$(find leaf-server/build/libs -maxdepth 1 -name '*paperclip*-mojmap.jar' | sort | tail -n 1 2>/dev/null || true)}"
+artifact="${2:-$(find purpur-server/build/libs -maxdepth 1 -name '*paperclip*-mojmap.jar' | sort | tail -n 1 2>/dev/null || true)}"
 
 echo "# Keila Release Notes"
 echo

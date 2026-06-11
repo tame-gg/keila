@@ -27,7 +27,7 @@ Each release should include:
 
 - Minecraft version.
 - Paper commit.
-- Leaf base.
+- Purpur base.
 - Keila commits.
 - High-risk patch changes.
 - Checksums.

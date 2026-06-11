@@ -24,8 +24,8 @@ target/
 # Paperweight generated worktrees and patched source output
 paper-api/
 paper-server/
-leaf-server/src/minecraft/
-leaf-server/src/generated/
+purpur-server/src/minecraft/
+purpur-server/src/generated/
 
 # Release artifacts generated locally
 dist/

@@ -9,26 +9,34 @@ The tame.gg Minecraft server fork for performance-heavy Paper networks.
 
 [![Build](https://img.shields.io/github/actions/workflow/status/tame-gg/keila/build.yml?style=for-the-badge&label=build&colorA=151a18&colorB=2e8b57)](https://github.com/tame-gg/keila/actions/workflows/build.yml)
 [![Release](https://img.shields.io/github/actions/workflow/status/tame-gg/keila/release.yml?style=for-the-badge&label=release&colorA=151a18&colorB=3b82f6)](https://github.com/tame-gg/keila/actions/workflows/release.yml)
-[![Java 21](https://img.shields.io/badge/java-21-ef4444?style=for-the-badge&colorA=151a18)](https://adoptium.net/temurin/releases/?version=21)
-[![Minecraft](https://img.shields.io/badge/minecraft-1.21.11-f59e0b?style=for-the-badge&colorA=151a18)](https://www.minecraft.net/)
+[![Java 25](https://img.shields.io/badge/java-25-ef4444?style=for-the-badge&colorA=151a18)](https://adoptium.net/temurin/releases/?version=25)
+[![Minecraft](https://img.shields.io/badge/minecraft-26.1.2-f59e0b?style=for-the-badge&colorA=151a18)](https://www.minecraft.net/)
 
 **English** | [中文](public/readme/README_CN.md)
 
 </div>
 
-Keila is the tame.gg fork of [Leaf](https://github.com/Winds-Studio/Leaf), built on top of [Purpur](https://github.com/PurpurMC/Purpur), [Paper](https://papermc.io/), and the performance work of the wider Paper fork ecosystem. It keeps compatibility with Paper-style server operations while adding Keila-owned runtime safety, benchmark, release, and operator tooling around high-risk performance changes.
+Keila is the tame.gg fork of [Purpur](https://github.com/PurpurMC/Purpur), built on the [Paper](https://papermc.io/) 26.1.2 platform (Java 25). It keeps Paper/Purpur-style server operations and plugin compatibility while adding Keila-owned release, runtime-safety, and operator tooling.
+
+> [!NOTE]
+> **Keila is now a Purpur 26.1.2 fork.** The base is [Purpur](https://github.com/PurpurMC/Purpur) `ver/26.1.2` on the Paper 26.1.2 (Java 25) platform, carrying Keila's identity, release, and operator tooling. Keila's bespoke async subsystems and `/keila` operator commands (from the previous Leaf-based line) are **not yet in this base** — they are tracked for re-port in a build-capable environment; see [docs/upstream/26.1.2-purpur-rebase.md](docs/upstream/26.1.2-purpur-rebase.md). Feature/command sections below that describe those subsystems reflect the roadmap target, not the current build.
 
 > [!WARNING]
 > Keila is performance-oriented server software. Back up worlds and configs before switching, test plugins in a staging environment, and treat experimental async features as opt-in until they have passed your workload.
 
-## Why Keila
+### Shipping today
 
-- **Paper-compatible base**: keeps the familiar Paper/Purpur administration and plugin model.
-- **Performance-first roadmap**: tracks async pathfinding, chunk send, player-data save, mob spawning, entity tracking, packet flow, IO, and benchmark work in one place.
-- **Operator visibility**: `/keila perf` exposes queue, async, and JVM memory views without requiring a profiler for basic triage.
+- **Purpur 26.1.2 base (Java 25)**: inherits Purpur's configurability and optimization work on the Paper platform, with the familiar Paper/Purpur administration and plugin model.
 - **Runtime safety culture**: risky systems are expected to ship with metrics, rollback paths, and staged rollout documentation.
-- **Release-ready CI**: GitHub Actions can build, verify, rename, checksum, and publish a `keila-<version>.jar` artifact.
-- **Upstream attribution**: Keila builds on Paper, Purpur, Leaf, Gale, Pufferfish, and other fork work instead of hiding that history.
+- **Release-ready CI**: GitHub Actions builds and verifies the server and can publish a `keila-<version>.jar` artifact.
+- **Upstream attribution**: Keila builds on Paper and Purpur instead of hiding that history.
+
+### On the roadmap
+
+Keila's own performance stack and operator commands came from the previous Leaf-based line and are **pending re-port onto 26.1.2** — see the [re-port plan](docs/upstream/26.1.2-purpur-rebase.md):
+
+- Async pathfinding, chunk send, player-data saving, multithreaded entity tracking, and parallel world ticking.
+- `/keila` operator commands (`perf`, `mspt`, `features`, …) for queue/async/JVM triage without a profiler.
 
 ## Current Identity
 
@@ -39,8 +47,8 @@ Keila is the tame.gg fork of [Leaf](https://github.com/Winds-Studio/Leaf), built
 | Release version | `0.1.1` |
 | Maven group | `gg.tame.keila` |
 | Java package | `gg.tame.keila` |
-| Minecraft target | `1.21.11` |
-| Java runtime | Temurin 21 LTS |
+| Minecraft target | `26.1.2` |
+| Java runtime | Temurin 25 LTS |
 
 ## Download
 
@@ -60,16 +68,10 @@ git clone https://github.com/tame-gg/keila.git
 cd keila
 
 ./gradlew applyAllPatches
-./gradlew check
-./gradlew createMojmapPaperclipJar
-scripts/prepareRelease.sh dist
+./gradlew build
 ```
 
-The release-ready jar will be written to:
-
-```text
-dist/keila-0.1.1.jar
-```
+Build outputs are written under `purpur-server/build/libs/`. (The packaged, server-ready jar task is being finalized as part of release setup.)
 
 ## Local Verification
 
@@ -79,9 +81,11 @@ Use the one-command verifier when you want the same basic checks CI runs:
 scripts/verifyLocal.sh
 ```
 
-This runs the patch audit, applies all patches, executes Gradle checks, builds the Mojmap paperclip jar, and verifies the release artifact. Use Java 21 LTS. If you switch Java runtimes, rerun paperweight tasks with `--rerun-tasks` or clear stale `.gradle/caches/paperweight` output.
+This runs the patch audit, applies all patches, and builds the server. Use Java 25 LTS. If you switch Java runtimes, rerun paperweight tasks with `--rerun-tasks` or clear stale `.gradle/caches/paperweight` output.
 
-## Operator Commands
+## Operator Commands (roadmap)
+
+> These `/keila` commands are part of Keila's bespoke stack and are **not in the current Purpur 26.1.2 base** — they return with the optimization re-port. Listed here as the target operator surface.
 
 | Command | Purpose |
 | --- | --- |
@@ -101,12 +105,13 @@ This runs the patch audit, applies all patches, executes Gradle checks, builds t
 - [Feature foundation](docs/keila/feature-foundation.md)
 - [Release process](docs/release/release-process.md)
 - [Upstream sync policy](docs/upstream/sync-policy.md)
+- [Purpur 26.1.2 re-base & optimization re-port plan](docs/upstream/26.1.2-purpur-rebase.md)
 - [Patch risk index](docs/upstream/patch-risk-index.md)
 - [Benchmark plans](docs/benchmarks/macrobench.md)
 
 ## API
 
-Keila keeps inherited Paper/Purpur/Leaf API compatibility and reserves `gg.tame.keila` for Keila-owned API surfaces.
+Keila keeps inherited Paper/Purpur API compatibility and reserves `gg.tame.keila` for Keila-owned API surfaces.
 
 ### Maven
 
@@ -118,8 +123,8 @@ Keila keeps inherited Paper/Purpur/Leaf API compatibility and reserves `gg.tame.
 
 <dependency>
     <groupId>gg.tame.keila</groupId>
-    <artifactId>leaf-api</artifactId>
-    <version>1.21.11-R0.1-SNAPSHOT</version>
+    <artifactId>purpur-api</artifactId>
+    <version>26.1.2-R0.1-SNAPSHOT</version>
     <scope>provided</scope>
 </dependency>
 ```
@@ -132,11 +137,11 @@ repositories {
 }
 
 dependencies {
-    compileOnly("gg.tame.keila:leaf-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly("gg.tame.keila:purpur-api:26.1.2-R0.1-SNAPSHOT")
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
 }
 ```
 
@@ -144,8 +149,9 @@ java {
 
 | Path | Purpose |
 | --- | --- |
-| `leaf-api/` | API module and inherited API patch surface. |
-| `leaf-server/` | Server module, patch queues, and Keila-owned server code. |
+| `purpur-api/` | API module: Purpur API source + Paper-API patch surface. |
+| `purpur-server/` | Server module: Purpur server source, access transformers, and the Paper/Minecraft patch queues. |
+| `build-data/` | Access transformers (`purpur.at`) and dev-import config. |
 | `docs/keila/` | Keila-specific identity, runtime safety, roadmap, and tuning docs. |
 | `docs/upstream/` | Upstream sync and patch-risk maintenance docs. |
 | `scripts/` | Patch audit, release, benchmark, and verification helpers. |
@@ -153,7 +159,7 @@ java {
 
 ## Release Automation
 
-The [keila workflow](.github/workflows/release.yml) compiles the server, verifies the patch stack, renames the paperclip jar, writes release metadata, uploads artifacts, and publishes a GitHub Release when run manually or from a `v*` tag.
+The [keila workflow](.github/workflows/release.yml) compiles the server, verifies the patch stack, renames the server jar, writes release metadata, uploads artifacts, and publishes a GitHub Release when run manually or from a `v*` tag.
 
 Default release metadata:
 
@@ -165,18 +171,11 @@ version: 0.1.1
 
 ## Credits
 
-Keila exists because the Paper fork ecosystem has carried years of difficult server work forward. Keila inherits, adapts, or learns from:
+Keila is a fork of Purpur and stands on the Paper fork ecosystem's years of difficult server work. Keila builds on:
 
 - [Paper](https://papermc.io/)
 - [Purpur](https://github.com/PurpurMC/Purpur)
-- [Leaf](https://github.com/Winds-Studio/Leaf)
-- [Gale](https://github.com/GaleMC/Gale)
-- [Pufferfish](https://github.com/pufferfish-gg/Pufferfish)
-- [Leaves](https://github.com/LeavesMC/Leaves)
-- [SparklyPaper](https://github.com/SparklyPower/SparklyPaper)
-- [Kaiiju](https://github.com/KaiijuMC/Kaiiju)
-- [Luminol](https://github.com/LuminolMC/Luminol)
-- [Sakura](https://github.com/Samsuik/Sakura)
-- [Moonrise](https://github.com/Tuinity/Moonrise)
+
+Purpur in turn carries Paper, Spigot, and Bukkit, and credits the wider fork community in its own documentation.
 
 See [LICENSE.md](LICENSE.md) for licensing and inherited project obligations.

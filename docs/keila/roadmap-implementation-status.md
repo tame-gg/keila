@@ -1,6 +1,15 @@
 # Keila Roadmap Implementation Status
 
-This file records what has actually landed in code versus what still needs behavior and benchmark validation.
+> [!IMPORTANT]
+> This document describes the optimization work as it existed on the **pre-rebase
+> Leaf-based line**. None of these `gg.tame.keila` subsystems are in the current
+> **Purpur 26.1.2** base — they are preserved in git history and tracked for
+> re-port in a build-capable environment. See
+> [26.1.2-purpur-rebase.md](../upstream/26.1.2-purpur-rebase.md) for the inventory
+> and recovery refs. Treat the status below as the roadmap target, not the
+> current build.
+
+This file records what landed in code on the prior line versus what still needs behavior and benchmark validation after re-port.
 
 ## Landed In Keila-Owned Source
 
@@ -20,13 +29,11 @@ This file records what has actually landed in code versus what still needs behav
 
 ## Verification Notes
 
-The patch queue now applies cleanly from a fresh `/tmp` checkout under Temurin 21:
-
-- `applyAllPatches` applied 91 Mache patches, 914 Paper Minecraft source patches, and the Keila/Leaf feature patch stack.
-- `:leaf-api:compileJava` and `:leaf-server:compileJava` pass.
-- `:leaf-api:test` and `:leaf-server:test` pass when forced with `--rerun-tasks --no-build-cache`.
-
-The earlier `setupMacheSources` failure was reproduced in a clean pinned Paper checkout when running on the local Oracle `21-ea` JDK, and the same pinned Paper checkout succeeded on Temurin 21. Keila verification should use a stable Java 21 LTS runtime. If switching from `21-ea`, rerun with `--rerun-tasks` or clear stale paperweight task caches.
+These notes are historical, from the pre-rebase Leaf-based line (`applyAllPatches`
++ compile/test of the old `leaf-api`/`leaf-server` modules under Java 21). They do
+**not** apply to the current Purpur 26.1.2 base. When the optimization stack is
+re-ported (see [26.1.2-purpur-rebase.md](../upstream/26.1.2-purpur-rebase.md)),
+verification must run on **Java 25** against `purpur-server`/`purpur-api`.
 
 Do not mark the remaining `Research` items complete until:
 
