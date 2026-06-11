@@ -19,7 +19,7 @@ The tame.gg Minecraft server fork for performance-heavy Paper networks.
 Keila is the tame.gg fork of [Purpur](https://github.com/PurpurMC/Purpur), built on top of [Paper](https://papermc.io/) and the performance work of the wider Paper fork ecosystem. It keeps compatibility with Paper-style server operations while adding Keila-owned runtime safety, benchmark, release, and operator tooling around high-risk performance changes.
 
 > [!NOTE]
-> **Rebase in progress (Purpur 26.1.2).** Keila's base has moved off Leaf and onto [Purpur](https://github.com/PurpurMC/Purpur) `ver/26.1.2`, which builds on the Paper 26.1.2 (Java 25) platform. Keila's bespoke async subsystems and `/keila` operator commands are being re-layered onto the new base — see [docs/upstream/26.1.2-purpur-rebase.md](docs/upstream/26.1.2-purpur-rebase.md). Sections below that describe those features reflect the target state.
+> **Keila is now a Purpur 26.1.2 fork.** The base is [Purpur](https://github.com/PurpurMC/Purpur) `ver/26.1.2` on the Paper 26.1.2 (Java 25) platform, carrying Keila's identity, release, and operator tooling. Keila's bespoke async subsystems and `/keila` operator commands (from the previous Leaf-based line) are **not yet in this base** — they are tracked for re-port in a build-capable environment; see [docs/upstream/26.1.2-purpur-rebase.md](docs/upstream/26.1.2-purpur-rebase.md). Feature/command sections below that describe those subsystems reflect the roadmap target, not the current build.
 
 > [!WARNING]
 > Keila is performance-oriented server software. Back up worlds and configs before switching, test plugins in a staging environment, and treat experimental async features as opt-in until they have passed your workload.
@@ -31,7 +31,7 @@ Keila is the tame.gg fork of [Purpur](https://github.com/PurpurMC/Purpur), built
 - **Operator visibility**: `/keila perf` exposes queue, async, and JVM memory views without requiring a profiler for basic triage.
 - **Runtime safety culture**: risky systems are expected to ship with metrics, rollback paths, and staged rollout documentation.
 - **Release-ready CI**: GitHub Actions can build, verify, rename, checksum, and publish a `keila-<version>.jar` artifact.
-- **Upstream attribution**: Keila builds on Paper, Purpur, Leaf, Gale, Pufferfish, and other fork work instead of hiding that history.
+- **Upstream attribution**: Keila builds on Paper and Purpur instead of hiding that history.
 
 ## Current Identity
 
@@ -167,18 +167,11 @@ version: 0.1.1
 
 ## Credits
 
-Keila exists because the Paper fork ecosystem has carried years of difficult server work forward. Keila inherits, adapts, or learns from:
+Keila is a fork of Purpur and stands on the Paper fork ecosystem's years of difficult server work. Keila builds on:
 
 - [Paper](https://papermc.io/)
 - [Purpur](https://github.com/PurpurMC/Purpur)
-- [Leaf](https://github.com/Winds-Studio/Leaf)
-- [Gale](https://github.com/GaleMC/Gale)
-- [Pufferfish](https://github.com/pufferfish-gg/Pufferfish)
-- [Leaves](https://github.com/LeavesMC/Leaves)
-- [SparklyPaper](https://github.com/SparklyPower/SparklyPaper)
-- [Kaiiju](https://github.com/KaiijuMC/Kaiiju)
-- [Luminol](https://github.com/LuminolMC/Luminol)
-- [Sakura](https://github.com/Samsuik/Sakura)
-- [Moonrise](https://github.com/Tuinity/Moonrise)
+
+Purpur in turn carries Paper, Spigot, and Bukkit, and credits the wider fork community in its own documentation.
 
 See [LICENSE.md](LICENSE.md) for licensing and inherited project obligations.
