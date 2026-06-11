@@ -16,7 +16,7 @@ The tame.gg Minecraft server fork for performance-heavy Paper networks.
 
 </div>
 
-Keila is the tame.gg fork of [Purpur](https://github.com/PurpurMC/Purpur), built on top of [Paper](https://papermc.io/) and the performance work of the wider Paper fork ecosystem. It keeps compatibility with Paper-style server operations while adding Keila-owned runtime safety, benchmark, release, and operator tooling around high-risk performance changes.
+Keila is the tame.gg fork of [Purpur](https://github.com/PurpurMC/Purpur), built on the [Paper](https://papermc.io/) 26.1.2 platform (Java 25). It keeps Paper/Purpur-style server operations and plugin compatibility while adding Keila-owned release, runtime-safety, and operator tooling.
 
 > [!NOTE]
 > **Keila is now a Purpur 26.1.2 fork.** The base is [Purpur](https://github.com/PurpurMC/Purpur) `ver/26.1.2` on the Paper 26.1.2 (Java 25) platform, carrying Keila's identity, release, and operator tooling. Keila's bespoke async subsystems and `/keila` operator commands (from the previous Leaf-based line) are **not yet in this base** — they are tracked for re-port in a build-capable environment; see [docs/upstream/26.1.2-purpur-rebase.md](docs/upstream/26.1.2-purpur-rebase.md). Feature/command sections below that describe those subsystems reflect the roadmap target, not the current build.
@@ -24,14 +24,19 @@ Keila is the tame.gg fork of [Purpur](https://github.com/PurpurMC/Purpur), built
 > [!WARNING]
 > Keila is performance-oriented server software. Back up worlds and configs before switching, test plugins in a staging environment, and treat experimental async features as opt-in until they have passed your workload.
 
-## Why Keila
+### Shipping today
 
-- **Paper-compatible base**: keeps the familiar Paper/Purpur administration and plugin model.
-- **Performance-first roadmap**: tracks async pathfinding, chunk send, player-data save, mob spawning, entity tracking, packet flow, IO, and benchmark work in one place.
-- **Operator visibility**: `/keila perf` exposes queue, async, and JVM memory views without requiring a profiler for basic triage.
+- **Purpur 26.1.2 base (Java 25)**: inherits Purpur's configurability and optimization work on the Paper platform, with the familiar Paper/Purpur administration and plugin model.
 - **Runtime safety culture**: risky systems are expected to ship with metrics, rollback paths, and staged rollout documentation.
-- **Release-ready CI**: GitHub Actions can build, verify, rename, checksum, and publish a `keila-<version>.jar` artifact.
+- **Release-ready CI**: GitHub Actions builds and verifies the server and can publish a `keila-<version>.jar` artifact.
 - **Upstream attribution**: Keila builds on Paper and Purpur instead of hiding that history.
+
+### On the roadmap
+
+Keila's own performance stack and operator commands came from the previous Leaf-based line and are **pending re-port onto 26.1.2** — see the [re-port plan](docs/upstream/26.1.2-purpur-rebase.md):
+
+- Async pathfinding, chunk send, player-data saving, multithreaded entity tracking, and parallel world ticking.
+- `/keila` operator commands (`perf`, `mspt`, `features`, …) for queue/async/JVM triage without a profiler.
 
 ## Current Identity
 
@@ -66,11 +71,7 @@ cd keila
 ./gradlew build
 ```
 
-The release-ready jar will be written to:
-
-```text
-dist/keila-0.1.1.jar
-```
+Build outputs are written under `purpur-server/build/libs/`. (The packaged, server-ready jar task is being finalized as part of release setup.)
 
 ## Local Verification
 
@@ -80,9 +81,11 @@ Use the one-command verifier when you want the same basic checks CI runs:
 scripts/verifyLocal.sh
 ```
 
-This runs the patch audit, applies all patches, executes Gradle checks, builds the Mojmap paperclip jar, and verifies the release artifact. Use Java 25 LTS. If you switch Java runtimes, rerun paperweight tasks with `--rerun-tasks` or clear stale `.gradle/caches/paperweight` output.
+This runs the patch audit, applies all patches, and builds the server. Use Java 25 LTS. If you switch Java runtimes, rerun paperweight tasks with `--rerun-tasks` or clear stale `.gradle/caches/paperweight` output.
 
-## Operator Commands
+## Operator Commands (roadmap)
+
+> These `/keila` commands are part of Keila's bespoke stack and are **not in the current Purpur 26.1.2 base** — they return with the optimization re-port. Listed here as the target operator surface.
 
 | Command | Purpose |
 | --- | --- |
@@ -102,6 +105,7 @@ This runs the patch audit, applies all patches, executes Gradle checks, builds t
 - [Feature foundation](docs/keila/feature-foundation.md)
 - [Release process](docs/release/release-process.md)
 - [Upstream sync policy](docs/upstream/sync-policy.md)
+- [Purpur 26.1.2 re-base & optimization re-port plan](docs/upstream/26.1.2-purpur-rebase.md)
 - [Patch risk index](docs/upstream/patch-risk-index.md)
 - [Benchmark plans](docs/benchmarks/macrobench.md)
 
@@ -155,7 +159,7 @@ java {
 
 ## Release Automation
 
-The [keila workflow](.github/workflows/release.yml) compiles the server, verifies the patch stack, renames the paperclip jar, writes release metadata, uploads artifacts, and publishes a GitHub Release when run manually or from a `v*` tag.
+The [keila workflow](.github/workflows/release.yml) compiles the server, verifies the patch stack, renames the server jar, writes release metadata, uploads artifacts, and publishes a GitHub Release when run manually or from a `v*` tag.
 
 Default release metadata:
 
