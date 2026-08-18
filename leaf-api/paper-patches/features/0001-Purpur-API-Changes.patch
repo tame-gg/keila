@@ -1,12 +1,12 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Github Actions <no-reply@github.com>
-Date: Wed, 7 Jan 2026 23:55:32 +0000
+Date: Tue, 16 Jun 2026 15:17:59 +0000
 Subject: [PATCH] Purpur API Changes
 
 Original license: MIT
 Original project: https://github.com/PurpurMC/Purpur
 
-Commit: f57bd8659b5c3cbaf03984ee5a8ecdcc0849040a
+Commit: 5a85de0eb57cd57ab0250147b089dee37f116dc3
 
 Patches listed below are removed in this patch, They exists in Gale or Leaf:
 * "co/aikar/timings/TimedEventExecutor.java.patch"
@@ -14,8 +14,8 @@ Patches listed below are removed in this patch, They exists in Gale or Leaf:
 * "co/aikar/timings/Timings.java.patch"
 * "co/aikar/timings/TimingsCommand.java.patch"
 * "com/destroystokyo/paper/util/VersionFetcher.java.patch"
-* "org/bukkit/command/defaults/VersionCommand.java.patch"
 * "org/bukkit/command/SimpleCommandMap.java.patch" (Timings changes)
+* "org/bukkit/command/defaults/VersionCommand.java.patch"
 * "org/bukkit/plugin/java/JavaPluginLoader.java.patch"
 * "org/bukkit/plugin/java/LibraryLoader.java.patch"
 * "org/spigotmc/CustomTimingsHandler.java.patch"
@@ -52,10 +52,10 @@ index 8cc389cf42dd6039a2c12bbe0f057c6fc37321cb..ccc2ab78da91d1b8fa86ade4fb64dfa7
          return GoalKey.of(type, NamespacedKey.minecraft(key));
      }
 diff --git a/src/main/java/io/papermc/paper/ServerBuildInfo.java b/src/main/java/io/papermc/paper/ServerBuildInfo.java
-index 652ff54e7c50412503725d628bfe72ed03059790..fb1fe2651e53a9bf46b3632c638e13eea9dcda93 100644
+index 4e099b584c3435ba1ebce492011d35ae1ac0cdf8..780444eb8eb916ebe09f16092a70919bd99655cc 100644
 --- a/src/main/java/io/papermc/paper/ServerBuildInfo.java
 +++ b/src/main/java/io/papermc/paper/ServerBuildInfo.java
-@@ -19,6 +19,12 @@ public interface ServerBuildInfo {
+@@ -17,6 +17,12 @@ public interface ServerBuildInfo {
       */
      Key BRAND_PAPER_ID = Key.key("papermc", "paper");
  
@@ -69,10 +69,10 @@ index 652ff54e7c50412503725d628bfe72ed03059790..fb1fe2651e53a9bf46b3632c638e13ee
       * Gets the {@code ServerBuildInfo}.
       *
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index d083e3e5f00aac3e5c48a248cae665f3517a4b4a..e9658f8377b9d91e117360ce44db8710b59f0499 100644
+index 122e66d21bf935595d2ca213f870fb9820d0e55a..2c39beef3747d0dfd15a6e08269382e7b5a55d36 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -3010,4 +3010,147 @@ public final class Bukkit {
+@@ -3009,4 +3009,147 @@ public final class Bukkit {
      public static void restart() {
          server.restart();
      }
@@ -348,14 +348,14 @@ index 16c5ab03ad0704c01112144d4c348d24c878f2d5..3390c05258c1b93bf1295935e7704b4d
 +    // Purpur end - ItemStack convenience methods
  }
 diff --git a/src/main/java/org/bukkit/OfflinePlayer.java b/src/main/java/org/bukkit/OfflinePlayer.java
-index 13ec9ea1ee08dc97cd2b9d740ad8394cd2ca90fe..9c52c4e9d3b85cc1a4814d065069965653b37c7a 100644
+index 13ec9ea1ee08dc97cd2b9d740ad8394cd2ca90fe..31ce15fa8cc6b4c79f6be4cbb4be5d9e6a9d7536 100644
 --- a/src/main/java/org/bukkit/OfflinePlayer.java
 +++ b/src/main/java/org/bukkit/OfflinePlayer.java
 @@ -591,4 +591,104 @@ public interface OfflinePlayer extends ServerOperator, AnimalTamer, Configuratio
      default void applySkinToPlayerHeadContents(final PlayerHeadObjectContents.Builder builder) {
          builder.skin(this.getPlayerProfile());
      }
-+
++    
 +    // Purpur start - OfflinePlayer API
 +    /**
 +     * Determines if the OfflinePlayer is allowed to fly via jump key double-tap like
@@ -457,10 +457,10 @@ index 13ec9ea1ee08dc97cd2b9d740ad8394cd2ca90fe..9c52c4e9d3b85cc1a4814d0650699656
 +    // Purpur end - OfflinePlayer API
  }
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 62341f72e8457c5547994bee1f3fda9faade6ce0..2c895293585fede17057744dc230c0635778f83b 100644
+index a8e67888e63ae1d387e432827dc96590767b7b7f..d277417d2bd66b84f293e9b3858b5096a3a86fe4 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -2440,6 +2440,18 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -2438,6 +2438,18 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
          }
          // Paper end
  
@@ -479,7 +479,7 @@ index 62341f72e8457c5547994bee1f3fda9faade6ce0..2c895293585fede17057744dc230c063
          /**
           * Sends the component to the player
           *
-@@ -2776,4 +2788,125 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -2774,4 +2786,125 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
       */
      void allowPausing(@NotNull org.bukkit.plugin.Plugin plugin, boolean value);
      // Paper end - API to check if the server is sleeping
@@ -870,10 +870,10 @@ index 332c55fd6b4b3a8c0cad920a6e765ecc40e684e4..10a8d64ad2da0be2c14f34c3e7d1957c
      // Paper start
      /**
 diff --git a/src/main/java/org/bukkit/entity/Entity.java b/src/main/java/org/bukkit/entity/Entity.java
-index 517177ca7745d7ffd5438d789b484efedc1153a3..b7553d4aae7df7e492b6d4186beecd3d36658027 100644
+index 00376681df7492ac0e080dcb86284ce15d5acf70..d1132d9eb87949ae657be699ae30284cd41dc1c6 100644
 --- a/src/main/java/org/bukkit/entity/Entity.java
 +++ b/src/main/java/org/bukkit/entity/Entity.java
-@@ -1345,4 +1345,59 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
+@@ -1359,4 +1359,59 @@ public interface Entity extends Metadatable, CommandSender, Nameable, Persistent
       */
      void broadcastHurtAnimation(@NotNull java.util.Collection<Player> players);
      // Paper end - broadcast hurt animation
@@ -1026,10 +1026,10 @@ index bcc6ba95bd21c7972865838c636a03f50b6c1f1a..c3fcd8dd7dbb1e1a18e17c014c1e6411
 +    // Purpur end
  }
 diff --git a/src/main/java/org/bukkit/entity/LivingEntity.java b/src/main/java/org/bukkit/entity/LivingEntity.java
-index ff0d1dd7a1ea3930ba11bd1ce5ea1e1851507bab..a9ed25002399e8a8b0068e10ce78e9c06b67f6cc 100644
+index ab18c028fd800a7b2da91e5c32a4547beea1d92b..88f322b1a6cc9702fdf8a5efa93d8cbeeef92258 100644
 --- a/src/main/java/org/bukkit/entity/LivingEntity.java
 +++ b/src/main/java/org/bukkit/entity/LivingEntity.java
-@@ -1562,4 +1562,20 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
+@@ -1559,4 +1559,20 @@ public interface LivingEntity extends Attributable, Damageable, ProjectileSource
       */
      @Nullable
      Color getWaypointColor();
@@ -1076,13 +1076,13 @@ index bc84b892cae5fe7019a3ad481e9da79956efa1fe..48eb5b00c460cccde29d327cef1d63fc
 +    // Purpur end
  }
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index 5f65afdbc48f95df762d7be63508c0a86fd5a84d..870cc824cda6d4d9ba01f5f5a6b438ddf4ac1069 100644
+index 65e83e171ab4c514662b9344e08f7065fa9efaa1..81559e992bb344b7a71933447e40bd0ecc7a0c96 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -4046,4 +4046,123 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
-     default ObjectContents asObjectContents() {
-         return this.getPlayerProfile().asObjectContents();
-     }
+@@ -4050,4 +4050,123 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      * clearing any fixed pose in the process.
+      */
+     void unsetFixedPose();
 +
 +    // Purpur start
 +    /**
@@ -1272,14 +1272,13 @@ index 11ae1b3ad8c215f9245945d223c52f4a62ac47d9..7f23eb5a60ff08fb31e8ba3731a43bd7
 +    // Purpur end
  }
 diff --git a/src/main/java/org/bukkit/entity/Wolf.java b/src/main/java/org/bukkit/entity/Wolf.java
-index 95ee6d2be7eb0bd5403a5fe97b9f0c74829b0a74..5a7e0fb077b96d3270c53e005fd838a88a6a6aae 100644
+index 95ee6d2be7eb0bd5403a5fe97b9f0c74829b0a74..ec56cdaf9bc645da167d2155a873c9a21bbe8e0a 100644
 --- a/src/main/java/org/bukkit/entity/Wolf.java
 +++ b/src/main/java/org/bukkit/entity/Wolf.java
-@@ -163,4 +163,20 @@ public interface Wolf extends Tameable, Sittable, io.papermc.paper.entity.Collar
-             return RegistryAccess.registryAccess().getRegistry(RegistryKey.WOLF_SOUND_VARIANT).getOrThrow(Key.key(Key.MINECRAFT_NAMESPACE, key));
-         }
-     }
-+
+@@ -105,6 +105,22 @@ public interface Wolf extends Tameable, Sittable, io.papermc.paper.entity.Collar
+      */
+     void setSoundVariant(@NotNull SoundVariant soundVariant);
+ 
 +    // Purpur start
 +    /**
 +     * Checks if this wolf is rabid
@@ -1295,9 +1294,12 @@ index 95ee6d2be7eb0bd5403a5fe97b9f0c74829b0a74..5a7e0fb077b96d3270c53e005fd838a8
 +     */
 +    void setRabid(boolean rabid);
 +    // Purpur end
- }
++    
+     /**
+      * Represents the variant of a wolf.
+      */
 diff --git a/src/main/java/org/bukkit/event/entity/EntityDamageEvent.java b/src/main/java/org/bukkit/event/entity/EntityDamageEvent.java
-index 01d020c8848479e2dadd540d9bb3cf30f60722c9..ce4f0054d336fe9efd32f60e886d90a504594484 100644
+index 01d020c8848479e2dadd540d9bb3cf30f60722c9..576822822328da0d15f04316a9d9a3f3f0df09dd 100644
 --- a/src/main/java/org/bukkit/event/entity/EntityDamageEvent.java
 +++ b/src/main/java/org/bukkit/event/entity/EntityDamageEvent.java
 @@ -311,7 +311,8 @@ public class EntityDamageEvent extends EntityEvent implements Cancellable {
@@ -1305,8 +1307,8 @@ index 01d020c8848479e2dadd540d9bb3cf30f60722c9..ce4f0054d336fe9efd32f60e886d90a5
          /**
           * Damage caused when an entity contacts another entity (sulfur cube) or block (cactus, dripstone stalagmite,
 -         * berry bush, campfire, magma block).
-+         * berry bush, campfire, magma block). (Stonecutters too if you
-+         * have the Stonecutter damage Purpur feature enabled)
++         * berry bush, campfire, magma block). (Stonecutters too if you have the Stonecutter damage Purpur feature
++         * enabled)
           * <p>
           * Damage: variable
           */
@@ -1388,7 +1390,7 @@ index db5be16f2a04fb9b69225da6b88fdae9eeac52be..b9a3c83ef9abc10a95cdf0694663e847
 +    // Purpur end
  }
 diff --git a/src/main/java/org/bukkit/inventory/ItemStack.java b/src/main/java/org/bukkit/inventory/ItemStack.java
-index 433525ea022ac27ea3f3cd788459821d094ee9fb..543bac53b44c36ba6baac8a5955b45b0394441ea 100644
+index 1e27bab861586171417d37e1777342f3edecf019..5067b5a3a30b64955eee20da8efc367d60fc6064 100644
 --- a/src/main/java/org/bukkit/inventory/ItemStack.java
 +++ b/src/main/java/org/bukkit/inventory/ItemStack.java
 @@ -23,6 +23,13 @@ import org.bukkit.material.MaterialData;
@@ -1405,7 +1407,7 @@ index 433525ea022ac27ea3f3cd788459821d094ee9fb..543bac53b44c36ba6baac8a5955b45b0
  
  /**
   * Represents a stack of items.
-@@ -1374,4 +1381,482 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
+@@ -1361,4 +1368,482 @@ public class ItemStack implements Cloneable, ConfigurationSerializable, Translat
          return this.craftDelegate.matchesWithoutData(item, excludeTypes, ignoreCount);
      }
      // Paper end - data component API

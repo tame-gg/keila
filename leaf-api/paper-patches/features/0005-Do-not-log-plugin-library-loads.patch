@@ -37,7 +37,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 diff --git a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
-index 9023a39c6481710478747482f0b16c21274afd15..6c949cc016685d3909fa6542f92a2c9770220c9a 100644
+index 163e9a0e179dc88be93614ff66ee2be3eccc694f..539786355ac89b5eb8ad876e65662e844d4654e3 100644
 --- a/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 +++ b/src/main/java/org/bukkit/plugin/java/JavaPluginLoader.java
 @@ -54,6 +54,13 @@ public final class JavaPluginLoader implements PluginLoader {

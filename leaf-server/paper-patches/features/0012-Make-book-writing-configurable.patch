@@ -27,7 +27,7 @@ index ed275123642d929b51b93f7f2ea825858411a921..66b80378f8b383e1388cf6b7b0e9ed0f
 +++ b/src/main/java/org/bukkit/craftbukkit/util/permissions/CraftDefaultPermissions.java
 @@ -8,6 +8,8 @@ public final class CraftDefaultPermissions {
      public static final String GALE_ROOT = "gale"; // Gale - set Gale permissions root
-     public static final String KEILA_ROOT = "keila"; // Keila - Keila commands
+     public static final String LEAF_ROOT = "leaf"; // Leaf - Leaf commands
  
 +    public static final String writeBooks = GALE_ROOT + ".writebooks"; // Gale - Pufferfish - make book writing configurable
 +

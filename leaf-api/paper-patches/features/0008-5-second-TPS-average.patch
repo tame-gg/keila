@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Martijn Muijsers <martijnmuijsers@live.nl>
 Date: Wed, 30 Nov 2022 13:00:40 +0100
-Subject: [PATCH] 5 second TPS average
+Subject: [PATCH] 5-second TPS average
 
 License: MIT (https://opensource.org/licenses/MIT)
 Gale - https://galemc.org
@@ -37,27 +37,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index dded639b4bb81d1da1a4563ba60c52635a380c96..ddd2bd3cdd4c265aa43472828964cfd7802a66e8 100644
+index 6518aab76a19ec436e4098a08400ec8730a7f613..07fa3930145b7ea90881441c43c9a985a20c5751 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -2441,7 +2441,30 @@ public final class Bukkit {
+@@ -2440,7 +2440,29 @@ public final class Bukkit {
          return server.getTPS();
      }
  
-+    // Gale start - Purpur - 5 second TPS average
++    // Gale start - Purpur - 5-second TPS average
 +    /**
 +     * Gets the current server TPS
 +     * @return current server TPS (5s, 1m, 5m, 15m in Gale-Server)
 +     */
-+    @NotNull
-+    public static double[] getTPSIncluding5SecondAverage() {
++    public static double @NotNull [] getTPSIncluding5SecondAverage() {
 +        return server.getTPSIncluding5SecondAverage();
 +    }
-+    // Gale end - Purpur - 5 second TPS average
++    // Gale end - Purpur - 5-second TPS average
 +
      // Gale start - specific interval TPS API
 +
-+    // Gale start - Purpur - 5 second TPS average
++    // Gale start - Purpur - 5-second TPS average
 +    /**
 +     * Gets the average server TPS over the last 5 seconds
 +     *
@@ -66,39 +65,38 @@ index dded639b4bb81d1da1a4563ba60c52635a380c96..ddd2bd3cdd4c265aa43472828964cfd7
 +    public static double get5SecondTPSAverage() {
 +        return server.get5SecondTPSAverage();
 +    }
-+    // Gale end - Purpur - 5 second TPS average
++    // Gale end - Purpur - 5-second TPS average
 +
      /**
       * Gets the average server TPS over the last 1 minute
       *
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index e2fa4d5051f3d32db88f0b135d95941b6b539372..2970cb42c39e9cff79bbc271712f248d173bab0f 100644
+index 43e8133aca2c2d93847e816f94b6b1ba664e58a5..e7faf3edf17b8d1ef1cbb916759967ff9183171a 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -2189,7 +2189,27 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -2187,7 +2187,26 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
       */
      public double @NotNull [] getTPS();
  
-+    // Gale start - Purpur - 5 second TPS average
++    // Gale start - Purpur - 5-second TPS average
 +    /**
 +     * Gets the current server TPS
 +     *
 +     * @return current server TPS (5s, 1m, 5m, 15m in Gale-Server)
 +     */
-+    @NotNull
-+    double[] getTPSIncluding5SecondAverage();
-+    // Gale end - Purpur - 5 second TPS average
++    double @NotNull [] getTPSIncluding5SecondAverage();
++    // Gale end - Purpur - 5-second TPS average
 +
      // Gale start - specific interval TPS API
 +
-+    // Gale start - Purpur - 5 second TPS average
++    // Gale start - Purpur - 5-second TPS average
 +    /**
 +     * Gets the average server TPS over the last 5 seconds
 +     *
 +     * @return the average server TPS over the last 5 seconds
 +     */
 +    double get5SecondTPSAverage();
-+    // Gale end - Purpur - 5 second TPS average
++    // Gale end - Purpur - 5-second TPS average
 +
      /**
       * Gets the average server TPS over the last 1 minute

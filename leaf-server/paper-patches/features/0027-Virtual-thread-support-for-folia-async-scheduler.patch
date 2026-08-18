@@ -34,7 +34,7 @@ index a1c153650b9146a245bf61ed3e89d407065da077..5959e059f5a06e0f53aa18bffef4e76f
 -            }
 -        }
 -    );
-+    private final Executor executors = gg.tame.keila.async.ExecutorFactory.buildFoliaAsyncSchedulerExecutor(); // Leaf - Virtual thread support for folia async scheduler
++    private final Executor executors = org.dreeam.leaf.async.ExecutorFactory.buildFoliaAsyncSchedulerExecutor(); // Leaf - Virtual thread support for folia async scheduler
  
      private final ScheduledExecutorService timerThread = Executors.newSingleThreadScheduledExecutor(new ThreadFactory() {
          @Override

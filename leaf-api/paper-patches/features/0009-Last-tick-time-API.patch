@@ -23,10 +23,10 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 diff --git a/src/main/java/org/bukkit/Bukkit.java b/src/main/java/org/bukkit/Bukkit.java
-index ddd2bd3cdd4c265aa43472828964cfd7802a66e8..a358376291a30301b2a8fe2f7fbf7e7c52f29ccf 100644
+index 07fa3930145b7ea90881441c43c9a985a20c5751..302dd84c7ff3e5debdd3b67a092e3892dc3e1e9c 100644
 --- a/src/main/java/org/bukkit/Bukkit.java
 +++ b/src/main/java/org/bukkit/Bukkit.java
-@@ -3047,6 +3047,20 @@ public final class Bukkit {
+@@ -3045,6 +3045,20 @@ public final class Bukkit {
      }
      // Paper end - Folia region threading API
  
@@ -48,10 +48,10 @@ index ddd2bd3cdd4c265aa43472828964cfd7802a66e8..a358376291a30301b2a8fe2f7fbf7e7c
       * @deprecated All methods on this class have been deprecated, see the individual methods for replacements.
       */
 diff --git a/src/main/java/org/bukkit/Server.java b/src/main/java/org/bukkit/Server.java
-index 2970cb42c39e9cff79bbc271712f248d173bab0f..a7e6a92c3e329f5e831ea8526b9f8f6ef1908b13 100644
+index e7faf3edf17b8d1ef1cbb916759967ff9183171a..b95d0bc1e486166bdc02d91b804f1d88cc73f9b2 100644
 --- a/src/main/java/org/bukkit/Server.java
 +++ b/src/main/java/org/bukkit/Server.java
-@@ -2967,4 +2967,29 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
+@@ -2964,4 +2964,29 @@ public interface Server extends PluginMessageRecipient, net.kyori.adventure.audi
      @Deprecated
      void clearBlockHighlights();
      // Purpur end - Debug Marker API
@@ -59,7 +59,7 @@ index 2970cb42c39e9cff79bbc271712f248d173bab0f..a7e6a92c3e329f5e831ea8526b9f8f6e
 +    // Gale start - YAPFA - last tick time - API
 +    /**
 +     * Gets the total time spent in the last tick,
-+     * which includes both the time spent on processing as well as the time spent in oversleep.
++     * which includes both the time spent on processing and the time spent in oversleep.
 +     *
 +     * @return the total time spent in the last tick, in milliseconds
 +     */
