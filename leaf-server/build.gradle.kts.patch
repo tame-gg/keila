@@ -249,14 +249,12 @@
  idea {
      module {
          generatedSourceDirs.add(generatedDir.toFile())
-@@ -271,11 +_,10 @@
-         .dir(providers.gradleProperty("paper.runWorkDir").getOrElse("run"))
+@@ -272,10 +_,9 @@
          .asFile
      javaLauncher.set(project.javaToolchains.launcherFor {
--        languageVersion.set(JavaLanguageVersion.of(25))
+         languageVersion.set(JavaLanguageVersion.of(25))
 -        // TODO - JB runtime 25 has issues with spark rn
 -        // vendor.set(JvmVendorSpec.JETBRAINS)
-+        languageVersion.set(JavaLanguageVersion.of(21))
 +        vendor.set(JvmVendorSpec.JETBRAINS)
      })
 -    //jvmArgs("-XX:+AllowEnhancedClassRedefinition")
