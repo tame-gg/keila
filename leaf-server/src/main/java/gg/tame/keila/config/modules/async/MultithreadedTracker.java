@@ -1,6 +1,6 @@
 package gg.tame.keila.config.modules.async;
 
-import gg.tame.keila.async.tracker.AsyncTracker;
+import org.dreeam.leaf.async.tracker.AsyncTracker;
 import gg.tame.keila.config.ConfigModules;
 import gg.tame.keila.config.EnumConfigCategory;
 import gg.tame.keila.config.KeilaConfig;

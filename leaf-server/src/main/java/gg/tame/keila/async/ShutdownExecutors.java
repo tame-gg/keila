@@ -4,7 +4,7 @@ import net.minecraft.server.MinecraftServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import gg.tame.keila.async.path.AsyncPathProcessor;
-import gg.tame.keila.async.tracker.AsyncTracker;
+import org.dreeam.leaf.async.tracker.AsyncTracker;
 
 import java.util.concurrent.TimeUnit;
 

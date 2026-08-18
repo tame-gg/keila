@@ -33,12 +33,6 @@ public class KeilaVersionFetcher extends AbstractPaperVersionFetcher {
     }
 
     public static void getUpdateStatusStartupMessage() {
-        AbstractPaperVersionFetcher.getUpdateStatusStartupMessage(
-            REPOSITORY,
-            DOWNLOAD_PAGE,
-            null,
-            USER_AGENT,
-            ApiType.GITHUB
-        );
+        AbstractPaperVersionFetcher.getUpdateStatusStartupMessage(); // Keila - 26.2 API is parameterless (repo driven by build info)
     }
 }

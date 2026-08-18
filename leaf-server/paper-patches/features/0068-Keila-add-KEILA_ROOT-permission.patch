@@ -1,0 +1,18 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: k <a@b.c>
+Date: Mon, 17 Aug 2026 22:43:20 -0500
+Subject: [PATCH] Keila - add KEILA_ROOT permission
+
+
+diff --git a/src/main/java/org/bukkit/craftbukkit/util/permissions/CraftDefaultPermissions.java b/src/main/java/org/bukkit/craftbukkit/util/permissions/CraftDefaultPermissions.java
+index 66b80378f8b383e1388cf6b7b0e9ed0f8bc08a63..fdbd17ce6c19337c4d7a1a68003b666ae7d02a84 100644
+--- a/src/main/java/org/bukkit/craftbukkit/util/permissions/CraftDefaultPermissions.java
++++ b/src/main/java/org/bukkit/craftbukkit/util/permissions/CraftDefaultPermissions.java
+@@ -7,6 +7,7 @@ public final class CraftDefaultPermissions {
+     private static final String ROOT = "minecraft";
+     public static final String GALE_ROOT = "gale"; // Gale - set Gale permissions root
+     public static final String LEAF_ROOT = "leaf"; // Leaf - Leaf commands
++    public static final String KEILA_ROOT = "keila"; // Keila - Keila commands
+ 
+     public static final String writeBooks = GALE_ROOT + ".writebooks"; // Gale - Pufferfish - make book writing configurable
+ 

@@ -94,7 +94,7 @@ public class ExecutorFactory {
             return Executors.newThreadPerTaskExecutor(
                 Thread.ofVirtual()
                     .name("Configuration Thread #", 0)
-                    .uncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(PaperConfigurationTask.LOGGER))
+                    .uncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(com.mojang.logging.LogUtils.getLogger()))
                     .factory()
             );
         }
@@ -102,7 +102,7 @@ public class ExecutorFactory {
         return Executors.newCachedThreadPool(
             new ThreadFactoryBuilder()
                 .setNameFormat("Configuration Thread #%d")
-                .setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(PaperConfigurationTask.LOGGER))
+                .setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(com.mojang.logging.LogUtils.getLogger()))
                 .build()
         );
     }
