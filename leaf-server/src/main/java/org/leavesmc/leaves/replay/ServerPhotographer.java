@@ -35,6 +35,7 @@ public class ServerPhotographer extends ServerPlayer {
     private Recorder recorder;
     private File saveFile;
     private Vec3 lastPosVec3;
+    private UUID sessionId;
 
     private final ServerStatsCounter stats;
 
@@ -44,6 +45,7 @@ public class ServerPhotographer extends ServerPlayer {
         this.followPlayer = null;
         this.stats = new BotStatsCounter(server);
         this.lastPosVec3 = this.position();
+        this.sessionId = server.getConnection().getSessionId();
     }
 
     public static ServerPhotographer createPhotographer(@NotNull PhotographerCreateState state) throws IOException {
@@ -65,7 +67,7 @@ public class ServerPhotographer extends ServerPlayer {
 
         photographer.recorder.start();
         // Leaf start - SparklyPaper - parallel world ticking mod (make configurable)
-        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled && !server.isSameThread()) {
+        if (org.dreeam.leaf.config.modules.async.SparklyPaperParallelWorldTicking.enabled && !server.isSameThread()) {
             server.submit(() -> {
                 getServer().getPlayerList().placeNewPhotographer(photographer.recorder, photographer, world);
             });
@@ -73,7 +75,7 @@ public class ServerPhotographer extends ServerPlayer {
             getServer().getPlayerList().placeNewPhotographer(photographer.recorder, photographer, world);
         }
         // Leaf end - SparklyPaper - parallel world ticking mod (make configurable)
-        photographer.level().chunkSource.move(photographer);
+        photographer.level().getChunkSource().move(photographer);
         photographer.setInvisible(true);
         photographers.add(photographer);
 
@@ -91,13 +93,13 @@ public class ServerPhotographer extends ServerPlayer {
 
         if (getServer().getTickCount() % 10 == 0) {
             connection.resetPosition();
-            this.level().chunkSource.move(this);
+            this.level().getChunkSource().move(this);
         }
 
         if (this.followPlayer != null) {
             if (this.getCamera() == this || this.getCamera().level() != this.level()) {
                 // Leaf start - SparklyPaper - parallel world ticking mod (make configurable)
-                if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
+                if (org.dreeam.leaf.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
                     this.getBukkitEntity().taskScheduler.schedule(entity -> {
                         ((ServerPhotographer) entity).getBukkitPlayer().teleport(((ServerPhotographer) entity).getCamera().getBukkitEntity().getLocation());
                         ((ServerPhotographer) entity).setCamera(((ServerPhotographer) entity).followPlayer);
@@ -110,7 +112,7 @@ public class ServerPhotographer extends ServerPlayer {
             }
             if (lastPosVec3.distanceToSqr(this.position()) > 1024D) {
                 // Leaf start - SparklyPaper - parallel world ticking mod (make configurable)
-                if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
+                if (org.dreeam.leaf.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
                     this.getBukkitEntity().taskScheduler.schedule(entity -> {
                         ((ServerPhotographer) entity).getBukkitPlayer().teleport(((ServerPhotographer) entity).getCamera().getBukkitEntity().getLocation());
                     }, entity -> {}, 0);
@@ -159,7 +161,7 @@ public class ServerPhotographer extends ServerPlayer {
         photographers.remove(this);
         this.recorder.stop();
         // Leaf start - SparklyPaper - parallel world ticking mod (make configurable)
-        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
+        if (org.dreeam.leaf.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
             getServer().submit(() -> getServer().getPlayerList().removePhotographer(this));
         } else {
             getServer().getPlayerList().removePhotographer(this);
@@ -227,6 +229,10 @@ public class ServerPhotographer extends ServerPlayer {
     @NotNull
     public CraftPhotographer getBukkitEntity() {
         return (CraftPhotographer) super.getBukkitEntity();
+    }
+
+    public UUID getSessionId() {
+        return sessionId;
     }
 
     public static boolean isCreateLegal(@NotNull String name) {

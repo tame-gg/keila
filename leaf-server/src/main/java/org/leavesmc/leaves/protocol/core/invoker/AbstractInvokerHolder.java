@@ -1,6 +1,6 @@
 package org.leavesmc.leaves.protocol.core.invoker;
 
-import gg.tame.keila.config.modules.network.ProtocolSupport;
+import org.dreeam.leaf.config.modules.network.ProtocolSupport;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.leavesmc.leaves.LeavesLogger;

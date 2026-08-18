@@ -2,7 +2,7 @@ package org.leavesmc.leaves.protocol;
 
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
-import gg.tame.keila.config.modules.network.ProtocolSupport;
+import org.dreeam.leaf.config.modules.network.ProtocolSupport;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.leavesmc.leaves.protocol.core.LeavesProtocol;

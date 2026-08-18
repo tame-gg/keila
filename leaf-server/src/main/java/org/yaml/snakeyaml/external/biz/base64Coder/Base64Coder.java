@@ -40,7 +40,7 @@ public class Base64Coder {
     // Mapping table from 6-bit nibbles to Base64 characters.
     private static final char[] map1 = new char[64];
 
-    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger("Keila"); // Leaf - Print warning for using deprecated snakeyaml's Base64Coder library
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger("Leaf"); // Leaf - Print warning for using deprecated snakeyaml's Base64Coder library
 
     static {
         int i = 0;
@@ -361,7 +361,7 @@ public class Base64Coder {
     }
 
     private static void warn() {
-        if (gg.tame.keila.util.KeilaConstants.ENABLE_BASE64CODER_WARNING) {
+        if (org.dreeam.leaf.util.LeafConstants.ENABLE_BASE64CODER_WARNING) {
             LOGGER.warn("Plugin is using deprecated method from Base64Coder.", new Throwable());
         }
     }

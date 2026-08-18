@@ -10,7 +10,7 @@ import java.util.concurrent.locks.LockSupport;
 
 public class AsyncExecutor implements Runnable {
 
-    private final Logger LOGGER = LogManager.getLogger("Keila");
+    private final Logger LOGGER = LogManager.getLogger("Leaf");
     private final PriorityQueue<Runnable> jobs = new ObjectArrayFIFOQueue<>();
     public final Thread thread;
     private volatile boolean killswitch = false;

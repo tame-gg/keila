@@ -9,7 +9,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
-import gg.tame.keila.config.modules.network.ProtocolSupport;
+import org.dreeam.leaf.config.modules.network.ProtocolSupport;
 import org.jetbrains.annotations.NotNull;
 import org.leavesmc.leaves.LeavesLogger;
 import org.leavesmc.leaves.protocol.core.LeavesProtocol;

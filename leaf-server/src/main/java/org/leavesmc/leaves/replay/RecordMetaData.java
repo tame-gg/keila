@@ -9,7 +9,7 @@ public class RecordMetaData {
     public static final int CURRENT_FILE_FORMAT_VERSION = 14;
 
     public boolean singleplayer = false;
-    public String serverName = "Keila"; // Keila - Rebrand
+    public String serverName = "Leaf"; // Leaf - Rebrand
     public int duration = 0;
     public long date;
     public String mcversion;

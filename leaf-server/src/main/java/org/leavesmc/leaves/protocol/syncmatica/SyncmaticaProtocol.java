@@ -1,7 +1,7 @@
 package org.leavesmc.leaves.protocol.syncmatica;
 
 import org.apache.commons.io.FilenameUtils;
-import gg.tame.keila.config.modules.network.ProtocolSupport;
+import org.dreeam.leaf.config.modules.network.ProtocolSupport;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
