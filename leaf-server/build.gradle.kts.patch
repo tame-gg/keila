@@ -255,26 +255,20 @@
 +}
 +// Gale end - branding changes - package license into jar
 +
-+// Keila start - brand distributable jars as "keila" instead of the internal fork name
-+// The paperweight fork name ("leaf") drives the bundler/paperclip base names; rename the
-+// user-facing artifacts to keila-* and drop the fork-named originals.
++// Keila start - brand the distributable paperclip/bundler jars as "keila"
++// The paperweight fork name ("leaf") drives the base names; produce keila-* copies by
++// reading each task's own output provider (wires the dependency, configuration-cache safe).
 +val keilaPaperclipJar by tasks.registering(Copy::class) {
-+    dependsOn(tasks.named("createPaperclipJar"))
++    val ver = project.version.toString()
 +    from(tasks.named("createPaperclipJar").map { it.outputs.files.singleFile })
 +    into(layout.buildDirectory.dir("libs"))
-+    rename { "keila-paperclip-${project.version}.jar" }
-+    doLast {
-+        tasks.named("createPaperclipJar").get().outputs.files.singleFile.delete()
-+    }
++    rename { "keila-paperclip-$ver.jar" }
 +}
 +val keilaBundlerJar by tasks.registering(Copy::class) {
-+    dependsOn(tasks.named("createBundlerJar"))
++    val ver = project.version.toString()
 +    from(tasks.named("createBundlerJar").map { it.outputs.files.singleFile })
 +    into(layout.buildDirectory.dir("libs"))
-+    rename { "keila-bundler-${project.version}.jar" }
-+    doLast {
-+        tasks.named("createBundlerJar").get().outputs.files.singleFile.delete()
-+    }
++    rename { "keila-bundler-$ver.jar" }
 +}
 +tasks.named("assemble") {
 +    dependsOn(keilaPaperclipJar, keilaBundlerJar)
