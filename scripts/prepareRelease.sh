@@ -8,7 +8,11 @@ dist_dir="${1:-dist}"
 
 source_artifact="${KEILA_SOURCE_ARTIFACT:-}"
 if [ -z "$source_artifact" ]; then
-  source_artifact="$(find leaf-server/build/libs -maxdepth 1 -type f -name '*paperclip*-mojmap.jar' | sort | tail -n 1)"
+  # 26.2 dropped reobf mappings (single Mojang-mapped paperclip jar); prefer the keila-branded one
+  source_artifact="$(find leaf-server/build/libs -maxdepth 1 -type f -name 'keila-paperclip-*.jar' | sort | tail -n 1)"
+  if [ -z "$source_artifact" ]; then
+    source_artifact="$(find leaf-server/build/libs -maxdepth 1 -type f -name '*paperclip*.jar' | sort | tail -n 1)"
+  fi
 fi
 
 test -n "$source_artifact"

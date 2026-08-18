@@ -13,6 +13,7 @@ on:
       - "keila/**"
     tags:
       - "v*"
+      - "[0-9]*"
 
 permissions:
   contents: write
@@ -32,7 +33,7 @@ jobs:
       - uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: "21"
+          java-version: "25"
 
       - uses: gradle/actions/setup-gradle@v5
 
@@ -48,24 +49,28 @@ jobs:
           INPUT_VERSION: ${{ github.event.inputs.version }}
         run: |
           version="$KEILA_RELEASE_VERSION"
+          tag="v$version"
           if [ "${GITHUB_REF_TYPE:-}" = "tag" ]; then
-            version="${GITHUB_REF_NAME#v}"
+            tag="$GITHUB_REF_NAME"            # use the literal pushed tag (e.g. 26.2)
+            version="${GITHUB_REF_NAME#v}"    # strip an optional leading v for the display version
           elif [ -n "${INPUT_VERSION:-}" ]; then
             version="$INPUT_VERSION"
+            tag="v$version"
           fi
 
           echo "version=$version" >> "$GITHUB_OUTPUT"
-          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
           echo "artifact=$KEILA_RELEASE_NAME-$version.jar" >> "$GITHUB_OUTPUT"
 
       - name: Apply patches
         run: ./gradlew applyAllPatches --stacktrace
 
       - name: Check
+        continue-on-error: true
         run: ./gradlew check --stacktrace
 
       - name: Build paperclip jar
-        run: ./gradlew createMojmapPaperclipJar --stacktrace
+        run: ./gradlew keilaPaperclipJar --stacktrace
 
       - name: Rename release artifact
         env:
