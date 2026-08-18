@@ -41,6 +41,12 @@ public class MultithreadedTracker extends ConfigModules {
         }
         threads = Math.max(threads, 1);
 
+        // Keila - config bridge: Keila's config drives Leaf's AsyncTracker implementation.
+        // Propagate Keila's values into Leaf's config statics before AsyncTracker class-loads
+        // (its ENABLED/THREADS/TRACKER_EXECUTOR are captured on first use).
+        org.dreeam.leaf.config.modules.async.MultithreadedTracker.enabled = enabled;
+        org.dreeam.leaf.config.modules.async.MultithreadedTracker.threads = threads;
+
         if (enabled) {
             KeilaConfig.LOGGER.info("Using {} threads for Async Entity Tracker", threads);
             AsyncTracker.init();

@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: k <a@b.c>
+Date: Tue, 18 Aug 2026 02:02:14 -0500
+Subject: [PATCH] Keila - wire Keila config framework into startup
+
+
+diff --git a/net/minecraft/server/Main.java b/net/minecraft/server/Main.java
+index cd117cafbe9c3fe6bcfda09abe8afc8bd6629b66..d4b44ebf1c735fbd3265a51fd78ee12282daa33b 100644
+--- a/net/minecraft/server/Main.java
++++ b/net/minecraft/server/Main.java
+@@ -103,6 +103,7 @@ public class Main {
+             }
+ 
+             org.dreeam.leaf.config.LeafConfig.loadConfig(); // Leaf - Leaf config
++            gg.tame.keila.config.KeilaConfig.loadConfig(); // Keila - Keila config (loads after Leaf so Keila's config bridges/overrides drive shared features)
+ 
+             // Paper start - Perf: Run CrashReport preload asynchronously
+             // The actual result is discarded/irrelevant, but hardware and software info is memoized
+@@ -130,6 +131,7 @@ public class Main {
+             // Paper end - Perf: Init DataConverter asynchronously
+             Util.startTimerHackThread();
+             org.dreeam.leaf.config.ConfigModule.loadAfterBootstrap(); // Leaf - Leaf config - post load
++            gg.tame.keila.config.ConfigModules.loadAfterBootstrap(); // Keila - Keila config - post load
+             Path settingsFile = Paths.get("server.properties");
+             DedicatedServerSettings settings = new DedicatedServerSettings(options); // CraftBukkit - CLI argument support
+             settings.forceSave();
