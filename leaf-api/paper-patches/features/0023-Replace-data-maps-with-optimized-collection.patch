@@ -61,18 +61,17 @@ index 427ce8cfd6f63e5c7ec7b264b15ab4111b947729..f069fc9d49cfe0f394847a7546fb81b8
      private Difficulty(final int value) {
          this.value = value;
 diff --git a/src/main/java/org/bukkit/Effect.java b/src/main/java/org/bukkit/Effect.java
-index d2952c7750af9aa1ed762f3b49bd6b7b11c6c7a0..5cbbe1f85b88cae752074b490f06824ae80f5566 100644
+index ed450e67fd178ebec2879718910ddd0831d04dd5..cf84d4831105bf57c095de48fe84e3aee4ccd82b 100644
 --- a/src/main/java/org/bukkit/Effect.java
 +++ b/src/main/java/org/bukkit/Effect.java
-@@ -448,7 +448,7 @@ public enum Effect {
+@@ -554,6 +554,7 @@ public enum Effect {
      private final int id;
      private final Type type;
-     private final java.util.List<Class<?>> data; // Paper - support multiple data types
--    private static final Map<Integer, Effect> BY_ID = Maps.newHashMap();
+     private final List<Class<?>> data;
 +    private static final it.unimi.dsi.fastutil.ints.Int2ObjectMap<Effect> BY_ID = new it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap<>(); // Leaf - Replace data maps with optimized collection
  
-     Effect(int id, /*@NotNull*/ Type type) {
-         this(id, type, (Class<?>[]) null); // Paper - support multiple data types
+     Effect(int id, Type type) {
+         this(id, type, (Class<?>[]) null);
 diff --git a/src/main/java/org/bukkit/GameMode.java b/src/main/java/org/bukkit/GameMode.java
 index 796f75313255ecc8917819b28eaf12776f2e4ce3..a765121ed02516a9a1e8bf1823b978762107b14f 100644
 --- a/src/main/java/org/bukkit/GameMode.java
@@ -100,18 +99,17 @@ index 43da0eb033f7cb65e3b2cacd67946bc9dc187678..fd3d68b05ea0518077a91a57199cb988
      private GrassSpecies(final int data) {
          this.data = (byte) data;
 diff --git a/src/main/java/org/bukkit/Instrument.java b/src/main/java/org/bukkit/Instrument.java
-index da5a41f9133a8c4b0c1eb959bc7cbb7259e39d77..4e84f3cf6448240cef79106a53236599cf4ef1b3 100644
+index 4c0e31e9bd17bffb97c384bc521531ee184bcf5c..26690c7c253b7a9804182c54066ef94134ed4ac4 100644
 --- a/src/main/java/org/bukkit/Instrument.java
 +++ b/src/main/java/org/bukkit/Instrument.java
-@@ -106,7 +106,7 @@ public enum Instrument {
+@@ -120,6 +120,7 @@ public enum Instrument {
+     CUSTOM_HEAD(null);
  
-     private final byte type;
      private final Sound sound;
--    private static final Map<Byte, Instrument> BY_DATA = Maps.newHashMap();
 +    private static final it.unimi.dsi.fastutil.bytes.Byte2ObjectMap<Instrument> BY_DATA = new it.unimi.dsi.fastutil.bytes.Byte2ObjectOpenHashMap<>(); // Leaf - Replace data maps with optimized collection
  
-     // Paper - remove ctor (the server still uses the byte magic value)
- 
+     Instrument(final Sound sound) {
+         this.sound = sound;
 diff --git a/src/main/java/org/bukkit/Note.java b/src/main/java/org/bukkit/Note.java
 index aff858346776386f1288b648b221404f7f412399..42d3eb5814148d1b3acd0cf88acfb62e592c9aab 100644
 --- a/src/main/java/org/bukkit/Note.java
@@ -152,7 +150,7 @@ index abbe7c3b2984dc03098780d5678553685ea78dc4..26f6950822a8a3ac8eee332425f40f20
      private TreeSpecies(final int data) {
          this.data = (byte) data;
 diff --git a/src/main/java/org/bukkit/material/types/MushroomBlockTexture.java b/src/main/java/org/bukkit/material/types/MushroomBlockTexture.java
-index ca1b5d270848aebea3fb5c87daa5dc11ff1a877c..0a4b3329c647dde77445e46f221f9123f9e581d3 100644
+index ca1b5d270848aebea3fb5c87daa5dc11ff1a877c..c7eb5757f1ac4a76b97b88753bbe0b327b607f04 100644
 --- a/src/main/java/org/bukkit/material/types/MushroomBlockTexture.java
 +++ b/src/main/java/org/bukkit/material/types/MushroomBlockTexture.java
 @@ -65,8 +65,10 @@ public enum MushroomBlockTexture {

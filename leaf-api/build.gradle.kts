@@ -11,24 +11,23 @@ java {
     withJavadocJar()
 }
 
-val annotationsVersion = "26.1.0" // Leaf - Bump Dependencies
-val adventureVersion = "4.26.1"
+val annotationsVersion = "26.0.2"
+val adventureVersion = "5.2.0"
 val bungeeCordChatVersion = "1.21-R0.2-deprecated+build.21"
-// Leaf start - Bump Dependencies
 val slf4jVersion = "2.0.17"
-val log4jVersion = "2.25.3"
-// Leaf end - Bump Dependencies
+val log4jVersion = "2.26.0"
 
-val apiAndDocs: Configuration by configurations.creating {
+val apiAndDocs: Configuration by configurations.creating
+configurations.api {
+    extendsFrom(apiAndDocs)
+}
+val javadocSourcepath: Configuration by configurations.creating {
     attributes {
         attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category.DOCUMENTATION))
         attribute(Bundling.BUNDLING_ATTRIBUTE, objects.named(Bundling.EXTERNAL))
         attribute(DocsType.DOCS_TYPE_ATTRIBUTE, objects.named(DocsType.SOURCES))
         attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage.JAVA_RUNTIME))
     }
-}
-configurations.api {
-    extendsFrom(apiAndDocs)
 }
 
 // Configure mockito agent that is needed in newer Java versions
@@ -44,20 +43,13 @@ abstract class MockitoAgentProvider : CommandLineArgumentProvider {
 
 dependencies {
     // api dependencies are listed transitively to API consumers
-    // Leaf start - Bump Dependencies
-    // TODO: Waiting Paper, breaks with Eco/EcoEnchant since 33.5.0
-    api("com.google.guava:guava:33.4.0-jre")
-    // TODO: Waiting Paper, Gson has breaking change since 2.12.0
-    // TODO: See https://github.com/google/gson/commit/6c2e3db7d25ceceabe056aeb8b65477fdd509214
-    api("com.google.code.gson:gson:2.11.0")
-    api("org.yaml:snakeyaml:2.6")
-    // Leaf end - Bump Dependencies
+    api("com.google.guava:guava:33.6.0-jre")
+    api("com.google.code.gson:gson:2.14.0")
+    api("org.yaml:snakeyaml:2.2")
     api("org.joml:joml:1.10.8") {
         isTransitive = false // https://github.com/JOML-CI/JOML/issues/352
     }
-    // TODO: Breaking changes in 8.5.17/18
-    // TODO: See https://github.com/vigna/fastutil/commit/c6434abd1177b9933c68f11005ec457d5abf58d3
-    api("it.unimi.dsi:fastutil:8.5.15")  // Leaf - Bump Dependencies
+    api("it.unimi.dsi:fastutil:8.5.18")
     api("org.apache.logging.log4j:log4j-api:$log4jVersion")
     api("org.slf4j:slf4j-api:$slf4jVersion")
     api("com.mojang:brigadier:1.3.10")
@@ -70,39 +62,37 @@ dependencies {
 
     apiAndDocs(platform("net.kyori:adventure-bom:$adventureVersion"))
     apiAndDocs("net.kyori:adventure-api")
+    apiAndDocs("net.kyori:adventure-key")
     apiAndDocs("net.kyori:adventure-text-minimessage")
     apiAndDocs("net.kyori:adventure-text-serializer-gson")
     apiAndDocs("net.kyori:adventure-text-serializer-legacy")
     apiAndDocs("net.kyori:adventure-text-serializer-plain")
     apiAndDocs("net.kyori:adventure-text-logger-slf4j")
 
-    // Leaf start - Bump Dependencies
-    api("org.apache.maven:maven-resolver-provider:3.9.13") // make API dependency for Paper Plugins
-    implementation("org.apache.maven.resolver:maven-resolver-connector-basic:1.9.27") // Dreeam TODO - Update to 2.0.1
-    implementation("org.apache.maven.resolver:maven-resolver-transport-http:1.9.27") // Dreeam TODO - Update to 2.0.1
-    // Leaf end - Bump Dependencies
+    api("org.apache.maven:maven-resolver-provider:3.9.6") // make API dependency for Paper Plugins
+    implementation("org.apache.maven.resolver:maven-resolver-connector-basic:1.9.18")
+    implementation("org.apache.maven.resolver:maven-resolver-transport-http:1.9.18")
 
     // Annotations - Slowly migrate to jspecify
     val annotations = "org.jetbrains:annotations:$annotationsVersion"
     compileOnly(annotations)
     testCompileOnly(annotations)
+    javadocSourcepath(annotations) // For adventure-api module requirements
 
-    val checkerQual = "org.checkerframework:checker-qual:3.54.0" // Leaf - Bump Dependencies
+    val checkerQual = "org.checkerframework:checker-qual:3.49.2"
     compileOnlyApi(checkerQual)
     testCompileOnly(checkerQual)
 
-    api("org.jspecify:jspecify:1.0.0")
+    apiAndDocs("org.jspecify:jspecify:1.0.0")
 
     // Test dependencies
-    // Leaf start - Bump Dependencies
     testImplementation("org.apache.commons:commons-lang3:3.20.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:6.1.0-M1")
-    testImplementation("org.hamcrest:hamcrest:3.0")
-    testImplementation("org.mockito:mockito-core:5.23.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:6.0.3")
+    testImplementation("org.hamcrest:hamcrest:2.2")
+    testImplementation("org.mockito:mockito-core:5.22.0")
     testImplementation("org.ow2.asm:asm-tree:9.9.1")
-    mockitoAgent("org.mockito:mockito-core:5.23.0") { isTransitive = false } // configure mockito agent that is needed in newer java versions
-    // Leaf end - Bump Dependencies
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    mockitoAgent("org.mockito:mockito-core:5.22.0") { isTransitive = false } // configure mockito agent that is needed in newer java versions
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
 
     // Leaf start - Bump Dependencies
     // commons-lang3 is removed in maven-resolver-provider since 3.9.8
@@ -237,34 +227,25 @@ tasks.withType<Javadoc>().configureEach {
     options.use()
     options.isDocFilesSubDirs = true
     options.links(
-        // Leaf start - Bump Dependencies
-        "https://guava.dev/releases/33.5.0-jre/api/docs/",
-        "https://www.javadocs.dev/org.yaml/snakeyaml/2.5/",
-        // Leaf end - Bump Dependencies
+        "https://guava.dev/releases/33.6.0-jre/api/docs/",
+        "https://www.javadocs.dev/org.yaml/snakeyaml/2.2/",
         "https://www.javadocs.dev/org.jetbrains/annotations/$annotationsVersion/",
         "https://www.javadocs.dev/org.joml/joml/1.10.8/",
-        "https://www.javadocs.dev/com.google.code.gson/gson/2.11.0",
+        "https://www.javadocs.dev/com.google.code.gson/gson/2.14.0",
         "https://jspecify.dev/docs/api/",
-        "https://jd.advntr.dev/api/$adventureVersion/",
-        "https://jd.advntr.dev/key/$adventureVersion/",
-        "https://jd.advntr.dev/text-minimessage/$adventureVersion/",
-        "https://jd.advntr.dev/text-serializer-gson/$adventureVersion/",
-        "https://jd.advntr.dev/text-serializer-legacy/$adventureVersion/",
-        "https://jd.advntr.dev/text-serializer-plain/$adventureVersion/",
-        "https://jd.advntr.dev/text-logger-slf4j/$adventureVersion/",
+        "https://jd.papermc.io/adventure/$adventureVersion/",
         "https://www.javadocs.dev/org.slf4j/slf4j-api/$slf4jVersion/",
         "https://logging.apache.org/log4j/2.x/javadoc/log4j-api/",
-        "https://www.javadocs.dev/org.apache.maven.resolver/maven-resolver-api/1.9.25", // Leaf - Bump Dependencies
+        "https://www.javadocs.dev/org.apache.maven.resolver/maven-resolver-api/1.7.3",
     )
     options.tags("apiNote:a:API Note:")
-    options.tags("implNote:a:Implementation Note:")
 
-    inputs.files(apiAndDocs).ignoreEmptyDirectories().withPropertyName(apiAndDocs.name + "-configuration")
-    val apiAndDocsElements = apiAndDocs.elements
+    inputs.files(javadocSourcepath).ignoreEmptyDirectories().withPropertyName(javadocSourcepath.name + "-configuration")
+    val javadocSourcepathElements = javadocSourcepath.elements
     doFirst {
         options.addStringOption(
             "sourcepath",
-            apiAndDocsElements.get().map { it.asFile }.joinToString(separator = File.pathSeparator, transform = File::getPath)
+            javadocSourcepathElements.get().map { it.asFile }.joinToString(separator = File.pathSeparator, transform = File::getPath)
         )
     }
 

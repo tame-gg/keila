@@ -4,37 +4,9 @@ Date: Wed, 19 Feb 2025 00:34:16 -0500
 Subject: [PATCH] PlayerInventoryOverflowEvent
 
 
-diff --git a/src/main/java/org/bukkit/event/HandlerList.java b/src/main/java/org/bukkit/event/HandlerList.java
-index ef9d9f3ddaf25aa990715139e1916672f76c35e5..97b591ab30d6e0af4518b71fefcf9c8f3c050176 100644
---- a/src/main/java/org/bukkit/event/HandlerList.java
-+++ b/src/main/java/org/bukkit/event/HandlerList.java
-@@ -64,6 +64,7 @@ public class HandlerList {
-                     h.handlers = null;
-                 }
-             }
-+            gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
-         }
-     }
- 
-@@ -77,6 +78,7 @@ public class HandlerList {
-             for (HandlerList h : allLists) {
-                 h.unregister(plugin);
-             }
-+            gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
-         }
-     }
- 
-@@ -90,6 +92,7 @@ public class HandlerList {
-             for (HandlerList h : allLists) {
-                 h.unregister(listener);
-             }
-+            gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
-         }
-     }
- 
 diff --git a/src/main/java/gg/tame/keila/event/player/PlayerInventoryOverflowEvent.java b/src/main/java/gg/tame/keila/event/player/PlayerInventoryOverflowEvent.java
 new file mode 100644
-index 0000000000000000000000000000000000000000..eae76671190ef84529c0dd503263e43a15a74e8a
+index 0000000000000000000000000000000000000000..fdc89df937cbd0963bd295964d3f3a5ec6cb5fef
 --- /dev/null
 +++ b/src/main/java/gg/tame/keila/event/player/PlayerInventoryOverflowEvent.java
 @@ -0,0 +1,65 @@
@@ -103,3 +75,31 @@ index 0000000000000000000000000000000000000000..eae76671190ef84529c0dd503263e43a
 +        return HANDLER_LIST;
 +    }
 +}
+diff --git a/src/main/java/org/bukkit/event/HandlerList.java b/src/main/java/org/bukkit/event/HandlerList.java
+index ef9d9f3ddaf25aa990715139e1916672f76c35e5..2cc913fff241e4d273c15bd2f3331b77b6dd5a06 100644
+--- a/src/main/java/org/bukkit/event/HandlerList.java
++++ b/src/main/java/org/bukkit/event/HandlerList.java
+@@ -64,6 +64,7 @@ public class HandlerList {
+                     h.handlers = null;
+                 }
+             }
++            gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
+         }
+     }
+ 
+@@ -77,6 +78,7 @@ public class HandlerList {
+             for (HandlerList h : allLists) {
+                 h.unregister(plugin);
+             }
++            gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
+         }
+     }
+ 
+@@ -90,6 +92,7 @@ public class HandlerList {
+             for (HandlerList h : allLists) {
+                 h.unregister(listener);
+             }
++            gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
+         }
+     }
+ 

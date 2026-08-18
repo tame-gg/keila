@@ -9,12 +9,12 @@ Original project: https://github.com/Cryptite/Slice
 Co-authored-by: HaHaWTH <102713261+HaHaWTH@users.noreply.github.com>
 
 diff --git a/src/main/java/org/bukkit/entity/Player.java b/src/main/java/org/bukkit/entity/Player.java
-index b5e44cfba7b30afabde04623ea335e787e7a8669..7ca713c737f977446488486095a028d7a8e8353c 100644
+index 6ca2f015f8c6fdfe9b8232aeaa8900b0836f4692..9f93f85c74580b786e0d95840954d9530081e9ab 100644
 --- a/src/main/java/org/bukkit/entity/Player.java
 +++ b/src/main/java/org/bukkit/entity/Player.java
-@@ -3795,6 +3795,33 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
-     String getClientBrandName();
-     // Paper end
+@@ -3809,6 +3809,33 @@ public interface Player extends HumanEntity, Conversable, OfflinePlayer, PluginM
+      */
+     @Nullable String getClientBrandName();
  
 +    /**
 +     * This abuses some of how Minecraft works and attempts to teleport a player to another world without

@@ -8,7 +8,7 @@ Use lazy cache here to prevent cache inconsistency caused by
 operations that don't use the constructor, e.g., Gson serialization or Reflection.
 
 diff --git a/src/main/java/org/bukkit/NamespacedKey.java b/src/main/java/org/bukkit/NamespacedKey.java
-index 57d95e22db8c6b925fc96cf1a45a5a04366bb517..90de880c89d3db53051df8115b574e5098eca354 100644
+index ac63c379b5ccbf6d1b25604a0bffc10ddfb61158..9b881460078ff11d9923a7703673e15fddf52d74 100644
 --- a/src/main/java/org/bukkit/NamespacedKey.java
 +++ b/src/main/java/org/bukkit/NamespacedKey.java
 @@ -37,6 +37,10 @@ public final class NamespacedKey implements Key, com.destroystokyo.paper.Namespa
@@ -22,7 +22,7 @@ index 57d95e22db8c6b925fc96cf1a45a5a04366bb517..90de880c89d3db53051df8115b574e50
  
      /**
       * Create a key in a specific namespace.
-@@ -106,9 +110,14 @@ public final class NamespacedKey implements Key, com.destroystokyo.paper.Namespa
+@@ -110,9 +114,14 @@ public final class NamespacedKey implements Key, com.destroystokyo.paper.Namespa
  
      @Override
      public int hashCode() {
@@ -40,7 +40,7 @@ index 57d95e22db8c6b925fc96cf1a45a5a04366bb517..90de880c89d3db53051df8115b574e50
      }
  
      @Override
-@@ -123,7 +132,14 @@ public final class NamespacedKey implements Key, com.destroystokyo.paper.Namespa
+@@ -127,7 +136,14 @@ public final class NamespacedKey implements Key, com.destroystokyo.paper.Namespa
  
      @Override
      public String toString() {

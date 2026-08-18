@@ -8,14 +8,14 @@ plugins {
     `maven-publish`
     idea
     id("io.papermc.paperweight.core")
-    id("io.papermc.fill.gradle") version "1.0.10"
+    id("io.papermc.fill.gradle") version "1.0.12"
 }
 
 val paperMavenPublicUrl = "https://repo.papermc.io/repository/maven-public/"
 val leafMavenPublicUrl = "https://maven.leafmc.one/snapshots/" // Leaf - project setup - Add publish repo
 
 dependencies {
-    mache("io.papermc:mache:1.21.11+build.1")
+    mache("io.papermc:mache:26.2+build.1")
     paperclip("cn.dreeam:quantumleaper:1.0.0-SNAPSHOT") // Leaf - project setup - Use own paperclip fork
 }
 
@@ -35,24 +35,6 @@ paperweight {
 
     activeFork = leaf
     // Leaf end - project setup
-
-    spigot {
-        enabled = true
-        buildDataRef = "17f77cee7117ab9d6175f088ae8962bfd04e61a9"
-        packageVersion = "v1_21_R7" // also needs to be updated in MappingEnvironment
-    }
-
-    reobfPackagesToFix.addAll(
-        "co.aikar.timings",
-        "com.destroystokyo.paper",
-        "com.mojang",
-        "io.papermc.paper",
-        "ca.spottedleaf",
-        "net.kyori.adventure.bossbar",
-        "net.minecraft",
-        "org.bukkit.craftbukkit",
-        "org.spigotmc",
-    )
 
     updatingMinecraft {
         // oldPaperCommit = "c82b438b5b4ea0b230439b8e690e34708cd11ab3"
@@ -168,7 +150,7 @@ dependencies {
     implementation("com.github.ben-manes.caffeine:caffeine:3.2.3")
     // Leaf end - Libraries
 
-    implementation("ca.spottedleaf:concurrentutil:0.0.8")
+    implementation("ca.spottedleaf:leafpile:1.0.0") // Keila - 26.2 replaced concurrentutil with leafpile upstream
     implementation("org.jline:jline-terminal-ffm:4.0.12") // use ffm on java 22+ // Leaf - Bump Dependencies
     implementation("org.jline:jline-terminal-jni:4.0.12") // fall back to jni on java 21 // Leaf - Bump Dependencies
     implementation("net.minecrell:terminalconsoleappender:1.3.0")
@@ -401,13 +383,7 @@ fun TaskContainer.registerRunTask(
 
 tasks.registerRunTask("runServer") {
     description = "Spin up a test server from the Mojang mapped server jar"
-    classpath(tasks.includeMappings.flatMap { it.outputJar })
-    classpath(configurations.runtimeClasspath)
-}
-
-tasks.registerRunTask("runReobfServer") {
-    description = "Spin up a test server from the reobfJar output jar"
-    classpath(tasks.reobfJar.flatMap { it.outputJar })
+    classpath(tasks.jar)
     classpath(configurations.runtimeClasspath)
 }
 
@@ -418,22 +394,12 @@ tasks.registerRunTask("runDevServer") {
 
 tasks.registerRunTask("runBundler") {
     description = "Spin up a test server from the Mojang mapped bundler jar"
-    classpath(tasks.createMojmapBundlerJar.flatMap { it.outputZip })
-    mainClass.set(null as String?)
-}
-tasks.registerRunTask("runReobfBundler") {
-    description = "Spin up a test server from the reobf bundler jar"
-    classpath(tasks.createReobfBundlerJar.flatMap { it.outputZip })
+    classpath(tasks.createBundlerJar.flatMap { it.outputZip })
     mainClass.set(null as String?)
 }
 tasks.registerRunTask("runPaperclip") {
     description = "Spin up a test server from the Mojang mapped Paperclip jar"
-    classpath(tasks.createMojmapPaperclipJar.flatMap { it.outputZip })
-    mainClass.set(null as String?)
-}
-tasks.registerRunTask("runReobfPaperclip") {
-    description = "Spin up a test server from the reobf Paperclip jar"
-    classpath(tasks.createReobfPaperclipJar.flatMap { it.outputZip })
+    classpath(tasks.createPaperclipJar.flatMap { it.outputZip })
     mainClass.set(null as String?)
 }
 
@@ -447,7 +413,7 @@ fill {
 
         downloads {
             register("server:default") {
-                file = tasks.createMojmapPaperclipJar.flatMap { it.outputZip }
+                file = tasks.createPaperclipJar.flatMap { it.outputZip }
                 nameResolver.set { project, _, version, build -> "$project-$version-$build.jar" }
             }
         }
@@ -475,7 +441,7 @@ sourceSets {
 
 // Gale start - branding changes - package license into jar
 // Based on io.papermc.paperweight.core.taskcontainers.PaperclipTasks
-tasks.named("createMojmapPaperclipJar") {
+tasks.named("createPaperclipJar") {
     val licenseFileName = "LICENSE.txt"
     val licenseFilePath = layout.projectDirectory.dir("../paper-server/$licenseFileName").asFile
 
