@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: k <a@b.c>
+Date: Tue, 18 Aug 2026 02:20:18 -0500
+Subject: [PATCH] Keila - wire startup experience + operator welcome
+
+
+diff --git a/net/minecraft/server/Main.java b/net/minecraft/server/Main.java
+index d4b44ebf1c735fbd3265a51fd78ee12282daa33b..2b0884c5664813a6f0fc0a860a556b33982aa9e8 100644
+--- a/net/minecraft/server/Main.java
++++ b/net/minecraft/server/Main.java
+@@ -104,6 +104,7 @@ public class Main {
+ 
+             org.dreeam.leaf.config.LeafConfig.loadConfig(); // Leaf - Leaf config
+             gg.tame.keila.config.KeilaConfig.loadConfig(); // Keila - Keila config (loads after Leaf so Keila's config bridges/overrides drive shared features)
++            gg.tame.keila.startup.KeilaStartup.onConfigLoaded(); // Keila - startup experience
+ 
+             // Paper start - Perf: Run CrashReport preload asynchronously
+             // The actual result is discarded/irrelevant, but hardware and software info is memoized
+diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
+index 738e3885297e65080cd514127d6ac19c42efd486..a5773b2d5e38ad21688d0b10af495f700e689cad 100644
+--- a/net/minecraft/server/dedicated/DedicatedServer.java
++++ b/net/minecraft/server/dedicated/DedicatedServer.java
+@@ -433,6 +433,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+         if (org.dreeam.leaf.config.modules.async.AsyncMobSpawning.enabled) mobSpawnExecutor.start(); // Pufferfish
+ 
+         this.saveEverything(false, true, true);
++        gg.tame.keila.startup.KeilaStartup.onServerReady(this); // Keila - startup experience
+         this.notificationManager().serverStarted();
+         return true;
+     }
+diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
+index 8f451c9116d0e464d01e85449891c7270bb1b0d7..528978f616e819a94e726663c75d13209e25f4bd 100644
+--- a/net/minecraft/server/players/PlayerList.java
++++ b/net/minecraft/server/players/PlayerList.java
+@@ -374,6 +374,7 @@ public abstract class PlayerList {
+         org.bukkit.event.player.PlayerJoinEvent playerJoinEvent = new org.bukkit.event.player.PlayerJoinEvent(bukkitPlayer, getJoinMsg(component, bukkitPlayer)); // Paper - Adventure // Leaf - Configurable connection message - join message
+         this.cserver.getPluginManager().callEvent(playerJoinEvent);
+ 
++        gg.tame.keila.startup.KeilaOperatorWelcome.onPlayerJoin(bukkitPlayer); // Keila - operator welcome
+         if (!player.connection.isAcceptingMessages()) {
+             return;
+         }
