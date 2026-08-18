@@ -43,3 +43,6 @@ public net.minecraft.world.level.portal.PortalShape FRAME
 public-f net.minecraft.server.level.ServerPlayer gameMode
 public-f net.minecraft.world.entity.EntityType dimensions
 public-f net.minecraft.world.level.block.state.BlockBehaviour explosionResistance
+public net.minecraft.world.level.chunk.LevelChunkSection states
+public net.minecraft.server.level.ServerLevel chunkSource
+public io.papermc.paper.connection.PaperConfigurationTask LOGGER

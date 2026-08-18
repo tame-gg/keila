@@ -148,7 +148,7 @@ public final class NatureSpawnChunkMap {
             } else if (range < 0) {
                 continue;
             }
-            this.centersByRadius[range].add(player.chunkPosition().longKey);
+            this.centersByRadius[range].add(player.chunkPosition().longKey());
         }
         return players;
     }
@@ -173,7 +173,7 @@ public final class NatureSpawnChunkMap {
         this.tree.build(new double[][]{pxl, pyl, pzl}, indices);
     }
 
-    private static void collectSpawningChunks(final ChunkCache<LevelChunk> chunks,
+    private static void collectSpawningChunks(final org.dreeam.leaf.world.ChunkCache<LevelChunk> chunks,
                                               final LongSet set,
                                               final List<LevelChunk> out) {
         long[] key = set.key();

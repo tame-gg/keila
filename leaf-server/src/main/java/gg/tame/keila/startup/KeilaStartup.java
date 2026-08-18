@@ -1,6 +1,6 @@
 package gg.tame.keila.startup;
 
-import ca.spottedleaf.moonrise.common.time.TickData;
+import ca.spottedleaf.common.time.TickData;
 import gg.tame.keila.config.KeilaConfig;
 import gg.tame.keila.config.modules.async.AsyncChunkSend;
 import gg.tame.keila.config.modules.async.AsyncPathfinding;

@@ -1,6 +1,6 @@
 package gg.tame.keila.command.subcommands;
 
-import ca.spottedleaf.moonrise.common.time.TickData;
+import ca.spottedleaf.common.time.TickData;
 import gg.tame.keila.async.path.AsyncPathProcessor;
 import gg.tame.keila.command.KeilaCommand;
 import gg.tame.keila.command.PermissionedKeilaSubcommand;
