@@ -231,24 +231,12 @@
 +// Based on io.papermc.paperweight.core.taskcontainers.PaperclipTasks
 +
 +tasks.named("createPaperclipJar") {
-+    val name = rootProject.name
-+    val version = project.version
 +    val licenseFileName = "LICENSE.txt"
 +    val licenseFilePath = layout.projectDirectory.dir("../paper-server/$licenseFileName").asFile
 +
-+    // Based on io.papermc.paperweight.core.taskcontainers.PaperclipTasks
-+    val jarName = listOfNotNull(
-+        name,
-+        "paperclip",
-+        version
-+    ).joinToString("-") + ".jar"
-+
-+    // Based on io.papermc.paperweight.core.taskcontainers.PaperclipTasks
-+    val zipFile = layout.buildDirectory.file("libs/$jarName").get().path
-+
-+    val rootDir = findOutputDir(zipFile)
-+
 +    doLast {
++        val zipFile = outputs.files.singleFile.toPath() // Keila - use the task's actual output jar (fork-named), not rootProject.name
++        val rootDir = findOutputDir(zipFile)
 +
 +        try {
 +            unzip(zipFile, rootDir)
