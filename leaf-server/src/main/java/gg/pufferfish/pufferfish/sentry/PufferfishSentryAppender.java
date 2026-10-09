@@ -18,7 +18,7 @@ import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
 import org.apache.logging.log4j.core.config.Property;
 import org.apache.logging.log4j.core.filter.AbstractFilter;
-import gg.tame.keila.config.modules.misc.SentryDSN;
+import gg.tame.palladium.config.modules.misc.SentryDSN;
 
 public class PufferfishSentryAppender extends AbstractAppender {
 

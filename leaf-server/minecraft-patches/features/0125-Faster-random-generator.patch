@@ -22,7 +22,7 @@ index 83e02e02aa3a95acdc2bc914307d7577fec87e8f..551d189457c8a65763476edd84b50c15
      // Paper end - rewrite chunk system
      // Paper start - chunk tick iteration optimisations
 -    private final ca.spottedleaf.moonrise.common.util.SimpleThreadUnsafeRandom shuffleRandom = new ca.spottedleaf.moonrise.common.util.SimpleThreadUnsafeRandom(0L);
-+    private final net.minecraft.world.level.levelgen.BitRandomSource shuffleRandom = gg.tame.keila.config.modules.opt.FastRNG.enabled ? new gg.tame.keila.util.math.random.FasterRandomSource(0L) : new ca.spottedleaf.moonrise.common.util.SimpleThreadUnsafeRandom(0L); // Leaf - Faster random generator
++    private final net.minecraft.world.level.levelgen.BitRandomSource shuffleRandom = gg.tame.palladium.config.modules.opt.FastRNG.enabled ? new gg.tame.palladium.util.math.random.FasterRandomSource(0L) : new ca.spottedleaf.moonrise.common.util.SimpleThreadUnsafeRandom(0L); // Leaf - Faster random generator
      private void iterateTickingChunksFaster() {
          final ServerLevel world = this.level;
          final int randomTickSpeed = world.getGameRules().get(GameRules.RANDOM_TICK_SPEED);
@@ -60,28 +60,28 @@ index 98a54bc4de251014342cda6d0951b7fea79ce553..d6e86369689e5651698a569ef32d6e4c
      @Deprecated
      static RandomSource createThreadSafe() {
 -        return new ThreadSafeLegacyRandomSource(RandomSupport.generateUniqueSeed());
-+        return gg.tame.keila.config.modules.opt.FastRNG.enabled
-+                ? new gg.tame.keila.util.math.random.FasterRandomSource(RandomSupport.generateUniqueSeed())
++        return gg.tame.palladium.config.modules.opt.FastRNG.enabled
++                ? new gg.tame.palladium.util.math.random.FasterRandomSource(RandomSupport.generateUniqueSeed())
 +                : new ThreadSafeLegacyRandomSource(RandomSupport.generateUniqueSeed());
      }
  
      static RandomSource create(long seed) {
 -        return new LegacyRandomSource(seed);
-+        return gg.tame.keila.config.modules.opt.FastRNG.enabled
-+                ? new gg.tame.keila.util.math.random.FasterRandomSource(seed)
++        return gg.tame.palladium.config.modules.opt.FastRNG.enabled
++                ? new gg.tame.palladium.util.math.random.FasterRandomSource(seed)
 +                : new LegacyRandomSource(seed);
 +    }
 +
 +    static RandomSource createForSlimeChunk(long seed) {
-+        return gg.tame.keila.config.modules.opt.FastRNG.enabled && !gg.tame.keila.config.modules.opt.FastRNG.useLegacyForSlimeChunk
-+                ? new gg.tame.keila.util.math.random.FasterRandomSource(seed)
++        return gg.tame.palladium.config.modules.opt.FastRNG.enabled && !gg.tame.palladium.config.modules.opt.FastRNG.useLegacyForSlimeChunk
++                ? new gg.tame.palladium.util.math.random.FasterRandomSource(seed)
 +                : new LegacyRandomSource(seed);
      }
  
      static RandomSource createNewThreadLocalInstance() {
 -        return new SingleThreadedRandomSource(ThreadLocalRandom.current().nextLong());
-+        return gg.tame.keila.config.modules.opt.FastRNG.enabled
-+                ? new gg.tame.keila.util.math.random.FasterRandomSource(RandomSupport.generateUniqueSeed())
++        return gg.tame.palladium.config.modules.opt.FastRNG.enabled
++                ? new gg.tame.palladium.util.math.random.FasterRandomSource(RandomSupport.generateUniqueSeed())
 +                : new SingleThreadedRandomSource(ThreadLocalRandom.current().nextLong());
 +    }
 +
@@ -105,7 +105,7 @@ index bbe41d1294e0fab352263ab2746f0cb04a08ef8a..26cb112ef71eb3edc8d864ff5ac32edb
  
      // Paper start - Share random for entities to make them more random
 -    public static RandomSource SHARED_RANDOM = new RandomRandomSource();
-+    public static RandomSource SHARED_RANDOM = gg.tame.keila.config.modules.opt.FastRNG.enabled ? gg.tame.keila.util.math.random.FasterRandomSource.SHARED_INSTANCE : new RandomRandomSource(); // Leaf - Faster random generator
++    public static RandomSource SHARED_RANDOM = gg.tame.palladium.config.modules.opt.FastRNG.enabled ? gg.tame.palladium.util.math.random.FasterRandomSource.SHARED_INSTANCE : new RandomRandomSource(); // Leaf - Faster random generator
      // Paper start - replace random
      private static final class RandomRandomSource extends ca.spottedleaf.moonrise.common.util.ThreadUnsafeRandom {
          public RandomRandomSource() {
@@ -118,7 +118,7 @@ index 1c229212ecbeb49e403c9acaa7150d7baf8cd4c3..a5ba2136ffc0f47f49f76f367bb1c6b4
      protected float oThunderLevel;
      public float thunderLevel;
 -    public final RandomSource random = new ca.spottedleaf.moonrise.common.util.ThreadUnsafeRandom(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()); // Paper - replace random
-+    public final RandomSource random = gg.tame.keila.config.modules.opt.FastRNG.enabled ? new gg.tame.keila.util.math.random.FasterRandomSource(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()) : new ca.spottedleaf.moonrise.common.util.ThreadUnsafeRandom(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()); // Paper - replace random // Leaf - Faster random generator
++    public final RandomSource random = gg.tame.palladium.config.modules.opt.FastRNG.enabled ? new gg.tame.palladium.util.math.random.FasterRandomSource(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()) : new ca.spottedleaf.moonrise.common.util.ThreadUnsafeRandom(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()); // Paper - replace random // Leaf - Faster random generator
      @Deprecated
      private final RandomSource threadSafeRandom = RandomSource.createThreadSafe();
      private final Holder<DimensionType> dimensionTypeRegistration;
@@ -127,7 +127,7 @@ index 1c229212ecbeb49e403c9acaa7150d7baf8cd4c3..a5ba2136ffc0f47f49f76f367bb1c6b4
      public final Map<ServerExplosion.CacheKey, Float> explosionDensityCache = new java.util.HashMap<>(); // Paper - Optimize explosions
      public java.util.ArrayDeque<net.minecraft.world.level.block.RedstoneTorchBlock.Toggle> redstoneUpdateInfos; // Paper - Faster redstone torch rapid clock removal; Move from Map in BlockRedstoneTorch to here
 -    public final ca.spottedleaf.moonrise.common.util.SimpleThreadUnsafeRandom simpleRandom = new ca.spottedleaf.moonrise.common.util.SimpleThreadUnsafeRandom(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()); // Gale - Pufferfish - move random tick random
-+    public final net.minecraft.world.level.levelgen.BitRandomSource simpleRandom = gg.tame.keila.config.modules.opt.FastRNG.enabled ? new gg.tame.keila.util.math.random.FasterRandomSource(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()) : new ca.spottedleaf.moonrise.common.util.SimpleThreadUnsafeRandom(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()); // Gale - Pufferfish - move random tick random // Leaf - Faster random generator
++    public final net.minecraft.world.level.levelgen.BitRandomSource simpleRandom = gg.tame.palladium.config.modules.opt.FastRNG.enabled ? new gg.tame.palladium.util.math.random.FasterRandomSource(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()) : new ca.spottedleaf.moonrise.common.util.SimpleThreadUnsafeRandom(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()); // Gale - Pufferfish - move random tick random // Leaf - Faster random generator
  
      // Purpur start - Add adjustable breeding cooldown to config
      private com.google.common.cache.Cache<BreedingCooldownPair, Object> playerBreedingCooldowns;
@@ -140,14 +140,14 @@ index a253b02bb6e07ba4cdbd9320445a6b6c3e54ada2..1bfd7851cef198cfc06d6dbdf4fcd1e1
      public static final Codec<Holder<Biome>> CODEC = RegistryFileCodec.create(Registries.BIOME, DIRECT_CODEC);
      public static final Codec<HolderSet<Biome>> LIST_CODEC = RegistryCodecs.homogeneousList(Registries.BIOME, DIRECT_CODEC);
 -    private static final PerlinSimplexNoise TEMPERATURE_NOISE = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(1234L)), ImmutableList.of(0));
-+    private static final PerlinSimplexNoise TEMPERATURE_NOISE = new PerlinSimplexNoise(new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(1234L) : new LegacyRandomSource(1234L)), ImmutableList.of(0)); // Leaf - Faster random generator
++    private static final PerlinSimplexNoise TEMPERATURE_NOISE = new PerlinSimplexNoise(new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(1234L) : new LegacyRandomSource(1234L)), ImmutableList.of(0)); // Leaf - Faster random generator
      static final PerlinSimplexNoise FROZEN_TEMPERATURE_NOISE = new PerlinSimplexNoise(
 -        new WorldgenRandom(new LegacyRandomSource(3456L)), ImmutableList.of(-2, -1, 0)
-+        new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(3456L) : new LegacyRandomSource(3456L)), ImmutableList.of(-2, -1, 0) // Leaf - Faster random generator
++        new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(3456L) : new LegacyRandomSource(3456L)), ImmutableList.of(-2, -1, 0) // Leaf - Faster random generator
      );
      @Deprecated(forRemoval = true)
 -    public static final PerlinSimplexNoise BIOME_INFO_NOISE = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(2345L)), ImmutableList.of(0));
-+    public static final PerlinSimplexNoise BIOME_INFO_NOISE = new PerlinSimplexNoise(new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(2345L) : new LegacyRandomSource(2345L)), ImmutableList.of(0)); // Leaf - Faster random generator
++    public static final PerlinSimplexNoise BIOME_INFO_NOISE = new PerlinSimplexNoise(new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(2345L) : new LegacyRandomSource(2345L)), ImmutableList.of(0)); // Leaf - Faster random generator
      private static final int TEMPERATURE_CACHE_SIZE = 1024;
      public final Biome.ClimateSettings climateSettings;
      private final BiomeGenerationSettings generationSettings;
@@ -160,16 +160,16 @@ index 9712ed7f71019d859bfa4979aa8f768127f43620..c14cd39f62b3a17874d449e3cac013e9
              int z = chunk.getPos().z;
              for (org.bukkit.generator.BlockPopulator populator : world.getPopulators()) {
 -                WorldgenRandom seededrandom = new WorldgenRandom(new net.minecraft.world.level.levelgen.LegacyRandomSource(level.getSeed()));
-+                WorldgenRandom seededrandom = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(level.getSeed()) : new net.minecraft.world.level.levelgen.LegacyRandomSource(level.getSeed())); // Leaf - Faster random generator
++                WorldgenRandom seededrandom = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(level.getSeed()) : new net.minecraft.world.level.levelgen.LegacyRandomSource(level.getSeed())); // Leaf - Faster random generator
                  seededrandom.setDecorationSeed(level.getSeed(), x, z);
                  populator.populate(world, new org.bukkit.craftbukkit.util.RandomSourceWrapper.RandomWrapper(seededrandom), x, z, limitedRegion);
              }
 @@ -566,7 +566,7 @@ public abstract class ChunkGenerator {
-                                 if (gg.tame.keila.config.modules.misc.SecureSeed.enabled) {
+                                 if (gg.tame.palladium.config.modules.misc.SecureSeed.enabled) {
                                      worldgenRandom = new su.plo.matter.WorldgenCryptoRandom(pos.x, pos.z, su.plo.matter.Globals.Salt.GENERATE_FEATURE, 0);
                                  } else {
 -                                    worldgenRandom = new WorldgenRandom(new LegacyRandomSource(0L));
-+                                    worldgenRandom = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
++                                    worldgenRandom = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
                                      worldgenRandom.setLargeFeatureSeed(structureState.getLevelSeed(), pos.x, pos.z);
                                  }
                                  // Leaf end - Matter - Secure Seed
@@ -179,12 +179,12 @@ index 9026e189dce0be47ae7d05dd21cb99616aa2b281..ae1ca5a260eeb65aca41e58e08a0d246
 +++ b/net/minecraft/world/level/chunk/ChunkGeneratorStructureState.java
 @@ -208,7 +208,7 @@ public class ChunkGeneratorStructureState {
              // Leaf start - Matter - Secure Seed
-             RandomSource randomSource = gg.tame.keila.config.modules.misc.SecureSeed.enabled
+             RandomSource randomSource = gg.tame.palladium.config.modules.misc.SecureSeed.enabled
                  ? new su.plo.matter.WorldgenCryptoRandom(0, 0, su.plo.matter.Globals.Salt.STRONGHOLDS, 0)
 -                : RandomSource.create();
 +                : RandomSource.createLegacy(); // Leaf - Faster random generator
              // Leaf end - Matter - Secure Seed
-             if (!gg.tame.keila.config.modules.misc.SecureSeed.enabled) {
+             if (!gg.tame.palladium.config.modules.misc.SecureSeed.enabled) {
              // Paper start - Add missing structure set seed configs
 diff --git a/net/minecraft/world/level/levelgen/DensityFunctions.java b/net/minecraft/world/level/levelgen/DensityFunctions.java
 index c8694b27dbd059cf17b8641e9007fe7a25892e38..138c3f7b871d64019613955547b5e770f7aec436 100644
@@ -195,7 +195,7 @@ index c8694b27dbd059cf17b8641e9007fe7a25892e38..138c3f7b871d64019613955547b5e770
  
          public EndIslandDensityFunction(long seed) {
 -            RandomSource randomSource = new LegacyRandomSource(seed);
-+            RandomSource randomSource = gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(seed) : new LegacyRandomSource(seed); // Leaf - Faster random generator
++            RandomSource randomSource = gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(seed) : new LegacyRandomSource(seed); // Leaf - Faster random generator
              randomSource.consumeCount(17292);
              this.islandNoise = new SimplexNoise(randomSource);
          }
@@ -208,7 +208,7 @@ index 39705af4ec320213afce2b2c5c326a712aa5eba2..6766813219d2e28e887a7c90f62a0f6a
          if (!SharedConstants.DEBUG_DISABLE_CARVERS) {
              BiomeManager biomeManager1 = biomeManager.withDifferentSource((x, y, z) -> this.biomeSource.getNoiseBiome(x, y, z, random.sampler()));
 -            WorldgenRandom worldgenRandom = new WorldgenRandom(new LegacyRandomSource(RandomSupport.generateUniqueSeed()));
-+            WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(RandomSupport.generateUniqueSeed()) : new LegacyRandomSource(RandomSupport.generateUniqueSeed())); // Leaf - Faster random generator
++            WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(RandomSupport.generateUniqueSeed()) : new LegacyRandomSource(RandomSupport.generateUniqueSeed())); // Leaf - Faster random generator
              int i = 8;
              ChunkPos pos = chunk.getPos();
              NoiseChunk noiseChunk = chunk.getOrCreateNoiseChunk(chunkAccess -> this.createNoiseChunk(chunkAccess, structureManager, Blender.of(region), random));
@@ -217,7 +217,7 @@ index 39705af4ec320213afce2b2c5c326a712aa5eba2..6766813219d2e28e887a7c90f62a0f6a
              ChunkPos center = region.getCenter();
              Holder<Biome> biome = region.getBiome(center.getWorldPosition().atY(region.getMaxY()));
 -            WorldgenRandom worldgenRandom = new WorldgenRandom(new LegacyRandomSource(RandomSupport.generateUniqueSeed()));
-+            WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(RandomSupport.generateUniqueSeed()) : new LegacyRandomSource(RandomSupport.generateUniqueSeed())); // Leaf - Faster random generator
++            WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(RandomSupport.generateUniqueSeed()) : new LegacyRandomSource(RandomSupport.generateUniqueSeed())); // Leaf - Faster random generator
              worldgenRandom.setDecorationSeed(region.getSeed(), center.getMinBlockX(), center.getMinBlockZ());
              NaturalSpawner.spawnMobsForChunkGeneration(region, biome, center, worldgenRandom);
          }
@@ -240,10 +240,10 @@ index b4b062b2b45a935237ae3099aded6011961f00c5..19d4efd66e5287104a85da708ca06103
 +++ b/net/minecraft/world/level/levelgen/feature/GeodeFeature.java
 @@ -44,7 +44,7 @@ public class GeodeFeature extends Feature<GeodeConfiguration> {
          // Leaf start - Matter - Secure Seed
-         WorldgenRandom worldgenRandom = gg.tame.keila.config.modules.misc.SecureSeed.enabled
+         WorldgenRandom worldgenRandom = gg.tame.palladium.config.modules.misc.SecureSeed.enabled
                  ? new su.plo.matter.WorldgenCryptoRandom(0, 0, su.plo.matter.Globals.Salt.GEODE_FEATURE, 0)
 -                : new WorldgenRandom(new LegacyRandomSource(worldGenLevel.getSeed()));
-+                : new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(worldGenLevel.getSeed()) : new LegacyRandomSource(worldGenLevel.getSeed())); // Leaf - Faster random generator
++                : new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(worldGenLevel.getSeed()) : new LegacyRandomSource(worldGenLevel.getSeed())); // Leaf - Faster random generator
          // Leaf end - Matter - Secure Seed
          NormalNoise normalNoise = NormalNoise.create(worldgenRandom, -4, 1.0);
          List<BlockPos> list1 = Lists.newLinkedList();
@@ -256,7 +256,7 @@ index 48ab8a568d97052fe205e6a1f89862ee23d65abb..a190b5e890cf34dd1aa46cb9e283f051
          this.slowNoiseParameters = slowNoiseParameters;
          this.slowScale = slowScale;
 -        this.slowNoise = NormalNoise.create(new WorldgenRandom(new LegacyRandomSource(seed)), slowNoiseParameters);
-+        this.slowNoise = NormalNoise.create(new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(seed) : new LegacyRandomSource(seed)), slowNoiseParameters); // Leaf - Faster random generator
++        this.slowNoise = NormalNoise.create(new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(seed) : new LegacyRandomSource(seed)), slowNoiseParameters); // Leaf - Faster random generator
      }
  
      @Override
@@ -269,7 +269,7 @@ index f685372a39976f823202f2d9015c14f835b94a0c..bdd1b4ab758fc653df4adad7633ef430
          this.parameters = parameters;
          this.scale = scale;
 -        this.noise = NormalNoise.create(new WorldgenRandom(new LegacyRandomSource(seed)), parameters);
-+        this.noise = NormalNoise.create(new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(seed) : new LegacyRandomSource(seed)), parameters); // Leaf - Faster random generator
++        this.noise = NormalNoise.create(new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(seed) : new LegacyRandomSource(seed)), parameters); // Leaf - Faster random generator
      }
  
      protected double getNoiseValue(BlockPos pos, double delta) {
@@ -282,7 +282,7 @@ index 28281491be6b54de18c49ff0d52e302575d3ad38..3aa35d67df8f9118c944cebfcb675ccc
              }
              // Leaf end - Matter - Secure Seed
 -            WorldgenRandom worldgenRandom = new WorldgenRandom(new LegacyRandomSource(0L));
-+            WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
++            WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
              worldgenRandom.setLargeFeatureSeed(seed, chunkPos.x, chunkPos.z);
              return worldgenRandom;
          }
@@ -291,11 +291,11 @@ index 6584c9320361dbbdea1899ab9e43b444de5006a6..06083cc7612ef28bcd9264bb21ab0bbb
 --- a/net/minecraft/world/level/levelgen/structure/placement/RandomSpreadStructurePlacement.java
 +++ b/net/minecraft/world/level/levelgen/structure/placement/RandomSpreadStructurePlacement.java
 @@ -72,7 +72,7 @@ public class RandomSpreadStructurePlacement extends StructurePlacement {
-         if (gg.tame.keila.config.modules.misc.SecureSeed.enabled) {
+         if (gg.tame.palladium.config.modules.misc.SecureSeed.enabled) {
              worldgenRandom = new su.plo.matter.WorldgenCryptoRandom(i, i1, su.plo.matter.Globals.Salt.POTENTIONAL_FEATURE, this.salt);
          } else {
 -            worldgenRandom = new WorldgenRandom(new LegacyRandomSource(0L));
-+            worldgenRandom = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
++            worldgenRandom = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
              worldgenRandom.setLargeFeatureWithSalt(seed, i, i1, this.salt());
          }
          // Leaf end - Matter - Secure Seed
@@ -304,11 +304,11 @@ index 49e400741088e4fb3e3deb40e6dbdaa79bb51079..478f652b8f54dddc4d9f59637a26c88c
 --- a/net/minecraft/world/level/levelgen/structure/placement/StructurePlacement.java
 +++ b/net/minecraft/world/level/levelgen/structure/placement/StructurePlacement.java
 @@ -124,7 +124,7 @@ public abstract class StructurePlacement {
-         if (gg.tame.keila.config.modules.misc.SecureSeed.enabled) {
+         if (gg.tame.palladium.config.modules.misc.SecureSeed.enabled) {
              worldgenRandom = new su.plo.matter.WorldgenCryptoRandom(regionX, regionZ, su.plo.matter.Globals.Salt.UNDEFINED, salt);
          } else {
 -            worldgenRandom = new WorldgenRandom(new LegacyRandomSource(0L));
-+            worldgenRandom = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
++            worldgenRandom = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
              worldgenRandom.setLargeFeatureWithSalt(levelSeed, regionX, regionZ, salt);
          }
          // Leaf end - Matter - Secure Seed
@@ -317,7 +317,7 @@ index 49e400741088e4fb3e3deb40e6dbdaa79bb51079..478f652b8f54dddc4d9f59637a26c88c
  
      private static boolean legacyProbabilityReducerWithDouble(long baseSeed, int salt, int chunkX, int chunkZ, float frequency, @javax.annotation.Nullable Integer saltOverride) { // Paper - Add missing structure set seed configs
 -        WorldgenRandom worldgenRandom = new WorldgenRandom(new LegacyRandomSource(0L));
-+        WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
++        WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
          if (saltOverride == null) { // Paper - Add missing structure set seed configs
          worldgenRandom.setLargeFeatureSeed(baseSeed, chunkX, chunkZ);
              // Paper start - Add missing structure set seed configs
@@ -326,7 +326,7 @@ index 49e400741088e4fb3e3deb40e6dbdaa79bb51079..478f652b8f54dddc4d9f59637a26c88c
  
      private static boolean legacyArbitrarySaltProbabilityReducer(long levelSeed, int salt, int regionX, int regionZ, float frequency, @javax.annotation.Nullable Integer saltOverride) { // Paper - Add missing structure set seed configs
 -        WorldgenRandom worldgenRandom = new WorldgenRandom(new LegacyRandomSource(0L));
-+        WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
++        WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
          worldgenRandom.setLargeFeatureWithSalt(levelSeed, regionX, regionZ, saltOverride != null ? saltOverride : HIGHLY_ARBITRARY_RANDOM_SALT); // Paper - Add missing structure set seed configs
          return worldgenRandom.nextFloat() < frequency;
      }
@@ -335,7 +335,7 @@ index 49e400741088e4fb3e3deb40e6dbdaa79bb51079..478f652b8f54dddc4d9f59637a26c88c
          int i = regionX >> 4;
          int i1 = regionZ >> 4;
 -        WorldgenRandom worldgenRandom = new WorldgenRandom(new LegacyRandomSource(0L));
-+        WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
++        WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(0L) : new LegacyRandomSource(0L)); // Leaf - Faster random generator
          worldgenRandom.setSeed(i ^ i1 << 4 ^ levelSeed);
          worldgenRandom.nextInt();
          return worldgenRandom.nextInt((int)(1.0F / frequency)) == 0;
@@ -348,7 +348,7 @@ index 6941b2c89df8a7c77166e3fb76150cbc852371d9..661c26c4b981d504988c7498be45a5dd
              return piecesContainer;
          } else {
 -            WorldgenRandom worldgenRandom = new WorldgenRandom(new LegacyRandomSource(RandomSupport.generateUniqueSeed()));
-+            WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(RandomSupport.generateUniqueSeed()) : new LegacyRandomSource(RandomSupport.generateUniqueSeed())); // Leaf - Faster random generator
++            WorldgenRandom worldgenRandom = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(RandomSupport.generateUniqueSeed()) : new LegacyRandomSource(RandomSupport.generateUniqueSeed())); // Leaf - Faster random generator
              worldgenRandom.setLargeFeatureSeed(seed, chunkPos.x, chunkPos.z);
              StructurePiece structurePiece = piecesContainer.pieces().get(0);
              BoundingBox boundingBox = structurePiece.getBoundingBox();
@@ -361,7 +361,7 @@ index 935539e7ba6f35597e3f92ffed7e74a12022a94b..21a4c8de077a740cdca76d73ef01abc2
                  if (i1 > 0) {
                      long l = (long)(simplexNoise.getValue(simplexNoise.xo, simplexNoise.yo, simplexNoise.zo) * 9.223372E18F);
 -                    RandomSource randomSource = new WorldgenRandom(new LegacyRandomSource(l));
-+                    RandomSource randomSource = new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(l) : new LegacyRandomSource(l)); // Leaf - Faster random generator
++                    RandomSource randomSource = new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(l) : new LegacyRandomSource(l)); // Leaf - Faster random generator
  
                      for (int i5 = i3 - 1; i5 >= 0; i5--) {
                          if (i5 < i2 && octaves.contains(i3 - i5)) {

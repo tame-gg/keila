@@ -45,11 +45,11 @@ index 110738739aab0bd1334adb6b5ffad90be618edfd..4cf49381a15287ee51115ad2fe0d0c4d
          }
          // CraftBukkit end
 -        this.entityData.set(DATA_HEALTH_ID, Mth.clamp(health, 0.0F, this.getMaxHealth()));
-+        this.entityData.set(DATA_HEALTH_ID, bypassCap ? this.keila$sanitizeHealth(health) : Mth.clamp(health, 0.0F, this.getMaxHealth())); // Leaf - Fix MC-17876
++        this.entityData.set(DATA_HEALTH_ID, bypassCap ? this.palladium$sanitizeHealth(health) : Mth.clamp(health, 0.0F, this.getMaxHealth())); // Leaf - Fix MC-17876
 +    }
 +
 +    // Leaf start - Fix MC-17876
-+    private float keila$sanitizeHealth(float health) {
++    private float palladium$sanitizeHealth(float health) {
 +        if (health < 0.0F || !Float.isFinite(health)) {
 +            health = 0.0F;
 +        }

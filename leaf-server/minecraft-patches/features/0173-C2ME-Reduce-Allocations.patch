@@ -18,7 +18,7 @@ index c7b46efd4f08067e2c9c5c8b0e8b71a94a79823d..d14609e932f2ce4e97d1e354b424cc3e
      ) {
          int i = 0;
 -        BitSet bitSet = new BitSet(width * height * width);
-+        BitSet bitSet = gg.tame.keila.util.cache.CachedOrNewBitsGetter.getCachedOrNewBitSet(width * height * width); // Leaf - C2ME - Reduce Allocations
++        BitSet bitSet = gg.tame.palladium.util.cache.CachedOrNewBitsGetter.getCachedOrNewBitSet(width * height * width); // Leaf - C2ME - Reduce Allocations
          BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
          int i1 = config.size;
          double[] doubles = new double[i1 * 4];

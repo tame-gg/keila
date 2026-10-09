@@ -22,7 +22,7 @@ index 28dd9723b1b13ce8f59475b54349884a90bac38a..617f5f9742acaf17c9b954009e5086f9
          final net.kyori.adventure.text.Component jm = playerJoinEvent.joinMessage();
  
 -        if (jm != null && !jm.equals(net.kyori.adventure.text.Component.empty())) { // Paper - Adventure
-+        if (gg.tame.keila.config.modules.misc.ConnectionMessage.joinEnabled && jm != null && !jm.equals(net.kyori.adventure.text.Component.empty())) { // Paper - Adventure // Leaf - Configurable connection message - join message
++        if (gg.tame.palladium.config.modules.misc.ConnectionMessage.joinEnabled && jm != null && !jm.equals(net.kyori.adventure.text.Component.empty())) { // Paper - Adventure // Leaf - Configurable connection message - join message
              joinMessage = io.papermc.paper.adventure.PaperAdventure.asVanilla(jm); // Paper - Adventure
              this.server.getPlayerList().broadcastSystemMessage(joinMessage, false); // Paper - Adventure
          }
@@ -42,12 +42,12 @@ index 28dd9723b1b13ce8f59475b54349884a90bac38a..617f5f9742acaf17c9b954009e5086f9
 +
 +    // Leaf start - Configurable connection message
 +    private net.kyori.adventure.text.Component getJoinMsg(MutableComponent defaultJoinMsg, org.bukkit.craftbukkit.entity.CraftPlayer player) {
-+        if (gg.tame.keila.config.modules.misc.ConnectionMessage.joinEnabled) {
-+            if ("default".equals(gg.tame.keila.config.modules.misc.ConnectionMessage.joinMessage)) {
++        if (gg.tame.palladium.config.modules.misc.ConnectionMessage.joinEnabled) {
++            if ("default".equals(gg.tame.palladium.config.modules.misc.ConnectionMessage.joinMessage)) {
 +                return io.papermc.paper.adventure.PaperAdventure.asAdventure(defaultJoinMsg);
 +            }
 +
-+            final String joinMessage = gg.tame.keila.config.modules.misc.ConnectionMessage.joinMessage
++            final String joinMessage = gg.tame.palladium.config.modules.misc.ConnectionMessage.joinMessage
 +                .replace("<player_name>", player.getName());
 +
 +            return net.kyori.adventure.text.minimessage.MiniMessage.miniMessage().deserialize(joinMessage)
@@ -59,12 +59,12 @@ index 28dd9723b1b13ce8f59475b54349884a90bac38a..617f5f9742acaf17c9b954009e5086f9
 +    }
 +
 +    private net.kyori.adventure.text.Component getQuitMsg(net.kyori.adventure.text.Component defaultJoinMsg, org.bukkit.craftbukkit.entity.CraftPlayer player) {
-+        if (gg.tame.keila.config.modules.misc.ConnectionMessage.quitEnabled) {
-+            if ("default".equals(gg.tame.keila.config.modules.misc.ConnectionMessage.quitMessage)) {
++        if (gg.tame.palladium.config.modules.misc.ConnectionMessage.quitEnabled) {
++            if ("default".equals(gg.tame.palladium.config.modules.misc.ConnectionMessage.quitMessage)) {
 +                return defaultJoinMsg;
 +            }
 +
-+            final String quitMessage = gg.tame.keila.config.modules.misc.ConnectionMessage.quitMessage
++            final String quitMessage = gg.tame.palladium.config.modules.misc.ConnectionMessage.quitMessage
 +                .replace("<player_name>", player.getName());
 +
 +            return net.kyori.adventure.text.minimessage.MiniMessage.miniMessage().deserialize(quitMessage)

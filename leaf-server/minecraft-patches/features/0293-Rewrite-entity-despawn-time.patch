@@ -36,16 +36,16 @@ index 703bf9c2a56b262e2719a1787584de537b8f12e0..c1d24cff2af534edfb9fcc45f3cf2b31
              final Boolean ticketBlockBefore = this.blockTicketUpdates();
              try {
 +                // Leaf start - Rewrite entity despawn time
-+                if (gg.tame.keila.config.modules.opt.DespawnTime.proactiveWeakLoading) {
++                if (gg.tame.palladium.config.modules.opt.DespawnTime.proactiveWeakLoading) {
 +                    boolean isWeakNow = newVisibility == Visibility.TRACKED;
 +                    boolean wasWeakBefore = oldVisibility == Visibility.TRACKED;
 +
 +                    if (entity.despawnTime >= 0) {
 +                        if (isWeakNow && !wasWeakBefore) {
 +                            this.weakEntityList.add(entity);
-+                            entity.keila$isWeakLoaded = true;
++                            entity.palladium$isWeakLoaded = true;
 +                        } else if (!isWeakNow && wasWeakBefore) {
-+                            entity.keila$isWeakLoaded = false;
++                            entity.palladium$isWeakLoaded = false;
 +                        }
 +                    }
 +                }
@@ -57,7 +57,7 @@ index 703bf9c2a56b262e2719a1787584de537b8f12e0..c1d24cff2af534edfb9fcc45f3cf2b31
                  LOGGER.warn("Failed to remove entity " + entity + " from entity slices (" + sectionX + "," + sectionZ + ")");
              }
          }
-+        if (gg.tame.keila.config.modules.opt.DespawnTime.proactiveWeakLoading) entity.keila$isWeakLoaded = false; // Leaf - Rewrite entity despawn time
++        if (gg.tame.palladium.config.modules.opt.DespawnTime.proactiveWeakLoading) entity.palladium$isWeakLoaded = false; // Leaf - Rewrite entity despawn time
          ((ChunkSystemEntity)entity).moonrise$setSectionX(Integer.MIN_VALUE);
          ((ChunkSystemEntity)entity).moonrise$setSectionY(Integer.MIN_VALUE);
          ((ChunkSystemEntity)entity).moonrise$setSectionZ(Integer.MIN_VALUE);
@@ -66,20 +66,20 @@ index 703bf9c2a56b262e2719a1787584de537b8f12e0..c1d24cff2af534edfb9fcc45f3cf2b31
      }
  
 +    // Leaf start - Rewrite entity despawn time
-+    public void keila$tickWeakEntities() {
++    public void palladium$tickWeakEntities() {
 +        if (this.weakEntityList.isEmpty()) return;
 +
 +        for (int i = this.weakEntityList.size() - 1; i >= 0; i--) {
 +            Entity entity = this.weakEntityList.get(i);
 +
-+            if (entity == null || !entity.keila$isWeakLoaded) {
++            if (entity == null || !entity.palladium$isWeakLoaded) {
 +                removeAtIndex(this.weakEntityList, i);
 +                continue;
 +            }
 +
 +            if (entity.isExceedingDespawnTime(true)) {
 +                entity.discard(org.bukkit.event.entity.EntityRemoveEvent.Cause.DESPAWN);
-+                entity.keila$isWeakLoaded = false;
++                entity.palladium$isWeakLoaded = false;
 +                removeAtIndex(this.weakEntityList, i);
 +            }
 +        }
@@ -104,8 +104,8 @@ index ce0b87d86e5271e3279bcf734c366a0e4dd9800c..0aa9a6ebf9eaa29ed843c31a26dcd3f5
          this.debugSynchronizers.tick(this.server.debugSubscribers());
          profilerFiller.pop();
          this.environmentAttributes().invalidateTickCache();
-+        if (gg.tame.keila.config.modules.opt.DespawnTime.proactiveWeakLoading) this.moonrise$getEntityLookup().keila$tickWeakEntities(); // Leaf - Rewrite entity despawn time
-         if (gg.tame.keila.config.modules.async.MultithreadedTracker.enabled) { this.keila$asyncTracker.onEntitiesTickEnd(); } // Leaf - Multithreaded tracker
++        if (gg.tame.palladium.config.modules.opt.DespawnTime.proactiveWeakLoading) this.moonrise$getEntityLookup().palladium$tickWeakEntities(); // Leaf - Rewrite entity despawn time
+         if (gg.tame.palladium.config.modules.async.MultithreadedTracker.enabled) { this.palladium$asyncTracker.onEntitiesTickEnd(); } // Leaf - Multithreaded tracker
      }
  
 @@ -1613,6 +1614,8 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
@@ -139,13 +139,13 @@ index 5790779e6b96b31f38f61204d272e4d850897bf0..6a4bf70f46b0d37b83401ae41d3f5e08
      public int totalEntityAge; // Paper - age-like counter for all entities
 +    private int lastTickTime; // Leaf - Rewrite entity despawn time
      public boolean activatedPriorityReset = false; // Pufferfish - DAB
-     public int activatedPriority = gg.tame.keila.config.modules.opt.DynamicActivationofBrain.maximumActivationPrio; // Pufferfish - DAB (golf score)
+     public int activatedPriority = gg.tame.palladium.config.modules.opt.DynamicActivationofBrain.maximumActivationPrio; // Pufferfish - DAB (golf score)
      public final io.papermc.paper.entity.activation.ActivationType activationType = io.papermc.paper.entity.activation.ActivationType.activationTypeFor(this); // Paper - EAR 2/tracking ranges
 @@ -386,6 +387,7 @@ public abstract class Entity implements SyncedDataHolder, DebugValueSource, Name
      public boolean isTemporarilyActive;
      public long activatedImmunityTick = Integer.MIN_VALUE;
      public @Nullable Boolean immuneToFire = null; // Purpur - Fire immune API
-+    public boolean keila$isWeakLoaded = false; // Leaf - Rewrite entity despawn time
++    public boolean palladium$isWeakLoaded = false; // Leaf - Rewrite entity despawn time
  
      public void inactiveTick() {
      }

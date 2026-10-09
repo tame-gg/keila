@@ -22,7 +22,7 @@ index 2a3b10c5e031ef44a2b53bc4fdc6e86c917f75d4..657b83a825080d1349043b6ef82624ae
          long l = WorldOptions.parseSeed(string).orElse(WorldOptions.randomSeed());
 -        this.worldOptions = new WorldOptions(l, flag, false);
 +        // Leaf start - Matter - Secure Seed
-+        if (gg.tame.keila.config.modules.misc.SecureSeed.enabled) {
++        if (gg.tame.palladium.config.modules.misc.SecureSeed.enabled) {
 +            String featureSeedStr = this.get("feature-level-seed", "");
 +            long[] featureSeed = su.plo.matter.Globals.parseSeed(featureSeedStr)
 +                .orElse(su.plo.matter.Globals.createRandomWorldSeed());
@@ -69,7 +69,7 @@ index 29d6d0c9687b835d24fe51c3824deeb67af1ba4f..d05ee78e20aedd540416645958a64b33
              ChunkPos chunkPos = new ChunkPos(pos);
 -            boolean flag = level.getMinecraftWorld().paperConfig().entities.spawning.allChunksAreSlimeChunks || WorldgenRandom.seedSlimeChunk(chunkPos.x, chunkPos.z, ((WorldGenLevel) level).getSeed(), level.getMinecraftWorld().spigotConfig.slimeSeed).nextInt(10) == 0; // Paper
 +            // Leaf start - Matter - Secure Seed
-+            boolean flag = level.getMinecraftWorld().paperConfig().entities.spawning.allChunksAreSlimeChunks || gg.tame.keila.config.modules.misc.SecureSeed.enabled
++            boolean flag = level.getMinecraftWorld().paperConfig().entities.spawning.allChunksAreSlimeChunks || gg.tame.palladium.config.modules.misc.SecureSeed.enabled
 +                ? level.getChunk(chunkPos.x, chunkPos.z).isSlimeChunk()
 +                : WorldgenRandom.seedSlimeChunk(chunkPos.x, chunkPos.z, ((WorldGenLevel) level).getSeed(), level.getMinecraftWorld().spigotConfig.slimeSeed).nextInt(10) == 0; // Paper
 +            // Leaf end - Matter - Secure Seed
@@ -119,7 +119,7 @@ index 7b98964eb77a619bdaaf5a9d331e3cfe080b52a4..9712ed7f71019d859bfa4979aa8f7681
              List<FeatureSorter.StepFeatureData> list = this.featuresPerStep.get();
 -            WorldgenRandom worldgenRandom = new WorldgenRandom(new XoroshiroRandomSource(RandomSupport.generateUniqueSeed()));
 +            // Leaf start - Matter - Secure Seed
-+            WorldgenRandom worldgenRandom = gg.tame.keila.config.modules.misc.SecureSeed.enabled
++            WorldgenRandom worldgenRandom = gg.tame.palladium.config.modules.misc.SecureSeed.enabled
 +                ? new su.plo.matter.WorldgenCryptoRandom(blockPos.getX(), blockPos.getZ(), su.plo.matter.Globals.Salt.UNDEFINED, 0)
 +                : new WorldgenRandom(new XoroshiroRandomSource(RandomSupport.generateUniqueSeed()));
 +            // Leaf end - Matter - Secure Seed
@@ -134,7 +134,7 @@ index 7b98964eb77a619bdaaf5a9d331e3cfe080b52a4..9712ed7f71019d859bfa4979aa8f7681
 -                                worldgenRandom.setLargeFeatureSeed(structureState.getLevelSeed(), pos.x, pos.z);
 +                                // Leaf start - Matter - Secure Seed
 +                                WorldgenRandom worldgenRandom;
-+                                if (gg.tame.keila.config.modules.misc.SecureSeed.enabled) {
++                                if (gg.tame.palladium.config.modules.misc.SecureSeed.enabled) {
 +                                    worldgenRandom = new su.plo.matter.WorldgenCryptoRandom(pos.x, pos.z, su.plo.matter.Globals.Salt.GENERATE_FEATURE, 0);
 +                                } else {
 +                                    worldgenRandom = new WorldgenRandom(new LegacyRandomSource(0L));
@@ -154,11 +154,11 @@ index d6fe8de09a01cece29bf8e61152e71d58ea1dcd6..9026e189dce0be47ae7d05dd21cb9961
              HolderSet<Biome> holderSet = placement.preferredBiomes();
 -            RandomSource randomSource = RandomSource.create();
 +            // Leaf start - Matter - Secure Seed
-+            RandomSource randomSource = gg.tame.keila.config.modules.misc.SecureSeed.enabled
++            RandomSource randomSource = gg.tame.palladium.config.modules.misc.SecureSeed.enabled
 +                ? new su.plo.matter.WorldgenCryptoRandom(0, 0, su.plo.matter.Globals.Salt.STRONGHOLDS, 0)
 +                : RandomSource.create();
 +            // Leaf end - Matter - Secure Seed
-+            if (!gg.tame.keila.config.modules.misc.SecureSeed.enabled) {
++            if (!gg.tame.palladium.config.modules.misc.SecureSeed.enabled) {
              // Paper start - Add missing structure set seed configs
              if (this.conf.strongholdSeed != null && structureSet.is(net.minecraft.world.level.levelgen.structure.BuiltinStructureSets.STRONGHOLDS)) {
                  randomSource.setSeed(this.conf.strongholdSeed);
@@ -192,7 +192,7 @@ index c92508741439a8d0d833ea02d0104416adb83c92..c05da7cfcd3d97a1716cb305be36ba9c
  public class WorldOptions {
 +    // Leaf start - Matter - Secure Seed
 +    private static final com.google.gson.Gson gson = new com.google.gson.Gson();
-+    private static final boolean isSecureSeedEnabled = gg.tame.keila.config.modules.misc.SecureSeed.enabled;
++    private static final boolean isSecureSeedEnabled = gg.tame.palladium.config.modules.misc.SecureSeed.enabled;
      public static final MapCodec<WorldOptions> CODEC = RecordCodecBuilder.mapCodec(
 -        instance -> instance.group(
 +        instance -> isSecureSeedEnabled
@@ -317,7 +317,7 @@ index 1489328395e212fc34e6e5462dba9d7a167c9a81..b4b062b2b45a935237ae3099aded6011
          int i2 = geodeConfiguration.distributionPoints.sample(randomSource);
 -        WorldgenRandom worldgenRandom = new WorldgenRandom(new LegacyRandomSource(worldGenLevel.getSeed()));
 +        // Leaf start - Matter - Secure Seed
-+        WorldgenRandom worldgenRandom = gg.tame.keila.config.modules.misc.SecureSeed.enabled
++        WorldgenRandom worldgenRandom = gg.tame.palladium.config.modules.misc.SecureSeed.enabled
 +                ? new su.plo.matter.WorldgenCryptoRandom(0, 0, su.plo.matter.Globals.Salt.GEODE_FEATURE, 0)
 +                : new WorldgenRandom(new LegacyRandomSource(worldGenLevel.getSeed()));
 +        // Leaf end - Matter - Secure Seed
@@ -333,7 +333,7 @@ index 8328e864c72b7a358d6bb1f33459b8c4df2ecb1a..28281491be6b54de18c49ff0d52e3025
  
          private static WorldgenRandom makeRandom(long seed, ChunkPos chunkPos) {
 +            // Leaf start - Matter - Secure Seed
-+            if (gg.tame.keila.config.modules.misc.SecureSeed.enabled) {
++            if (gg.tame.palladium.config.modules.misc.SecureSeed.enabled) {
 +                return new su.plo.matter.WorldgenCryptoRandom(chunkPos.x, chunkPos.z, su.plo.matter.Globals.Salt.GENERATE_FEATURE, seed);
 +            }
 +            // Leaf end - Matter - Secure Seed
@@ -352,7 +352,7 @@ index ee0d9dddb36b6879fa113299e24f1aa3b2b151cc..6584c9320361dbbdea1899ab9e43b444
 -        worldgenRandom.setLargeFeatureWithSalt(seed, i, i1, this.salt());
 +        // Leaf start - Matter - Secure Seed
 +        WorldgenRandom worldgenRandom;
-+        if (gg.tame.keila.config.modules.misc.SecureSeed.enabled) {
++        if (gg.tame.palladium.config.modules.misc.SecureSeed.enabled) {
 +            worldgenRandom = new su.plo.matter.WorldgenCryptoRandom(i, i1, su.plo.matter.Globals.Salt.POTENTIONAL_FEATURE, this.salt);
 +        } else {
 +            worldgenRandom = new WorldgenRandom(new LegacyRandomSource(0L));
@@ -374,7 +374,7 @@ index b3a538f9aebf5b6e965e1140b8fc558eb394605b..49e400741088e4fb3e3deb40e6dbdaa7
 -        worldgenRandom.setLargeFeatureWithSalt(levelSeed, regionX, regionZ, salt);
 +        // Leaf start - Matter - Secure Seed
 +        WorldgenRandom worldgenRandom;
-+        if (gg.tame.keila.config.modules.misc.SecureSeed.enabled) {
++        if (gg.tame.palladium.config.modules.misc.SecureSeed.enabled) {
 +            worldgenRandom = new su.plo.matter.WorldgenCryptoRandom(regionX, regionZ, su.plo.matter.Globals.Salt.UNDEFINED, salt);
 +        } else {
 +            worldgenRandom = new WorldgenRandom(new LegacyRandomSource(0L));
@@ -394,7 +394,7 @@ index 12a8c5d85c9b6a433b90ae98743e78a48bf1e7d4..3676c7cc42dba24b36c44cd841738384
          LevelHeightAccessor levelHeightAccessor = context.heightAccessor();
 -        WorldgenRandom worldgenRandom = context.random();
 +        // Leaf start - Matter - Secure Seed
-+        WorldgenRandom worldgenRandom = gg.tame.keila.config.modules.misc.SecureSeed.enabled
++        WorldgenRandom worldgenRandom = gg.tame.palladium.config.modules.misc.SecureSeed.enabled
 +            ? new su.plo.matter.WorldgenCryptoRandom(context.chunkPos().x, context.chunkPos().z, su.plo.matter.Globals.Salt.JIGSAW_PLACEMENT, 0)
 +            : context.random();
 +        // Leaf end - Matter - Secure Seed

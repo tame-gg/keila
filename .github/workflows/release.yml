@@ -1,4 +1,4 @@
-name: keila
+name: palladium
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
   push:
     branches:
       - main
-      - "keila/**"
+      - "palladium/**"
     tags:
       - "v*"
 
@@ -18,9 +18,9 @@ permissions:
   contents: write
 
 env:
-  KEILA_RELEASE_NAME: keila
-  KEILA_RELEASE_AUTHORS: tame.gg, asianrizz, koels
-  KEILA_RELEASE_VERSION: "0.1.1"
+  PALLADIUM_RELEASE_NAME: palladium
+  PALLADIUM_RELEASE_AUTHORS: tame.gg, asianrizz, koels
+  PALLADIUM_RELEASE_VERSION: "0.1.1"
 
 jobs:
   compile:
@@ -38,7 +38,7 @@ jobs:
 
       - name: Configure git identity for paperweight
         run: |
-          git config --global user.name "keila-ci"
+          git config --global user.name "palladium-ci"
           git config --global user.email "ci@tame.gg"
 
       - name: Resolve release metadata
@@ -47,7 +47,7 @@ jobs:
         env:
           INPUT_VERSION: ${{ github.event.inputs.version }}
         run: |
-          version="$KEILA_RELEASE_VERSION"
+          version="$PALLADIUM_RELEASE_VERSION"
           if [ "${GITHUB_REF_TYPE:-}" = "tag" ]; then
             version="${GITHUB_REF_NAME#v}"
           elif [ -n "${INPUT_VERSION:-}" ]; then
@@ -56,7 +56,7 @@ jobs:
 
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "tag=v$version" >> "$GITHUB_OUTPUT"
-          echo "artifact=$KEILA_RELEASE_NAME-$version.jar" >> "$GITHUB_OUTPUT"
+          echo "artifact=$PALLADIUM_RELEASE_NAME-$version.jar" >> "$GITHUB_OUTPUT"
 
       - name: Apply patches
         run: ./gradlew applyAllPatches --stacktrace
@@ -69,7 +69,7 @@ jobs:
 
       - name: Rename release artifact
         env:
-          KEILA_RELEASE_VERSION: ${{ steps.release.outputs.version }}
+          PALLADIUM_RELEASE_VERSION: ${{ steps.release.outputs.version }}
         run: bash scripts/prepareRelease.sh dist
 
       - uses: actions/upload-artifact@v5
@@ -85,12 +85,12 @@ jobs:
           RELEASE_TAG: ${{ steps.release.outputs.tag }}
           RELEASE_VERSION: ${{ steps.release.outputs.version }}
         run: |
-          notes="dist/keila-${RELEASE_VERSION}-notes.md"
+          notes="dist/palladium-${RELEASE_VERSION}-notes.md"
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             gh release upload "$RELEASE_TAG" dist/* --clobber
           else
             gh release create "$RELEASE_TAG" dist/* \
               --target "$GITHUB_SHA" \
-              --title "keila ${RELEASE_VERSION}" \
+              --title "palladium ${RELEASE_VERSION}" \
               --notes-file "$notes"
           fi

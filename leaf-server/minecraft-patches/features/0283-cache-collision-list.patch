@@ -9,10 +9,10 @@ index 6bdb92731c952bbf127e9930093623e172ae1667..4a8b35c3af1d6d867aa1faa3a0d49c56
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -1178,6 +1178,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
-     public final gg.tame.keila.world.DespawnMap despawnMap = new gg.tame.keila.world.DespawnMap(); // Leaf - optimize despawn
-     public final gg.tame.keila.world.NatureSpawnChunkMap natureSpawnChunkMap = new gg.tame.keila.world.NatureSpawnChunkMap(); // Leaf - optimize mob spawning
-     public final gg.tame.keila.world.RandomTickSystem randomTickSystem = new gg.tame.keila.world.RandomTickSystem(); // Leaf - optimize random tick
-+    public final gg.tame.keila.world.EntityCollisionCache entityCollisionCache = new gg.tame.keila.world.EntityCollisionCache(); // Leaf - cache collision list
+     public final gg.tame.palladium.world.DespawnMap despawnMap = new gg.tame.palladium.world.DespawnMap(); // Leaf - optimize despawn
+     public final gg.tame.palladium.world.NatureSpawnChunkMap natureSpawnChunkMap = new gg.tame.palladium.world.NatureSpawnChunkMap(); // Leaf - optimize mob spawning
+     public final gg.tame.palladium.world.RandomTickSystem randomTickSystem = new gg.tame.palladium.world.RandomTickSystem(); // Leaf - optimize random tick
++    public final gg.tame.palladium.world.EntityCollisionCache entityCollisionCache = new gg.tame.palladium.world.EntityCollisionCache(); // Leaf - cache collision list
      public void tickChunk(LevelChunk chunk, int randomTickSpeed) {
          final net.minecraft.world.level.levelgen.BitRandomSource simpleRandom = this.simpleRandom; // Paper - optimise random ticking // Leaf - Faster random generator - upcasting
          ChunkPos pos = chunk.getPos();
@@ -36,7 +36,7 @@ index c7e7aa66d126d4ea94386c8bc8f72c81516821bc..5ba9f002753f85efb6b2426d2cc83d97
          }
  
 -        final List<AABB> entityAABBs = new ArrayList<>();
-+        gg.tame.keila.world.EntityCollisionCache entityCollisionCache = ((ServerLevel) this.level).entityCollisionCache; // Leaf - cache collision list
++        gg.tame.palladium.world.EntityCollisionCache entityCollisionCache = ((ServerLevel) this.level).entityCollisionCache; // Leaf - cache collision list
          ca.spottedleaf.moonrise.patches.collisions.CollisionUtil.getEntityHardCollisions(
 -            this.level, (Entity)(Object)this, initialCollisionBox, entityAABBs, 0, null
 +            this.level, (Entity)(Object)this, initialCollisionBox, entityCollisionCache.entityAABBs(), 0, null // Leaf - cache collision list

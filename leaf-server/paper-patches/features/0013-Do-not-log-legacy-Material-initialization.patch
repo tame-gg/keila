@@ -45,7 +45,7 @@ index 0b9b29753984bebaf01e2edc6d325cd5df6c689d..a5c8701974acd4639b9475434a7ebf73
  
      static {
 -        LOGGER.warn("Initializing Legacy Material Support. Unless you have legacy plugins and/or data this is a bug!"); // Paper - Improve logging and errors; doesn't need to be an error
-+        final org.galemc.gale.configuration.GaleGlobalConfiguration galeGlobalConfig = org.galemc.gale.configuration.GaleGlobalConfiguration.get(); // Keila - tests can initialize legacy materials before Gale config
++        final org.galemc.gale.configuration.GaleGlobalConfiguration galeGlobalConfig = org.galemc.gale.configuration.GaleGlobalConfiguration.get(); // Palladium - tests can initialize legacy materials before Gale config
 +        if (galeGlobalConfig == null || galeGlobalConfig.logToConsole.legacyMaterialInitialization) LOGGER.warn("Initializing Legacy Material Support. Unless you have legacy plugins and/or data this is a bug!"); // Paper - Improve logging and errors; doesn't need to be an error // Gale - Purpur - do not log legacy Material initialization
          if (MinecraftServer.getServer() != null && MinecraftServer.getServer().isDebugging()) {
              new Exception().printStackTrace();

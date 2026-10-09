@@ -51,7 +51,7 @@ index 373e3b9017433939512493558b4e0fe32a865b56..2677f911d33441b3d0eacc703a372de0
          ItemEnchantments itemEnchantments = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
  
 -        for (Entry<Holder<Enchantment>> entry : itemEnchantments.entrySet()) {
-+        for (Entry<Holder<Enchantment>> entry : itemEnchantments.keila$entrySet()) { // Leaf - reduce enchantment allocations
++        for (Entry<Holder<Enchantment>> entry : itemEnchantments.palladium$entrySet()) { // Leaf - reduce enchantment allocations
              visitor.accept(entry.getKey(), entry.getIntValue());
          }
      }
@@ -60,7 +60,7 @@ index 373e3b9017433939512493558b4e0fe32a865b56..2677f911d33441b3d0eacc703a372de0
                  EnchantedItemInUse enchantedItemInUse = new EnchantedItemInUse(stack, slot, entity);
  
 -                for (Entry<Holder<Enchantment>> entry : itemEnchantments.entrySet()) {
-+                for (Entry<Holder<Enchantment>> entry : itemEnchantments.keila$entrySet()) { // Leaf - reduce enchantment allocations
++                for (Entry<Holder<Enchantment>> entry : itemEnchantments.palladium$entrySet()) { // Leaf - reduce enchantment allocations
                      Holder<Enchantment> holder = entry.getKey();
                      if (holder.value().matchingSlot(slot)) {
                          visitor.accept(holder, entry.getIntValue(), enchantedItemInUse);
@@ -73,7 +73,7 @@ index b666181af7d6663f2fce58a7d9a4c805687f5409..5de7356f0375f9acf772ef457c477de0
      }
  
 +    // Leaf start - reduce enchantment allocations
-+    public it.unimi.dsi.fastutil.objects.ObjectSortedSet<Entry<Holder<Enchantment>>> keila$entrySet() {
++    public it.unimi.dsi.fastutil.objects.ObjectSortedSet<Entry<Holder<Enchantment>>> palladium$entrySet() {
 +        return this.enchantments.object2IntEntrySet();
 +    }
 +    // Leaf end - reduce enchantment allocations

@@ -56,21 +56,21 @@ index 26cb112ef71eb3edc8d864ff5ac32edb6b8babe5..062ce093ec869015abb4c29d6fc1821b
 +        final double dx = this.getX() - entity.getX();
 +        final double dy = this.getY() - entity.getY();
 +        final double dz = this.getZ() - entity.getZ();
-+        return (float) Math.sqrt(gg.tame.keila.util.KeilaConstants.ENABLE_FMA ? Math.fma(dx, dx, Math.fma(dy, dy, dz * dz)) : dx * dx + dy * dy + dz * dz);
++        return (float) Math.sqrt(gg.tame.palladium.util.PalladiumConstants.ENABLE_FMA ? Math.fma(dx, dx, Math.fma(dy, dy, dz * dz)) : dx * dx + dy * dy + dz * dz);
 +    }
 +
 +    public final double distanceToSqr(final double x, final double y, final double z) {
 +        final double dx = this.getX() - x;
 +        final double dy = this.getY() - y;
 +        final double dz = this.getZ() - z;
-+        return gg.tame.keila.util.KeilaConstants.ENABLE_FMA ? Math.fma(dx, dx, Math.fma(dy, dy, dz * dz)) : dx * dx + dy * dy + dz * dz;
++        return gg.tame.palladium.util.PalladiumConstants.ENABLE_FMA ? Math.fma(dx, dx, Math.fma(dy, dy, dz * dz)) : dx * dx + dy * dy + dz * dz;
 +    }
 +
 +    public final double distanceToSqr(Vec3 pos) {
 +        final double dx = this.getX() - pos.x;
 +        final double dy = this.getY() - pos.y;
 +        final double dz = this.getZ() - pos.z;
-+        return gg.tame.keila.util.KeilaConstants.ENABLE_FMA ? Math.fma(dx, dx, Math.fma(dy, dy, dz * dz)) : dx * dx + dy * dy + dz * dz;
++        return gg.tame.palladium.util.PalladiumConstants.ENABLE_FMA ? Math.fma(dx, dx, Math.fma(dy, dy, dz * dz)) : dx * dx + dy * dy + dz * dz;
 +    }
 +
 +    public double distanceToSqr(Entity entity) {

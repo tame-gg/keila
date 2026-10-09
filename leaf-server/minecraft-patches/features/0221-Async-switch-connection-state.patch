@@ -13,7 +13,7 @@ index c109fafe09f144079d6cba1325baec1602beb8a0..5bfdb48ff7ef740a5a01d02e87f0264e
              throw new IllegalStateException("Invalid inbound protocol: " + protocolInfo.id());
          } else {
 +            // Leaf start - Async switch connection state
-+            if (gg.tame.keila.config.modules.network.AlternativeJoin.enabled && ca.spottedleaf.moonrise.common.util.TickThread.isTickThread()) {
++            if (gg.tame.palladium.config.modules.network.AlternativeJoin.enabled && ca.spottedleaf.moonrise.common.util.TickThread.isTickThread()) {
 +                this.channel.config().setAutoRead(false);
 +            }
 +            // Leaf end - Async switch connection state
@@ -27,7 +27,7 @@ index c109fafe09f144079d6cba1325baec1602beb8a0..5bfdb48ff7ef740a5a01d02e87f0264e
 -            syncAfterConfigurationChange(this.channel.writeAndFlush(inboundConfigurationTask));
 +            // Leaf start - Async switch connection state
 +            var cf = this.channel.writeAndFlush(inboundConfigurationTask);
-+            if (gg.tame.keila.config.modules.network.AlternativeJoin.enabled && ca.spottedleaf.moonrise.common.util.TickThread.isTickThread()) {
++            if (gg.tame.palladium.config.modules.network.AlternativeJoin.enabled && ca.spottedleaf.moonrise.common.util.TickThread.isTickThread()) {
 +                cf.addListener((ChannelFutureListener) Connection::syncAfterConfigurationChange);
 +                return;
 +            }
@@ -56,7 +56,7 @@ index c109fafe09f144079d6cba1325baec1602beb8a0..5bfdb48ff7ef740a5a01d02e87f0264e
 +
 +            boolean flag = protocolInfo.id() == ConnectionProtocol.LOGIN;
 +            var cf = this.channel.writeAndFlush(outboundConfigurationTask.andThen(context -> this.sendLoginDisconnect = flag));
-+            if (gg.tame.keila.config.modules.network.AlternativeJoin.enabled) {
++            if (gg.tame.palladium.config.modules.network.AlternativeJoin.enabled) {
 +                cf.addListener((ChannelFutureListener) Connection::syncAfterConfigurationChange);
 +                return cf;
 +            }
@@ -80,7 +80,7 @@ index a3645322be006d5501fa7fb8944509a9c6b58e32..48173bf5ef7217ed4d20ad53dae3d544
      @Override
      public void handleConfigurationFinished(ServerboundFinishConfigurationPacket packet) {
 +        // Leaf start - Async switch connection state
-+        if (gg.tame.keila.config.modules.network.AlternativeJoin.enabled && !changingState) {
++        if (gg.tame.palladium.config.modules.network.AlternativeJoin.enabled && !changingState) {
 +            changingState = true;
 +            this.finishCurrentTask(JoinWorldTask.TYPE);
 +            this.connection.setupOutboundProtocolAsync(GameProtocols.CLIENTBOUND_TEMPLATE.bind(RegistryFriendlyByteBuf.decorator(this.server.registryAccess()))).addListener(l -> {
@@ -101,7 +101,7 @@ index a3645322be006d5501fa7fb8944509a9c6b58e32..48173bf5ef7217ed4d20ad53dae3d544
          PacketUtils.ensureRunningOnSameThread(packet, this, this.server.packetProcessor());
 -        this.finishCurrentTask(JoinWorldTask.TYPE);
 -        this.connection.setupOutboundProtocol(GameProtocols.CLIENTBOUND_TEMPLATE.bind(RegistryFriendlyByteBuf.decorator(this.server.registryAccess())));
-+        if (!gg.tame.keila.config.modules.network.AlternativeJoin.enabled) {
++        if (!gg.tame.palladium.config.modules.network.AlternativeJoin.enabled) {
 +            this.finishCurrentTask(JoinWorldTask.TYPE);
 +            this.connection.setupOutboundProtocol(GameProtocols.CLIENTBOUND_TEMPLATE.bind(RegistryFriendlyByteBuf.decorator(this.server.registryAccess())));
 +        }
@@ -121,7 +121,7 @@ index 9c2b53b4b64a4d96ce1dae56a364ae9c913bf52b..b9276c15bc48c9ecb21128776deb7f96
      @Override
      public void handleLoginAcknowledgement(ServerboundLoginAcknowledgedPacket packet) {
 +        // Leaf start - Async switch connection state
-+        if (gg.tame.keila.config.modules.network.AlternativeJoin.enabled && !changingState) {
++        if (gg.tame.palladium.config.modules.network.AlternativeJoin.enabled && !changingState) {
 +            changingState = true;
 +            this.connection.setupOutboundProtocolAsync(ConfigurationProtocols.CLIENTBOUND).addListener(l -> {
 +                try {
@@ -142,7 +142,7 @@ index 9c2b53b4b64a4d96ce1dae56a364ae9c913bf52b..b9276c15bc48c9ecb21128776deb7f96
          net.minecraft.network.protocol.PacketUtils.ensureRunningOnSameThread(packet, this, this.server.packetProcessor()); // CraftBukkit
          Validate.validState(this.state == ServerLoginPacketListenerImpl.State.PROTOCOL_SWITCHING, "Unexpected login acknowledgement packet");
 -        this.connection.setupOutboundProtocol(ConfigurationProtocols.CLIENTBOUND);
-+        if (!gg.tame.keila.config.modules.network.AlternativeJoin.enabled) this.connection.setupOutboundProtocol(ConfigurationProtocols.CLIENTBOUND); // Leaf - Async switch connection state
++        if (!gg.tame.palladium.config.modules.network.AlternativeJoin.enabled) this.connection.setupOutboundProtocol(ConfigurationProtocols.CLIENTBOUND); // Leaf - Async switch connection state
          CommonListenerCookie commonListenerCookie = CommonListenerCookie.createInitial(Objects.requireNonNull(this.authenticatedProfile), this.transferred);
          ServerConfigurationPacketListenerImpl serverConfigurationPacketListenerImpl = new ServerConfigurationPacketListenerImpl(
              this.server, this.connection, commonListenerCookie

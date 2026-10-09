@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "Keila build doctor"
+echo "Palladium build doctor"
 echo "java-version-file=$(cat .java-version 2>/dev/null || echo missing)"
-java_report="/tmp/keila-build-doctor-java-$$.txt"
+java_report="/tmp/palladium-build-doctor-java-$$.txt"
 trap 'rm -f "$java_report"' EXIT
 
 if [ -z "${JAVA_HOME:-}" ] && [ -x /Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home/bin/java ]; then

@@ -50,7 +50,7 @@ index 21e891ecdb90a1828428441aef9c2593253751f8..c109fafe09f144079d6cba1325baec16
              this.doSendPacket(packet, sendListener, flush);
          } else {
 +            // Paper start - optimise packets that are not flushed
-+            if (!flush && gg.tame.keila.config.modules.network.OptimizeNonFlushPacketSending.enabled) {
++            if (!flush && gg.tame.palladium.config.modules.network.OptimizeNonFlushPacketSending.enabled) {
 +                this.eventLoop.lazyExecute(() -> this.doSendPacket(packet, sendListener, false));
 +            } else
 +                // Paper end - optimise packets that are not flushed

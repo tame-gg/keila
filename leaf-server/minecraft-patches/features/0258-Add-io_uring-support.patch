@@ -34,7 +34,7 @@ index c602146d15f16007ee2499d0a68670d0d630bfbb..6ae69f9d14fbcb6f8a88e307357747a7
      public static EventLoopGroupHolder remote(boolean tryNativeTransport) {
          if (tryNativeTransport) {
 +            // Leaf start - Add io_uring support
-+            if (gg.tame.keila.util.KeilaConstants.ENABLE_IO_URING && io.netty.channel.uring.IoUring.isAvailable()) {
++            if (gg.tame.palladium.util.PalladiumConstants.ENABLE_IO_URING && io.netty.channel.uring.IoUring.isAvailable()) {
 +                return IO_URING;
 +            }
 +            // Leaf end - Add io_uring support
@@ -47,7 +47,7 @@ index c602146d15f16007ee2499d0a68670d0d630bfbb..6ae69f9d14fbcb6f8a88e307357747a7
      public static EventLoopGroupHolder remote(java.net.SocketAddress address, boolean tryNativeTransport) {
          if (tryNativeTransport) {
 +            // Leaf start - Add io_uring support
-+            if (gg.tame.keila.util.KeilaConstants.ENABLE_IO_URING && io.netty.channel.uring.IoUring.isAvailable()) {
++            if (gg.tame.palladium.util.PalladiumConstants.ENABLE_IO_URING && io.netty.channel.uring.IoUring.isAvailable()) {
 +                if (address instanceof io.netty.channel.unix.DomainSocketAddress) {
 +                    return IO_URING_UNIX_DOMAIN;
 +                } else {

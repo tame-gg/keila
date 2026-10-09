@@ -20,7 +20,7 @@ index a5ba2136ffc0f47f49f76f367bb1c6b47a5bad79..e7360551860f611debb7e163d6f2a40f
          .add(new ExplosionParticleInfo(ParticleTypes.SMOKE, 1.0F, 1.0F))
          .build();
 -    public final List<TickingBlockEntity> blockEntityTickers = Lists.newArrayList();
-+    public final List<TickingBlockEntity> blockEntityTickers = new gg.tame.keila.util.list.BlockEntityTickersList(); // SparklyPaper - optimize block entity removals
++    public final List<TickingBlockEntity> blockEntityTickers = new gg.tame.palladium.util.list.BlockEntityTickersList(); // SparklyPaper - optimize block entity removals
      protected final CollectingNeighborUpdater neighborUpdater;
      private final List<TickingBlockEntity> pendingBlockEntityTickers = Lists.newArrayList();
      private boolean tickingBlockEntities;
@@ -35,7 +35,7 @@ index a5ba2136ffc0f47f49f76f367bb1c6b47a5bad79..e7360551860f611debb7e163d6f2a40f
              // Spigot end
              if (tickingBlockEntity.isRemoved()) {
 -                toRemove.add(tickingBlockEntity); // Paper - Fix MC-117075; use removeAll
-+                ((gg.tame.keila.util.list.BlockEntityTickersList) this.blockEntityTickers).markAsRemoved(this.tileTickPosition); // toRemove.add(tickingBlockEntity); // SparklyPaper - optimize block entity removals // Paper - Fix MC-117075; use removeAll
++                ((gg.tame.palladium.util.list.BlockEntityTickersList) this.blockEntityTickers).markAsRemoved(this.tileTickPosition); // toRemove.add(tickingBlockEntity); // SparklyPaper - optimize block entity removals // Paper - Fix MC-117075; use removeAll
              } else if (runsNormally && this.shouldTickBlocksAt(tickingBlockEntity.getPos())) {
                  tickingBlockEntity.tick();
                  // Paper start - rewrite chunk system
@@ -44,7 +44,7 @@ index a5ba2136ffc0f47f49f76f367bb1c6b47a5bad79..e7360551860f611debb7e163d6f2a40f
              }
          }
 -        this.blockEntityTickers.removeAll(toRemove); // Paper - Fix MC-117075
-+        ((gg.tame.keila.util.list.BlockEntityTickersList) this.blockEntityTickers).removeMarkedEntries(); // SparklyPaper - optimize block entity removals
++        ((gg.tame.palladium.util.list.BlockEntityTickersList) this.blockEntityTickers).removeMarkedEntries(); // SparklyPaper - optimize block entity removals
  
          this.tickingBlockEntities = false;
          this.spigotConfig.currentPrimedTnt = 0; // Spigot

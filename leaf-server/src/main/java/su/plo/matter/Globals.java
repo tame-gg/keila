@@ -37,7 +37,7 @@ public class Globals {
     }
 
     public static void setupGlobals(ServerLevel world) {
-        if (!gg.tame.keila.config.modules.misc.SecureSeed.enabled) return;
+        if (!gg.tame.palladium.config.modules.misc.SecureSeed.enabled) return;
 
         long[] seed = world.getServer().getWorldData().worldGenOptions().featureSeed();
         System.arraycopy(seed, 0, worldSeed, 0, WORLD_SEED_LONGS);

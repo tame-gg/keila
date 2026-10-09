@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PATCH_LIST="${PATCH_LIST:-/tmp/keila-patches-$$.txt}"
-TODO_AUDIT="${TODO_AUDIT:-/tmp/keila-todo-audit-$$.txt}"
+PATCH_LIST="${PATCH_LIST:-/tmp/palladium-patches-$$.txt}"
+TODO_AUDIT="${TODO_AUDIT:-/tmp/palladium-todo-audit-$$.txt}"
 
 find leaf-api/paper-patches leaf-server/paper-patches leaf-server/minecraft-patches \
   -type f \

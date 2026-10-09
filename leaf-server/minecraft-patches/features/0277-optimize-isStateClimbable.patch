@@ -13,7 +13,7 @@ index d16b09077f49bcc717d6803e82071c77c050e72d..5dadb6e34be84f5ab6cbf1a7dee49bc8
  
      private boolean isStateClimbable(BlockState state) {
 -        return state.is(BlockTags.CLIMBABLE) || state.is(Blocks.POWDER_SNOW);
-+        return (state.tagFlag & gg.tame.keila.util.BlockMasks.IS_STATE_CLIMBABLE) != 0; // Leaf - optimize isStateClimbable
++        return (state.tagFlag & gg.tame.palladium.util.BlockMasks.IS_STATE_CLIMBABLE) != 0; // Leaf - optimize isStateClimbable
      }
  
      private boolean vibrationAndSoundEffectsFromBlock(BlockPos pos, BlockState state, boolean playStepSound, boolean broadcastGameEvent, Vec3 entityPos) {

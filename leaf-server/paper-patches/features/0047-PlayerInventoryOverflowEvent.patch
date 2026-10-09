@@ -16,7 +16,7 @@ index 5e5a4e48b2a96c355256b8f8bfcc09225d562944..475f80dae18690635f198a96fa1b1931
 +        // Leaf start - PlayerInventoryOverflowEvent
 +        if (isListeningInventoryOverflowEvent()
 +            && !leftover.isEmpty() && this.inventory instanceof net.minecraft.world.entity.player.Inventory && this.inventory.getOwner() instanceof org.bukkit.entity.Player player) {
-+            new gg.tame.keila.event.player.PlayerInventoryOverflowEvent(player, leftover).callEvent();
++            new gg.tame.palladium.event.player.PlayerInventoryOverflowEvent(player, leftover).callEvent();
 +
 +            return new HashMap<>();
 +        }
@@ -27,30 +27,30 @@ index 5e5a4e48b2a96c355256b8f8bfcc09225d562944..475f80dae18690635f198a96fa1b1931
  
 +    // Leaf start - PlayerInventoryOverflowEvent
 +    private static boolean isListeningInventoryOverflowEvent() {
-+        if (gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached == -1) {
-+            gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = 0;
++        if (gg.tame.palladium.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached == -1) {
++            gg.tame.palladium.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = 0;
 +
-+            if (!gg.tame.keila.config.modules.gameplay.ConfigurableInventoryOverflowEvent.enabled) {
++            if (!gg.tame.palladium.config.modules.gameplay.ConfigurableInventoryOverflowEvent.enabled) {
 +                return false;
 +            }
 +
-+            org.bukkit.plugin.RegisteredListener[] listeners = gg.tame.keila.event.player.PlayerInventoryOverflowEvent.getHandlerList().getRegisteredListeners();
++            org.bukkit.plugin.RegisteredListener[] listeners = gg.tame.palladium.event.player.PlayerInventoryOverflowEvent.getHandlerList().getRegisteredListeners();
 +            if (listeners.length == 1) {
-+                if (listeners[0].getListener().getClass().getName().equals(gg.tame.keila.config.modules.gameplay.ConfigurableInventoryOverflowEvent.listenerClass)) {
-+                    gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = 1;
++                if (listeners[0].getListener().getClass().getName().equals(gg.tame.palladium.config.modules.gameplay.ConfigurableInventoryOverflowEvent.listenerClass)) {
++                    gg.tame.palladium.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = 1;
 +                    return true;
 +                }
 +            } else if (listeners.length > 1) {
 +                for (org.bukkit.plugin.RegisteredListener registeredListener : listeners) {
-+                    if (registeredListener.getListener().getClass().getName().equals(gg.tame.keila.config.modules.gameplay.ConfigurableInventoryOverflowEvent.listenerClass)) {
-+                        gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = 1;
++                    if (registeredListener.getListener().getClass().getName().equals(gg.tame.palladium.config.modules.gameplay.ConfigurableInventoryOverflowEvent.listenerClass)) {
++                        gg.tame.palladium.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = 1;
 +                        return true;
 +                    }
 +                }
 +            }
 +        }
 +
-+        return gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached == 1;
++        return gg.tame.palladium.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached == 1;
 +    }
 +    // Leaf end - PlayerInventoryOverflowEvent
 +

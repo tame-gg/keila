@@ -19,7 +19,7 @@ index 69cdd304d255d52c9b7dc9b6a33ffdb630b79abe..dd3c6019710651c3ca8426842e684f38
  public class TickThread extends Thread {
  
      private static final Logger LOGGER = LoggerFactory.getLogger(TickThread.class);
-+    private static final boolean HARD_THROW = !gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled || !gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.disableHardThrow; // Leaf - SparklyPaper - parallel world ticking - THIS SHOULD NOT BE DISABLED SINCE IT CAN CAUSE DATA CORRUPTION!!! Anyhow, for production servers, if you want to make a test run to see if the server could crash, you can test it with this disabled
++    private static final boolean HARD_THROW = !gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled || !gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.disableHardThrow; // Leaf - SparklyPaper - parallel world ticking - THIS SHOULD NOT BE DISABLED SINCE IT CAN CAUSE DATA CORRUPTION!!! Anyhow, for production servers, if you want to make a test run to see if the server could crash, you can test it with this disabled
  
      private static String getThreadContext() {
          return "thread=" + Thread.currentThread().getName();
@@ -38,7 +38,7 @@ index 69cdd304d255d52c9b7dc9b6a33ffdb630b79abe..dd3c6019710651c3ca8426842e684f38
 -            LOGGER.error(ex, new Throwable());
 -            throw new IllegalStateException(ex);
 +            // Leaf start - SparklyPaper - parallel world ticking
-+            final String threadInfo = gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
++            final String threadInfo = gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
 +            LOGGER.error(threadInfo, new Throwable());
 +            if (HARD_THROW) throw new IllegalStateException(threadInfo);
 +            // Leaf end - SparklyPaper - parallel world ticking
@@ -52,7 +52,7 @@ index 69cdd304d255d52c9b7dc9b6a33ffdb630b79abe..dd3c6019710651c3ca8426842e684f38
 -            LOGGER.error(ex, new Throwable());
 -            throw new IllegalStateException(ex);
 +            // Leaf start - SparklyPaper - parallel world ticking
-+            final String threadInfo = gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
++            final String threadInfo = gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
 +            LOGGER.error(threadInfo, new Throwable());
 +            if (HARD_THROW) throw new IllegalStateException(threadInfo);
 +            // Leaf end - SparklyPaper - parallel world ticking
@@ -66,7 +66,7 @@ index 69cdd304d255d52c9b7dc9b6a33ffdb630b79abe..dd3c6019710651c3ca8426842e684f38
 -            LOGGER.error(ex, new Throwable());
 -            throw new IllegalStateException(ex);
 +            // Leaf start - SparklyPaper - parallel world ticking
-+            final String threadInfo = gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
++            final String threadInfo = gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
 +            LOGGER.error(threadInfo, new Throwable());
 +            if (HARD_THROW) throw new IllegalStateException(threadInfo);
 +            // Leaf end - SparklyPaper - parallel world ticking
@@ -80,7 +80,7 @@ index 69cdd304d255d52c9b7dc9b6a33ffdb630b79abe..dd3c6019710651c3ca8426842e684f38
 -            LOGGER.error(ex, new Throwable());
 -            throw new IllegalStateException(ex);
 +            // Leaf start - SparklyPaper - parallel world ticking
-+            final String threadInfo = gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
++            final String threadInfo = gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
 +            LOGGER.error(threadInfo, new Throwable());
 +            if (HARD_THROW) throw new IllegalStateException(threadInfo);
 +            // Leaf end - SparklyPaper - parallel world ticking
@@ -94,7 +94,7 @@ index 69cdd304d255d52c9b7dc9b6a33ffdb630b79abe..dd3c6019710651c3ca8426842e684f38
 -            LOGGER.error(ex, new Throwable());
 -            throw new IllegalStateException(ex);
 +            // Leaf start - SparklyPaper - parallel world ticking
-+            final String threadInfo = gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(entity.level().getServer()) : ex;
++            final String threadInfo = gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(entity.level().getServer()) : ex;
 +            LOGGER.error(threadInfo, new Throwable());
 +            if (HARD_THROW) throw new IllegalStateException(threadInfo);
 +            // Leaf end - SparklyPaper - parallel world ticking
@@ -108,7 +108,7 @@ index 69cdd304d255d52c9b7dc9b6a33ffdb630b79abe..dd3c6019710651c3ca8426842e684f38
 -            LOGGER.error(ex, new Throwable());
 -            throw new IllegalStateException(ex);
 +            // Leaf start - SparklyPaper - parallel world ticking
-+            final String threadInfo = gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
++            final String threadInfo = gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
 +            LOGGER.error(threadInfo, new Throwable());
 +            if (HARD_THROW) throw new IllegalStateException(threadInfo);
 +            // Leaf end - SparklyPaper - parallel world ticking
@@ -122,7 +122,7 @@ index 69cdd304d255d52c9b7dc9b6a33ffdb630b79abe..dd3c6019710651c3ca8426842e684f38
 -            LOGGER.error(ex, new Throwable());
 -            throw new IllegalStateException(ex);
 +            // Leaf start - SparklyPaper - parallel world ticking
-+            final String threadInfo = gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
++            final String threadInfo = gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? ex + " - " + getTickThreadInformation(world.getServer()) : ex;
 +            LOGGER.error(threadInfo, new Throwable());
 +            if (HARD_THROW) throw new IllegalStateException(threadInfo);
 +            // Leaf end - SparklyPaper - parallel world ticking
@@ -276,7 +276,7 @@ index 01719a81cea75654a0d7eac52fd43ebf2d692b9c..e1638106d5e4ae9968599f7e908ac246
      private boolean unloadChunk0(int x, int z, boolean save) {
 -        org.spigotmc.AsyncCatcher.catchOp("chunk unload"); // Spigot
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, x, z, "Cannot unload chunk asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
 +        } else {
 +            org.spigotmc.AsyncCatcher.catchOp("chunk unload"); // Spigot
@@ -289,7 +289,7 @@ index 01719a81cea75654a0d7eac52fd43ebf2d692b9c..e1638106d5e4ae9968599f7e908ac246
  
      @Override
      public boolean refreshChunk(int x, int z) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, x, z, "Cannot refresh chunk asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, x, z, "Cannot refresh chunk asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
          ChunkHolder playerChunk = this.world.getChunkSource().chunkMap.getVisibleChunkIfPresent(ChunkPos.asLong(x, z));
          if (playerChunk == null) return false;
  
@@ -299,7 +299,7 @@ index 01719a81cea75654a0d7eac52fd43ebf2d692b9c..e1638106d5e4ae9968599f7e908ac246
      public boolean loadChunk(int x, int z, boolean generate) {
 -        org.spigotmc.AsyncCatcher.catchOp("chunk load"); // Spigot
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.getHandle(), x, z, "May not sync load chunks asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
 +        } else {
 +            org.spigotmc.AsyncCatcher.catchOp("chunk load"); // Spigot
@@ -312,7 +312,7 @@ index 01719a81cea75654a0d7eac52fd43ebf2d692b9c..e1638106d5e4ae9968599f7e908ac246
  
      @Override
      public boolean generateTree(Location loc, TreeType type, BlockChangeDelegate delegate) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, loc.getX(), loc.getZ(), "Cannot generate tree asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, loc.getX(), loc.getZ(), "Cannot generate tree asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
          this.world.captureTreeGeneration = true;
          this.world.captureBlockStates = true;
          boolean grownTree = this.generateTree(loc, type);
@@ -320,7 +320,7 @@ index 01719a81cea75654a0d7eac52fd43ebf2d692b9c..e1638106d5e4ae9968599f7e908ac246
  
      private boolean createExplosion(double x, double y, double z, float power, boolean setFire, boolean breakBlocks, Entity source, Consumer<net.minecraft.world.level.ServerExplosion> configurator) {
          // Paper end - expand explosion API
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, x, z, "Cannot create explosion asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, x, z, "Cannot create explosion asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
          net.minecraft.world.level.Level.ExplosionInteraction explosionType;
          if (!breakBlocks) {
              explosionType = net.minecraft.world.level.Level.ExplosionInteraction.NONE; // Don't break blocks
@@ -328,7 +328,7 @@ index 01719a81cea75654a0d7eac52fd43ebf2d692b9c..e1638106d5e4ae9968599f7e908ac246
  
      @Override
      public int getHighestBlockYAt(int x, int z, org.bukkit.HeightMap heightMap) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, x >> 4, z >> 4, "Cannot retrieve chunk asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, x >> 4, z >> 4, "Cannot retrieve chunk asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
          warnUnsafeChunk("getting a faraway chunk", x >> 4, z >> 4); // Paper
          // Transient load for this tick
          return this.world.getChunk(x >> 4, z >> 4).getHeight(CraftHeightMap.toNMS(heightMap), x, z);
@@ -336,7 +336,7 @@ index 01719a81cea75654a0d7eac52fd43ebf2d692b9c..e1638106d5e4ae9968599f7e908ac246
      @Override
      public void setBiome(int x, int y, int z, Holder<net.minecraft.world.level.biome.Biome> bb) {
          BlockPos pos = new BlockPos(x, 0, z);
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, pos, "Cannot retrieve chunk asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, pos, "Cannot retrieve chunk asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
          if (this.world.hasChunkAt(pos)) {
              net.minecraft.world.level.chunk.LevelChunk chunk = this.world.getChunkAt(pos);
  
@@ -344,7 +344,7 @@ index 01719a81cea75654a0d7eac52fd43ebf2d692b9c..e1638106d5e4ae9968599f7e908ac246
  
      @Override
      public void sendGameEvent(Entity sourceEntity, org.bukkit.GameEvent gameEvent, Vector position) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, position.getX(), position.getZ(), "Cannot send game event asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(this.world, position.getX(), position.getZ(), "Cannot send game event asynchronously"); // Leaf - SparklyPaper - parallel world ticking (additional concurrency issues logs)
          getHandle().gameEvent(sourceEntity != null ? ((CraftEntity) sourceEntity).getHandle(): null, net.minecraft.core.registries.BuiltInRegistries.GAME_EVENT.get(org.bukkit.craftbukkit.util.CraftNamespacedKey.toMinecraft(gameEvent.getKey())).orElseThrow(), org.bukkit.craftbukkit.util.CraftVector.toBlockPos(position));
      }
      // Paper end
@@ -363,17 +363,17 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +
 +    private boolean needsBuffering(ServerLevel level) {
 +        // No ServerLevel means no queue, can't buffer
-+        return level != null && gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled && gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.asyncUnsafeReadHandling == gg.tame.keila.async.world.UnsafeReadPolicy.BUFFERED && !ca.spottedleaf.moonrise.common.util.TickThread.isTickThreadFor(level);
++        return level != null && gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled && gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.asyncUnsafeReadHandling == gg.tame.palladium.async.world.UnsafeReadPolicy.BUFFERED && !ca.spottedleaf.moonrise.common.util.TickThread.isTickThreadFor(level);
 +    }
 +
 +    private void checkStrictMode(ServerLevel level, String methodName) {
 +        // Only check if PWT enabled, mode is STRICT, and we have a ServerLevel
-+        if (level != null && gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled && gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.asyncUnsafeReadHandling == gg.tame.keila.async.world.UnsafeReadPolicy.STRICT) {
++        if (level != null && gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled && gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.asyncUnsafeReadHandling == gg.tame.palladium.async.world.UnsafeReadPolicy.STRICT) {
 +            ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(level, this.position, "PWT: Async unsafe block read (strict mode): " + methodName);
 +        }
 +    }
 +
-+    private <T> T executeBufferedRead(ServerLevel level, gg.tame.keila.async.world.ReadOperationType type, Object[] params, T defaultValue, String methodName) {
++    private <T> T executeBufferedRead(ServerLevel level, gg.tame.palladium.async.world.ReadOperationType type, Object[] params, T defaultValue, String methodName) {
 +        if (level == null) { // Should not happen if called correctly after needsBuffering
 +            org.bukkit.Bukkit.getLogger().log(java.util.logging.Level.SEVERE, "PWT: executeBufferedRead called with null ServerLevel for " + methodName);
 +            return defaultValue;
@@ -382,7 +382,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +        // Leaf start - SparklyPaper - parallel world ticking - Deadlock prevention
 +        if (Thread.currentThread() instanceof ca.spottedleaf.moonrise.common.util.TickThread.ServerLevelTickThread) {
 +            try {
-+                gg.tame.keila.async.world.WorldReadRequest request = new gg.tame.keila.async.world.WorldReadRequest(type, params, null);
++                gg.tame.palladium.async.world.WorldReadRequest request = new gg.tame.palladium.async.world.WorldReadRequest(type, params, null);
 +                Object result = level.executeReadRequest(request);
 +                return (T) result;
 +            } catch (Exception e) {
@@ -397,7 +397,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +        if (level.isShuttingDown()) {
 +            future.completeExceptionally(new IllegalStateException("World " + level.getWorld().getName() + " is shutting down. Cannot queue new buffered read: " + type));
 +        } else {
-+            gg.tame.keila.async.world.WorldReadRequest request = new gg.tame.keila.async.world.WorldReadRequest(type, params, future);
++            gg.tame.palladium.async.world.WorldReadRequest request = new gg.tame.palladium.async.world.WorldReadRequest(type, params, future);
 +            level.asyncReadRequestQueue.offer(request); // Assumes queue exists on ServerLevel
 +        }
 +        // Leaf end - SparklyPaper - parallel world ticking - Shutdown handling for async reads
@@ -428,12 +428,12 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public net.minecraft.world.level.block.state.BlockState getNMS() {
 -        return this.world.getBlockState(this.position);
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            if (needsBuffering(level)) {
 +                // Buffered path
-+                return executeBufferedRead(level, gg.tame.keila.async.world.ReadOperationType.BLOCK_GET_NMS_STATE, new Object[]{this.position}, Blocks.AIR.defaultBlockState(), "getNMS");
++                return executeBufferedRead(level, gg.tame.palladium.async.world.ReadOperationType.BLOCK_GET_NMS_STATE, new Object[]{this.position}, Blocks.AIR.defaultBlockState(), "getNMS");
 +            } else {
 +                // Strict/Disabled/Non-ServerLevel path
 +                checkStrictMode(level, "getNMS");
@@ -453,7 +453,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public net.minecraft.world.level.material.FluidState getNMSFluid() {
 -        return this.world.getFluidState(this.position);
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            checkStrictMode(level, "getNMSFluid");
@@ -488,7 +488,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      }
  
      private void setData(final byte data, @net.minecraft.world.level.block.Block.UpdateFlags int flags) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled && world instanceof ServerLevel serverWorld) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(serverWorld, position, "Cannot modify world asynchronously"); // Leaf - SparklyPaper - parallel world ticking
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled && world instanceof ServerLevel serverWorld) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(serverWorld, position, "Cannot modify world asynchronously"); // Leaf - SparklyPaper - parallel world ticking
          this.world.setBlock(this.position, CraftMagicNumbers.getBlock(this.getType(), data), flags);
      }
  
@@ -512,7 +512,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      }
  
      public static boolean setBlockState(LevelAccessor world, BlockPos pos, net.minecraft.world.level.block.state.BlockState oldState, net.minecraft.world.level.block.state.BlockState newState, boolean applyPhysics) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled && world instanceof ServerLevel serverWorld) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(serverWorld, pos, "Cannot modify world asynchronously"); // Leaf - SparklyPaper - parallel world ticking
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled && world instanceof ServerLevel serverWorld) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(serverWorld, pos, "Cannot modify world asynchronously"); // Leaf - SparklyPaper - parallel world ticking
          // SPIGOT-611: need to do this to prevent glitchiness. Easier to handle this here (like /setblock) than to fix weirdness in block entity cleanup
          if (oldState.hasBlockEntity() && newState.getBlock() != oldState.getBlock()) { // SPIGOT-3725 remove old block entity if block changes
              // SPIGOT-4612: faster - just clear tile
@@ -528,7 +528,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public byte getLightLevel() {
 -        return (byte) this.world.getMinecraftWorld().getMaxLocalRawBrightness(this.position);
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            checkStrictMode(level, "getLightLevel"); // Strict check if applicable
@@ -554,7 +554,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public byte getLightFromSky() {
 -        return (byte) this.world.getBrightness(LightLayer.SKY, this.position);
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            checkStrictMode(level, "getLightFromSky"); // Strict check if applicable
@@ -576,7 +576,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public byte getLightFromBlocks() {
 -        return (byte) this.world.getBrightness(LightLayer.BLOCK, this.position);
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            checkStrictMode(level, "getLightFromBlocks"); // Strict check if applicable
@@ -601,13 +601,13 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public Biome getBiome() {
 -        return this.getWorld().getBiome(this.getX(), this.getY(), this.getZ());
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            if (needsBuffering(level)) {
 +                // Buffered path
 +                net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> nmsResult = executeBufferedRead(
-+                    level, gg.tame.keila.async.world.ReadOperationType.BLOCK_GET_BIOME, new Object[]{this.position}, null, "getBiome"
++                    level, gg.tame.palladium.async.world.ReadOperationType.BLOCK_GET_BIOME, new Object[]{this.position}, null, "getBiome"
 +                );
 +                return (nmsResult != null) ? CraftBiome.minecraftHolderToBukkit(nmsResult) : Biome.PLAINS; // Default biome
 +            } else {
@@ -632,13 +632,13 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public Biome getComputedBiome() {
 -        return this.getWorld().getComputedBiome(this.getX(), this.getY(), this.getZ());
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            if (needsBuffering(level)) {
 +                // Buffered path
 +                net.minecraft.core.Holder<net.minecraft.world.level.biome.Biome> nmsResult = executeBufferedRead(
-+                    level, gg.tame.keila.async.world.ReadOperationType.BLOCK_GET_COMPUTED_BIOME, new Object[]{this.position}, null, "getComputedBiome"
++                    level, gg.tame.palladium.async.world.ReadOperationType.BLOCK_GET_COMPUTED_BIOME, new Object[]{this.position}, null, "getComputedBiome"
 +                );
 +                return (nmsResult != null) ? CraftBiome.minecraftHolderToBukkit(nmsResult) : Biome.PLAINS; // Default biome
 +            } else {
@@ -661,7 +661,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
  
      @Override
      public void setBiome(Biome bio) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled && world instanceof ServerLevel serverWorld) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(serverWorld, position, "Cannot modify world asynchronously"); // Leaf - SparklyPaper - parallel world ticking
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled && world instanceof ServerLevel serverWorld) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(serverWorld, position, "Cannot modify world asynchronously"); // Leaf - SparklyPaper - parallel world ticking
          this.getWorld().setBiome(this.getX(), this.getY(), this.getZ(), bio);
      }
  
@@ -671,7 +671,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public boolean isBlockPowered() {
 -        return this.world.getMinecraftWorld().getDirectSignalTo(this.position) > 0;
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            checkStrictMode(level, "isBlockPowered"); // Strict check if applicable
@@ -697,12 +697,12 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public boolean isBlockIndirectlyPowered() {
 -        return this.world.getMinecraftWorld().hasNeighborSignal(this.position);
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            if (needsBuffering(level)) {
 +                // Buffered path
-+                return executeBufferedRead(level, gg.tame.keila.async.world.ReadOperationType.BLOCK_IS_INDIRECTLY_POWERED, new Object[]{this.position}, false, "isBlockIndirectlyPowered");
++                return executeBufferedRead(level, gg.tame.palladium.async.world.ReadOperationType.BLOCK_IS_INDIRECTLY_POWERED, new Object[]{this.position}, false, "isBlockIndirectlyPowered");
 +            } else {
 +                // Strict/Disabled/Non-ServerLevel path
 +                checkStrictMode(level, "isBlockIndirectlyPowered");
@@ -732,7 +732,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 -        return this.world.getMinecraftWorld().hasSignal(this.position, CraftBlock.blockFaceToNotch(face));
 -    }
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
  
 -    @Override
@@ -802,7 +802,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public boolean breakNaturally() {
 -        return this.breakNaturally(null);
 +        // Leaf start - SparklyPaper - parallel world ticking - Write operation check
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +            if (level != null) {
 +                ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(level, position, "PWT: Cannot modify world asynchronously (breakNaturally)");
@@ -821,7 +821,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public boolean breakNaturally(ItemStack item) {
          // Paper start
 -        return this.breakNaturally(item, false);
-+        return gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? this.breakNaturally(item, true, true) : this.breakNaturally(item, false); // Leaf - SparklyPaper - parallel world ticking - Delegates to full overload
++        return gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? this.breakNaturally(item, true, true) : this.breakNaturally(item, false); // Leaf - SparklyPaper - parallel world ticking - Delegates to full overload
      }
  
      @Override
@@ -948,7 +948,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
          Preconditions.checkArgument(player != null, "player cannot be null");
 -        return this.getNMS().getDestroyProgress(((CraftPlayer) player).getHandle(), this.world, this.position);
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            // Requires LevelReader (LevelAccessor is sufficient)
 +            ServerLevel level = getServerLevel();
 +
@@ -977,7 +977,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public boolean isPassable() {
 -        return this.getNMS().getCollisionShape(this.world, this.position).isEmpty();
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            // Requires LevelReader (LevelAccessor is sufficient)
 +            ServerLevel level = getServerLevel();
 +
@@ -1029,7 +1029,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 -        VoxelShape shape = this.getNMS().getCollisionShape(this.world, this.position);
 -        return new CraftVoxelShape(shape);
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            // Requires LevelReader (LevelAccessor is sufficient)
 +            ServerLevel level = getServerLevel();
 +
@@ -1056,13 +1056,13 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 -        net.minecraft.world.level.block.state.BlockState iblockdata = ((CraftBlockData) data).getState();
 -        net.minecraft.world.level.Level world = this.world.getMinecraftWorld();
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
  
 -        return iblockdata.canSurvive(world, this.position);
 +            if (needsBuffering(level)) {
 +                // Buffered path
-+                return executeBufferedRead(level, gg.tame.keila.async.world.ReadOperationType.BLOCK_CAN_PLACE, new Object[]{this.position, data}, false, "canPlace");
++                return executeBufferedRead(level, gg.tame.palladium.async.world.ReadOperationType.BLOCK_CAN_PLACE, new Object[]{this.position, data}, false, "canPlace");
 +            } else {
 +                // Strict/Disabled/Non-ServerLevel path
 +                checkStrictMode(level, "canPlace");
@@ -1091,7 +1091,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      public com.destroystokyo.paper.block.BlockSoundGroup getSoundGroup() {
 -        return new com.destroystokyo.paper.block.CraftBlockSoundGroup(getNMS().getBlock().defaultBlockState().getSoundType());
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        net.minecraft.world.level.block.SoundType nmsSoundType = gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? this.getNMS().getSoundType() : getNMS().getBlock().defaultBlockState().getSoundType();
++        net.minecraft.world.level.block.SoundType nmsSoundType = gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled ? this.getNMS().getSoundType() : getNMS().getBlock().defaultBlockState().getSoundType();
 +        return new com.destroystokyo.paper.block.CraftBlockSoundGroup(nmsSoundType);
 +        // Leaf end - SparklyPaper - parallel world ticking
      }
@@ -1105,7 +1105,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +        // Leaf start - SparklyPaper - parallel world ticking - Write operation check
 +        // (block ticks can modify state)
 +        ServerLevel level;
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            level = getServerLevel();
 +            if (level != null) {
 +                ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(level, position, "PWT: Cannot tick block asynchronously (tick)");
@@ -1128,7 +1128,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +        // Leaf start - SparklyPaper - parallel world ticking
 +        // Fluid ticks can modify state
 +        ServerLevel level;
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            level = getServerLevel();
 +            if (level != null) {
 +                ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(level, position, "PWT: Cannot tick fluid asynchronously (fluidTick)");
@@ -1149,7 +1149,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +        // Leaf start - SparklyPaper - parallel world ticking - Write operation check
 +        // (random ticks can modify state)
 +        ServerLevel level;
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            level = getServerLevel();
 +            if (level != null) {
 +                ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(level, position, "PWT: Cannot randomTick block asynchronously");
@@ -1166,7 +1166,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
      // Paper end
 +
 +    private boolean pwt$isBlockFaceIndirectlyPowered(BlockFace face) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            checkStrictMode(level, "isBlockFaceIndirectlyPowered"); // Strict check if applicable
@@ -1202,12 +1202,12 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +    }
 +
 +    private int pwt$getBlockPower(BlockFace face) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            if (needsBuffering(level)) {
 +                // Buffered path
-+                return executeBufferedRead(level, gg.tame.keila.async.world.ReadOperationType.BLOCK_GET_BLOCK_POWER, new Object[]{this.position, face}, 0, "getBlockPower");
++                return executeBufferedRead(level, gg.tame.palladium.async.world.ReadOperationType.BLOCK_GET_BLOCK_POWER, new Object[]{this.position, face}, 0, "getBlockPower");
 +            } else {
 +                // Strict/Disabled/Non-ServerLevel path
 +                checkStrictMode(level, "getBlockPower");
@@ -1266,7 +1266,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +    }
 +
 +    private boolean pwt$breakNaturally(ItemStack item, boolean triggerEffect, boolean dropExperience, boolean forceEffect) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            // Order matters here, need to drop before setting to air so skulls can get their data
 +            // (already done in simpler overload, but check again for safety)
 +            ServerLevel level = getServerLevel();
@@ -1391,7 +1391,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +    }
 +
 +    private boolean pwt$applyBoneMeal(BlockFace face) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +            if (level != null) {
 +                ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(level, position, "PWT: Cannot modify world asynchronously (applyBoneMeal)");
@@ -1480,7 +1480,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +    }
 +
 +    private Collection<ItemStack> pwt$getDrops(ItemStack item, Entity entity) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            // Requires ServerLevel for Block.getDrops call
 +            ServerLevel level = getServerLevel();
 +            if (level == null) {
@@ -1526,13 +1526,13 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +    }
 +
 +    private RayTraceResult pwt$rayTrace(Location start, Vector direction, double maxDistance, FluidCollisionMode fluidCollisionMode) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            ServerLevel level = getServerLevel();
 +
 +            if (needsBuffering(level)) {
 +                // Buffered path
 +                HitResult nmsHitResult = executeBufferedRead(
-+                    level, gg.tame.keila.async.world.ReadOperationType.BLOCK_RAY_TRACE,
++                    level, gg.tame.palladium.async.world.ReadOperationType.BLOCK_RAY_TRACE,
 +                    new Object[]{this.position, start, direction, maxDistance, fluidCollisionMode}, // Pass all params
 +                    null, "rayTrace"
 +                );
@@ -1572,7 +1572,7 @@ index 720b4afb4438964149073f47c886ab683fd31b58..aacd08358fd118146cde0df0f71226c9
 +    }
 +
 +    private BoundingBox pwt$getBoundingBox() {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            // Requires LevelReader (LevelAccessor is sufficient)
 +            ServerLevel level = getServerLevel();
 +
@@ -1621,7 +1621,7 @@ index 26feb76c52631e77b8529e4da1e54e1c703ea001..6dd4664a36ea993c36fad60ff0032c8c
 +    // Leaf start - SparklyPaper - parallel world ticking
 +    // refer to original field in case plugins attempt to modify it
 +    public static boolean getDisableSnapshotTL() {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            if (DISABLE_SNAPSHOT_TL.get()) return true;
 +            synchronized (CraftBlockEntityState.class) {
 +                return DISABLE_SNAPSHOT;
@@ -1633,7 +1633,7 @@ index 26feb76c52631e77b8529e4da1e54e1c703ea001..6dd4664a36ea993c36fad60ff0032c8c
 +
 +    // update original field in case plugins attempt to access it
 +    public static void setDisableSnapshotTL(boolean value) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            DISABLE_SNAPSHOT_TL.set(value);
 +            synchronized (CraftBlockEntityState.class) {
 +                DISABLE_SNAPSHOT = value;
@@ -1666,7 +1666,7 @@ index 3036f3fa8b58607e2abbe1cbec065c7b78bdc025..402ddbd2c07634ff1551723089b5321d
          CraftBlock block = this.getBlock();
  
 +        // Leaf start - SparklyPaper - parallel world ticking
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled && access instanceof net.minecraft.server.level.ServerLevel serverLevel) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled && access instanceof net.minecraft.server.level.ServerLevel serverLevel) {
 +            ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(serverLevel, position, "Cannot modify world asynchronously");
 +        }
 +        // Leaf end - SparklyPaper - parallel world ticking
@@ -1678,7 +1678,7 @@ index 3036f3fa8b58607e2abbe1cbec065c7b78bdc025..402ddbd2c07634ff1551723089b5321d
  
      @Override
      public java.util.Collection<org.bukkit.inventory.ItemStack> getDrops(org.bukkit.inventory.ItemStack item, org.bukkit.entity.Entity entity) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(world.getHandle(), position, "Cannot modify world asynchronously"); // Leaf - SparklyPaper - parallel world ticking
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) ca.spottedleaf.moonrise.common.util.TickThread.ensureTickThread(world.getHandle(), position, "Cannot modify world asynchronously"); // Leaf - SparklyPaper - parallel world ticking
          this.requirePlaced();
          net.minecraft.world.item.ItemStack nms = org.bukkit.craftbukkit.inventory.CraftItemStack.asNMSCopy(item);
  
@@ -1717,7 +1717,7 @@ index de1ffa1f2a8b8331f484a7a6546f4b29e2c853c6..138d8c1f78dea434cb7f1b8b1e39bdf3
 +    // Leaf start - SparklyPaper - parallel world ticking
 +    // refer to original field in case plugins attempt to modify it
 +    public static BlockPos getSourceBlockOverrideRT() {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            final BlockPos sourceBlockOverrideRTCopy = SOURCE_BLOCK_OVERRIDE_RT.get();
 +            if (sourceBlockOverrideRTCopy != null) return sourceBlockOverrideRTCopy;
 +            synchronized (CraftEventFactory.class) {
@@ -1730,7 +1730,7 @@ index de1ffa1f2a8b8331f484a7a6546f4b29e2c853c6..138d8c1f78dea434cb7f1b8b1e39bdf3
 +
 +    // update original field in case plugins attempt to access it
 +    public static void setSourceBlockOverrideRT(BlockPos value) {
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            SOURCE_BLOCK_OVERRIDE_RT.set(value);
 +            synchronized (CraftEventFactory.class) {
 +                sourceBlockOverride = value;

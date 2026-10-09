@@ -13,7 +13,7 @@ index 84ea591ecd4f42383f69525f32b748d15497cfed..45183f42f1bf97c22add50ed31e3b8f6
      }
  
      public void trackStartFallingPosition() {
-+        if (gg.tame.keila.config.modules.fixes.MCBugFix.mc270656) this.resetImpulseImpactIfNeeded(false); // Leaf - Fix MC-270656
++        if (gg.tame.palladium.config.modules.fixes.MCBugFix.mc270656) this.resetImpulseImpactIfNeeded(false); // Leaf - Fix MC-270656
          if (this.fallDistance > 0.0 && this.startingToFallPosition == null) {
              this.startingToFallPosition = this.position();
              if (this.currentImpulseImpactPos != null && this.currentImpulseImpactPos.y <= this.startingToFallPosition.y) {
@@ -44,7 +44,7 @@ index 84ea591ecd4f42383f69525f32b748d15497cfed..45183f42f1bf97c22add50ed31e3b8f6
                  // CraftBukkit end
                  this.connection.resetPosition();
                  teleportTransition.postTeleportTransition().onTransition(this);
-+                if (gg.tame.keila.config.modules.fixes.MCBugFix.mc270656) this.resetImpulseImpactIfNeeded(true); // Leaf - Fix MC-270656
++                if (gg.tame.palladium.config.modules.fixes.MCBugFix.mc270656) this.resetImpulseImpactIfNeeded(true); // Leaf - Fix MC-270656
                  return this;
              } else {
                  this.isChangingDimension = true;
@@ -52,7 +52,7 @@ index 84ea591ecd4f42383f69525f32b748d15497cfed..45183f42f1bf97c22add50ed31e3b8f6
                      this.stopUsingItem();
                  }
                  // Paper end - Reset shield blocking on dimension change
-+                if (gg.tame.keila.config.modules.fixes.MCBugFix.mc270656) this.resetImpulseImpactIfNeeded(true); // Leaf - Fix MC-270656
++                if (gg.tame.palladium.config.modules.fixes.MCBugFix.mc270656) this.resetImpulseImpactIfNeeded(true); // Leaf - Fix MC-270656
                  return this;
              }
          }
