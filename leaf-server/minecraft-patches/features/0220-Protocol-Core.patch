@@ -13,8 +13,8 @@ index 081ca42b6a6644eb8c2b5ac9105fecf8ad39d501..8883d942b9c03982bd853ba5f90eb91f
                  }
                  // Leaves end - protocol core
 +                // Leaf start - Protocol core
-+                if (value instanceof gg.tame.keila.protocol.KeilaCustomPayload payload) {
-+                    gg.tame.keila.protocol.Protocols.write(buffer, payload);
++                if (value instanceof gg.tame.palladium.protocol.PalladiumCustomPayload payload) {
++                    gg.tame.palladium.protocol.Protocols.write(buffer, payload);
 +                    return;
 +                }
 +                // Leaf end - Protocol core
@@ -29,7 +29,7 @@ index 24cf2c1eae12971e631f0335404bd8580c153ee5..3ae645654ffcb9a3b13e7f70ee15fb7e
          profilerFiller.popPush("server gui refresh");
  
          org.leavesmc.leaves.protocol.core.LeavesProtocolManager.handleTick(tickCount); // Leaves - protocol
-+        gg.tame.keila.protocol.Protocols.tickServer(this); // Leaf - Protocol core
++        gg.tame.palladium.protocol.Protocols.tickServer(this); // Leaf - Protocol core
  
          for (Runnable runnable : this.tickables) {
              runnable.run();
@@ -41,7 +41,7 @@ index 1a023728f09adee06189d0f869aeb07ce6bec924..6dab07576f079db883f1212d7976a473
              }
          }
          // Purpur end - Ridables
-+        gg.tame.keila.protocol.Protocols.tickPlayer(this); // Leaf - Protocol core
++        gg.tame.palladium.protocol.Protocols.tickPlayer(this); // Leaf - Protocol core
      }
  
      private void updatePlayerAttributes() {
@@ -55,7 +55,7 @@ index 655f1af6d27f320bad3a8d89cf9dc686f8684440..f919f11f5aaf3c0c80869cfa08521b2c
  
 +        // Leaf start - Protocol core
 +        if (this instanceof ServerGamePacketListenerImpl gamePacketListener) {
-+            gg.tame.keila.protocol.Protocols.handle(gamePacketListener.player, discardedPayload);
++            gg.tame.palladium.protocol.Protocols.handle(gamePacketListener.player, discardedPayload);
 +        }
 +        // Leaf end - Protocol core
 +
@@ -70,7 +70,7 @@ index d4eefa2d1fa004e212e9b16093c92b6635a671bf..c4ef947744bacbbf581fffffc6899cc1
      // Leaves stop - replay mod api
  
      public net.kyori.adventure.text.@Nullable Component remove(ServerPlayer player) { // CraftBukkit - return string // Paper - return Component
-+        gg.tame.keila.protocol.Protocols.disconnected(player); // Leaf - Protocol core
++        gg.tame.palladium.protocol.Protocols.disconnected(player); // Leaf - Protocol core
          // Paper start - Fix kick event leave message not being sent
          return this.remove(player, net.kyori.adventure.text.Component.translatable("multiplayer.player.left", net.kyori.adventure.text.format.NamedTextColor.YELLOW, io.papermc.paper.configuration.GlobalConfiguration.get().messages.useDisplayNameInQuitMessage ? player.getBukkitEntity().displayName() : io.papermc.paper.adventure.PaperAdventure.asAdventure(player.getDisplayName())));
      }

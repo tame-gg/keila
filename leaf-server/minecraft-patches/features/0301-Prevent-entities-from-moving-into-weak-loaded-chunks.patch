@@ -66,7 +66,7 @@ index ea4e735d64ec06e50c84f0bd64e1bb9133f69167..b5f24507359432789ef0e35637b5bfd9
 @@ -388,6 +388,7 @@ public abstract class Entity implements SyncedDataHolder, DebugValueSource, Name
      public long activatedImmunityTick = Integer.MIN_VALUE;
      public @Nullable Boolean immuneToFire = null; // Purpur - Fire immune API
-     public boolean keila$isWeakLoaded = false; // Leaf - Rewrite entity despawn time
+     public boolean palladium$isWeakLoaded = false; // Leaf - Rewrite entity despawn time
 +    protected boolean preventMoveIntoWeakLoadedChunks = false; // Leaf - Prevent entity from moving into weak loaded chunks
  
      public void inactiveTick() {
@@ -101,7 +101,7 @@ index c95ca23bc51780c9c68bc791bdd33822894ddf3c..7035d9fb406ea846fc8053017aeb6095
  
      protected Projectile(EntityType<? extends Projectile> type, Level level) {
          super(type, level);
-+        this.preventMoveIntoWeakLoadedChunks = gg.tame.keila.config.modules.fixes.PreventMoveIntoWeakLoadedChunks.isProjectileEnabled(); // Leaf - Prevent entity from moving into weak loaded chunks
++        this.preventMoveIntoWeakLoadedChunks = gg.tame.palladium.config.modules.fixes.PreventMoveIntoWeakLoadedChunks.isProjectileEnabled(); // Leaf - Prevent entity from moving into weak loaded chunks
      }
  
      // Gale start - Airplane - reduce projectile chunk loading

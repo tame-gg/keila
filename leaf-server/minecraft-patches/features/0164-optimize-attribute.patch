@@ -41,7 +41,7 @@ index 5b409859db3d9ac02a316e7d5d5db6ff49453285..a2e7266da774b7f1e47a9f2076053dad
 -        for (AttributeInstance attributeInstance : attributesToUpdate) {
 -            this.onAttributeUpdated(attributeInstance.getAttribute());
 +        for (int attribute : attributesToUpdate) {
-+            this.onAttributeUpdated(gg.tame.keila.util.RegistryTypeManager.ATTRIBUTE[attribute]);
++            this.onAttributeUpdated(gg.tame.palladium.util.RegistryTypeManager.ATTRIBUTE[attribute]);
          }
 -
 -        attributesToUpdate.clear();
@@ -131,9 +131,9 @@ index 852f53a4705c3fa201135a89a2803f45f283fc08..ba090c219a1cf4797a068b0dcf254819
 -    private final Set<AttributeInstance> attributesToUpdate = new ObjectOpenHashSet<>();
 +public class AttributeMap implements java.util.function.Consumer<AttributeInstance> { // Leaf - optimize attribute
 +    // Leaf start - optimize attribute
-+    public final Map<Holder<Attribute>, AttributeInstance> attributes = new gg.tame.keila.util.map.AttributeInstanceArrayMap();
-+    private final Set<AttributeInstance> attributesToSync = new gg.tame.keila.util.map.AttributeInstanceSet((gg.tame.keila.util.map.AttributeInstanceArrayMap) attributes);
-+    private final Set<AttributeInstance> attributesToUpdate = new gg.tame.keila.util.map.AttributeInstanceSet((gg.tame.keila.util.map.AttributeInstanceArrayMap) attributes);
++    public final Map<Holder<Attribute>, AttributeInstance> attributes = new gg.tame.palladium.util.map.AttributeInstanceArrayMap();
++    private final Set<AttributeInstance> attributesToSync = new gg.tame.palladium.util.map.AttributeInstanceSet((gg.tame.palladium.util.map.AttributeInstanceArrayMap) attributes);
++    private final Set<AttributeInstance> attributesToUpdate = new gg.tame.palladium.util.map.AttributeInstanceSet((gg.tame.palladium.util.map.AttributeInstanceArrayMap) attributes);
 +    // Leaf end - optimize attribute
      private final AttributeSupplier supplier;
      private final net.minecraft.world.entity.LivingEntity entity; // Purpur - Ridables
@@ -154,9 +154,9 @@ index 852f53a4705c3fa201135a89a2803f45f283fc08..ba090c219a1cf4797a068b0dcf254819
 -            this.attributesToSync.add(instance);
 +        // Leaf start - optimize attribute
 +        Attribute attribute = instance.getAttribute().value();
-+        ((gg.tame.keila.util.map.AttributeInstanceSet) this.attributesToUpdate).addAttribute(attribute);
++        ((gg.tame.palladium.util.map.AttributeInstanceSet) this.attributesToUpdate).addAttribute(attribute);
 +        if (attribute.isClientSyncable() && (entity == null || entity.shouldSendAttribute(attribute))) { // Purpur - Ridables
-+            ((gg.tame.keila.util.map.AttributeInstanceSet) this.attributesToSync).addAttribute(attribute);
++            ((gg.tame.palladium.util.map.AttributeInstanceSet) this.attributesToSync).addAttribute(attribute);
          }
 +        // Leaf end - optimize attribute
      }
@@ -194,13 +194,13 @@ index 852f53a4705c3fa201135a89a2803f45f283fc08..ba090c219a1cf4797a068b0dcf254819
 +    }
 +
 +    public int[] getAttributesToUpdateIds() {
-+        int[] clone = ((gg.tame.keila.util.map.AttributeInstanceSet) attributesToUpdate).inner.toIntArray();
++        int[] clone = ((gg.tame.palladium.util.map.AttributeInstanceSet) attributesToUpdate).inner.toIntArray();
 +        this.attributesToUpdate.clear();
 +        return clone;
 +    }
 +
 +    public int[] getAttributesToSyncIds() {
-+        int[] clone = ((gg.tame.keila.util.map.AttributeInstanceSet) attributesToSync).inner.toIntArray();
++        int[] clone = ((gg.tame.palladium.util.map.AttributeInstanceSet) attributesToSync).inner.toIntArray();
 +        this.attributesToSync.clear();
 +        return clone;
      }
@@ -218,7 +218,7 @@ index 852f53a4705c3fa201135a89a2803f45f283fc08..ba090c219a1cf4797a068b0dcf254819
 +
 +    public List<net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket.AttributeSnapshot> getSyncableAttributesPacket() {
 +        List<net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket.AttributeSnapshot> list = new ArrayList<>(attributes.size());
-+        if (attributes instanceof gg.tame.keila.util.map.AttributeInstanceArrayMap map) {
++        if (attributes instanceof gg.tame.palladium.util.map.AttributeInstanceArrayMap map) {
 +            for (AttributeInstance instance : map.elements()) {
 +                if (instance != null && instance.getAttribute().value().isClientSyncable() && (entity == null || entity.shouldSendAttribute(instance.getAttribute().value()))) { // Purpur - Ridables
 +                    list.add(new net.minecraft.network.protocol.game.ClientboundUpdateAttributesPacket.AttributeSnapshot(
@@ -263,7 +263,7 @@ index 8bf6b76277c529433dbf541dee23156bbb94c946..c309b381c8c7caf0bc9142e436c8b801
  
      AttributeSupplier(Map<Holder<Attribute>, AttributeInstance> instances) {
 -        this.instances = instances;
-+        this.instances = new gg.tame.keila.util.map.AttributeInstanceArrayMap(instances); // Leaf - optimize attribute
++        this.instances = new gg.tame.palladium.util.map.AttributeInstanceArrayMap(instances); // Leaf - optimize attribute
      }
  
      public AttributeInstance getAttributeInstance(Holder<Attribute> attribute) {

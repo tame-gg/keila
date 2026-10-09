@@ -529,7 +529,7 @@ index 790b992bef716b527a220ae34c747a571de0dbe1..9d93b926227a3bc31bbd97aea0134179
          this.players.remove(player);
 +        this.realPlayers.remove(player); // Leaves - replay api
          this.playersByName.remove(player.getScoreboardName().toLowerCase(java.util.Locale.ROOT)); // Spigot
-         if (gg.tame.keila.config.modules.misc.VanillaUsernameCheck.allowOldPlayersJoin) this.playedPlayers.remove(player.getGameProfile().name()); // Leaf - Configurable vanilla username check
+         if (gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.allowOldPlayersJoin) this.playedPlayers.remove(player.getGameProfile().name()); // Leaf - Configurable vanilla username check
          this.removeFromSendAllPlayerInfoBuckets(player); // Gale - Purpur - spread out sending all player info
 @@ -888,10 +1038,10 @@ public abstract class PlayerList {
      }

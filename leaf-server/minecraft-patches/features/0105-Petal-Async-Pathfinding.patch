@@ -192,10 +192,10 @@ index a0df7e116872858efa02c9c80e9812dcd97ffbf2..55a2d8b66b076bc50adc425457a64d85
              WalkTarget walkTarget = brain.getMemory(MemoryModuleType.WALK_TARGET).get();
              boolean flag = this.reachedTarget(owner, walkTarget);
 -            if (!flag && this.tryComputePath(owner, walkTarget, level.getGameTime())) {
-+            if (!gg.tame.keila.config.modules.async.AsyncPathfinding.enabled && !flag && this.tryComputePath(owner, walkTarget, level.getGameTime())) { // Kaiiju - petal - async path processing - Async path processing means we can't know if the path is reachable here
++            if (!gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled && !flag && this.tryComputePath(owner, walkTarget, level.getGameTime())) { // Kaiiju - petal - async path processing - Async path processing means we can't know if the path is reachable here
                  this.lastTargetPos = walkTarget.getTarget().currentBlockPosition();
                  return true;
-+            } else if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled && !flag) { return true; // Kaiiju - petal - async path processing
++            } else if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled && !flag) { return true; // Kaiiju - petal - async path processing
              } else {
                  brain.eraseMemory(MemoryModuleType.WALK_TARGET);
                  if (flag) {
@@ -203,7 +203,7 @@ index a0df7e116872858efa02c9c80e9812dcd97ffbf2..55a2d8b66b076bc50adc425457a64d85
  
      @Override
      protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
-+        if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled && !this.finishedProcessing) return true; // Kaiiju - petal - async path processing - wait for processing
++        if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled && !this.finishedProcessing) return true; // Kaiiju - petal - async path processing - wait for processing
          if (this.path != null && this.lastTargetPos != null) {
              Optional<WalkTarget> memory = entity.getBrain().getMemory(MemoryModuleType.WALK_TARGET);
              boolean flag = memory.map(MoveToTargetSink::isWalkTargetSpectator).orElse(false);
@@ -212,7 +212,7 @@ index a0df7e116872858efa02c9c80e9812dcd97ffbf2..55a2d8b66b076bc50adc425457a64d85
      @Override
      protected void start(ServerLevel level, Mob entity, long gameTime) {
 +        // Kaiiju start - petal - async path processing - start processing
-+        if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled) {
++        if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled) {
 +            Brain<?> brain = entity.getBrain();
 +            WalkTarget walkTarget = brain.getMemory(MemoryModuleType.WALK_TARGET).get();
 +
@@ -229,7 +229,7 @@ index a0df7e116872858efa02c9c80e9812dcd97ffbf2..55a2d8b66b076bc50adc425457a64d85
      @Override
      protected void tick(ServerLevel level, Mob owner, long gameTime) {
 +        // Kaiiju start - petal - async path processing
-+        if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled) {
++        if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled) {
 +            if (this.path != null && !this.path.isProcessed()) return; // wait for processing
 +
 +            if (!this.finishedProcessing) {
@@ -446,7 +446,7 @@ index 59236a4f5fcb9212b7ef66ce87bd8efcdea5383e..1f63870e4e46f50ae1da6c5dea31680d
      }
  
 +    // Kaiiju start - petal - async path processing
-+    private static final gg.tame.keila.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.keila.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
++    private static final gg.tame.palladium.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.palladium.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
 +        AmphibiousNodeEvaluator nodeEvaluator = new AmphibiousNodeEvaluator(false);
 +        nodeEvaluator.setCanPassDoors(nodeEvaluatorFeatures.canPassDoors());
 +        nodeEvaluator.setCanFloat(nodeEvaluatorFeatures.canFloat());
@@ -460,7 +460,7 @@ index 59236a4f5fcb9212b7ef66ce87bd8efcdea5383e..1f63870e4e46f50ae1da6c5dea31680d
      protected PathFinder createPathFinder(int maxVisitedNodes) {
          this.nodeEvaluator = new AmphibiousNodeEvaluator(false);
 +        // Kaiiju start - petal - async path processing
-+        if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled) {
++        if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled) {
 +            return new PathFinder(this.nodeEvaluator, maxVisitedNodes, nodeEvaluatorGenerator);
 +        }
 +        // Kaiiju end - petal - async path processing
@@ -476,7 +476,7 @@ index c20d10250e2fdd563d0fcfac47de1e276393b529..acdaba39f78c499cee08fdb0a65ed9dd
      }
  
 +    // Kaiiju start - petal - async path processing
-+    private static final gg.tame.keila.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.keila.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
++    private static final gg.tame.palladium.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.palladium.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
 +        FlyNodeEvaluator nodeEvaluator = new FlyNodeEvaluator();
 +        nodeEvaluator.setCanPassDoors(nodeEvaluatorFeatures.canPassDoors());
 +        nodeEvaluator.setCanFloat(nodeEvaluatorFeatures.canFloat());
@@ -490,7 +490,7 @@ index c20d10250e2fdd563d0fcfac47de1e276393b529..acdaba39f78c499cee08fdb0a65ed9dd
      protected PathFinder createPathFinder(int maxVisitedNodes) {
          this.nodeEvaluator = new FlyNodeEvaluator();
 +        // Kaiiju start - petal - async path processing
-+        if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled) {
++        if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled) {
 +            return new PathFinder(this.nodeEvaluator, maxVisitedNodes, nodeEvaluatorGenerator);
 +        }
 +        // Kaiiju end - petal - async path processing
@@ -514,7 +514,7 @@ index 5ccc526adb65b2107afd944a52c1246738b4bcad..7afb07f1ad6ab1fea60e195f740da127
      }
  
 +    // Kaiiju start - petal - async path processing
-+    protected static final gg.tame.keila.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.keila.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
++    protected static final gg.tame.palladium.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.palladium.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
 +        WalkNodeEvaluator nodeEvaluator = new WalkNodeEvaluator();
 +        nodeEvaluator.setCanPassDoors(nodeEvaluatorFeatures.canPassDoors());
 +        nodeEvaluator.setCanFloat(nodeEvaluatorFeatures.canFloat());
@@ -528,7 +528,7 @@ index 5ccc526adb65b2107afd944a52c1246738b4bcad..7afb07f1ad6ab1fea60e195f740da127
      protected PathFinder createPathFinder(int maxVisitedNodes) {
          this.nodeEvaluator = new WalkNodeEvaluator();
 +        // Kaiiju start - petal - async path processing
-+        if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled) {
++        if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled) {
 +            return new PathFinder(this.nodeEvaluator, maxVisitedNodes, nodeEvaluatorGenerator);
 +        }
 +        // Kaiiju end - petal - async path processing
@@ -544,7 +544,7 @@ index 61c7ca1d262098583d40b78e22db8fa67cf1dec2..6893ac65206ffa2357aa5f725227d5be
          } else if (!this.canUpdatePath()) {
              return null;
 +            // Kaiiju start - petal - async path processing - catch early if it's still processing these positions let it keep processing
-+        } else if (this.path instanceof gg.tame.keila.async.path.AsyncPath asyncPath && !asyncPath.isProcessed() && asyncPath.hasSameProcessingPositions(targets)) {
++        } else if (this.path instanceof gg.tame.palladium.async.path.AsyncPath asyncPath && !asyncPath.isProcessed() && asyncPath.hasSameProcessingPositions(targets)) {
 +            return this.path;
 +            // Kaiiju end - petal - async path processing
          } else if (this.path != null && !this.path.isDone() && targets.contains(this.targetPos)) {
@@ -555,11 +555,11 @@ index 61c7ca1d262098583d40b78e22db8fa67cf1dec2..6893ac65206ffa2357aa5f725227d5be
              Path path = this.pathFinder.findPath(pathNavigationRegion, this.mob, targets, followRange, reachRange, this.maxVisitedNodesMultiplier);
              profilerFiller.pop();
 +            // Kaiiju start - petal - async path processing
-+            if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled) {
++            if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled) {
 +                // assign early a target position. most calls will only have 1 position
 +                if (!targets.isEmpty()) this.targetPos = targets.iterator().next();
 +
-+                gg.tame.keila.async.path.AsyncPathProcessor.awaitProcessing(path, processedPath -> {
++                gg.tame.palladium.async.path.AsyncPathProcessor.awaitProcessing(path, processedPath -> {
 +                    // check that processing didn't take so long that we calculated a new path
 +                    if (processedPath != this.path) return;
 +
@@ -625,7 +625,7 @@ index a0b7caf807602ee1f62bf05764cc16478f981da7..e654db8aa9d610a3a695fad306b91d30
      }
  
 +    // Kaiiju start - petal - async path processing
-+    private static final gg.tame.keila.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.keila.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
++    private static final gg.tame.palladium.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.palladium.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
 +        SwimNodeEvaluator nodeEvaluator = new SwimNodeEvaluator(nodeEvaluatorFeatures.allowBreaching());
 +        nodeEvaluator.setCanPassDoors(nodeEvaluatorFeatures.canPassDoors());
 +        nodeEvaluator.setCanFloat(nodeEvaluatorFeatures.canFloat());
@@ -641,7 +641,7 @@ index a0b7caf807602ee1f62bf05764cc16478f981da7..e654db8aa9d610a3a695fad306b91d30
          this.nodeEvaluator = new SwimNodeEvaluator(this.allowBreaching);
          this.nodeEvaluator.setCanPassDoors(false);
 +        // Kaiiju start - petal - async path processing
-+        if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled) {
++        if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled) {
 +            return new PathFinder(this.nodeEvaluator, maxVisitedNodes, nodeEvaluatorGenerator);
 +        }
 +        // Kaiiju end - petal - async path processing
@@ -726,7 +726,7 @@ index 10dfa28ec46727e60f8a9c90d7e8914aa8b96ea1..7ed4666649bbb56bac455909a457dcc2
 +                        // Kaiiju start - petal - async path processing - async path processing fix
 +                        // Wait for path processing before making navigation decisions
 +                        Path currentPath = Bee.this.navigation.getPath();
-+                        if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled && currentPath != null && !currentPath.isProcessed()) {
++                        if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled && currentPath != null && !currentPath.isProcessed()) {
 +                            return;
 +                        }
 +                        // Kaiiju end - petal - async path processing - async path processing fix
@@ -751,7 +751,7 @@ index d68221ce56b4de755fd2c1fcbc18941b2458a167..007e4e78f7e6530ff678573b00acd6c7
          }
  
 +        // Kaiiju start - petal - async path processing
-+        private static final gg.tame.keila.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.keila.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
++        private static final gg.tame.palladium.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.palladium.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
 +            Frog.FrogNodeEvaluator nodeEvaluator = new Frog.FrogNodeEvaluator(true);
 +            nodeEvaluator.setCanPassDoors(nodeEvaluatorFeatures.canPassDoors());
 +            nodeEvaluator.setCanFloat(nodeEvaluatorFeatures.canFloat());
@@ -765,7 +765,7 @@ index d68221ce56b4de755fd2c1fcbc18941b2458a167..007e4e78f7e6530ff678573b00acd6c7
          protected PathFinder createPathFinder(int maxVisitedNodes) {
              this.nodeEvaluator = new Frog.FrogNodeEvaluator(true);
 +            // Kaiiju start - petal - async path processing
-+            if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled) {
++            if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled) {
 +                return new PathFinder(this.nodeEvaluator, maxVisitedNodes, nodeEvaluatorGenerator);
 +            }
 +            // Kaiiju end - petal - async path processing
@@ -781,7 +781,7 @@ index c39004a546c28c9f8af26e727c67dbff85ba1212..44a1efd3179a08b2066edbeda5eda844
          @Override
          public void vanillaTick() { // Purpur - Ridables
 +            // Kaiiju start - petal - async path processing - don't make movement decisions with unprocessed paths
-+            if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled) {
++            if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled) {
 +                Path path = this.rabbit.getNavigation().getPath();
 +                if (path != null && !path.isProcessed()) {
 +                    return; // Wait for path processing before making movement decisions
@@ -800,7 +800,7 @@ index 37b0c8f55ed4ac4feac6a35bd4377007a19ea2ce..433cd822f33b80096d34bef9675c24e0
          }
  
 +        // Kaiiju start - petal - async path processing
-+        private static final gg.tame.keila.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.keila.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
++        private static final gg.tame.palladium.async.path.NodeEvaluatorGenerator nodeEvaluatorGenerator = (gg.tame.palladium.async.path.NodeEvaluatorFeatures nodeEvaluatorFeatures) -> {
 +            WalkNodeEvaluator nodeEvaluator = new WalkNodeEvaluator();
 +            nodeEvaluator.setCanPassDoors(nodeEvaluatorFeatures.canPassDoors());
 +            nodeEvaluator.setCanFloat(nodeEvaluatorFeatures.canFloat());
@@ -814,7 +814,7 @@ index 37b0c8f55ed4ac4feac6a35bd4377007a19ea2ce..433cd822f33b80096d34bef9675c24e0
          protected PathFinder createPathFinder(int maxVisitedNodes) {
              this.nodeEvaluator = new WalkNodeEvaluator();
 +            // Kaiiju start - petal - async path processing
-+            if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled) {
++            if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled) {
 +                return new PathFinder(this.nodeEvaluator, maxVisitedNodes, nodeEvaluatorGenerator);
 +            }
 +            // Kaiiju end - petal - async path processing
@@ -830,7 +830,7 @@ index 33b68c32ef38f0a7554f930000989ce6bb1f7905..bb76643fbce9844ba169cf4e9eca8df1
              protected PathFinder createPathFinder(int maxVisitedNodes) {
                  this.nodeEvaluator = new WalkNodeEvaluator();
 +                // Kaiiju start - petal - async path processing
-+                if (gg.tame.keila.config.modules.async.AsyncPathfinding.enabled) {
++                if (gg.tame.palladium.config.modules.async.AsyncPathfinding.enabled) {
 +                    return new PathFinder(this.nodeEvaluator, maxVisitedNodes, GroundPathNavigation.nodeEvaluatorGenerator) {
 +                        @Override
 +                        protected float distance(Node first, Node second) {
@@ -954,10 +954,10 @@ index 168b475b38b2872b27c1ab15f6846323ac16dd2c..f08c5891df1c39be7dceabb7aee2624e
      public final NodeEvaluator nodeEvaluator;
      private final BinaryHeap openSet = new BinaryHeap();
      private BooleanSupplier captureDebug = () -> false;
-+    private final gg.tame.keila.async.path.@Nullable NodeEvaluatorGenerator nodeEvaluatorGenerator; // Kaiiju - petal - async path processing - we use this later to generate an evaluator
++    private final gg.tame.palladium.async.path.@Nullable NodeEvaluatorGenerator nodeEvaluatorGenerator; // Kaiiju - petal - async path processing - we use this later to generate an evaluator
  
 -    public PathFinder(NodeEvaluator nodeEvaluator, int maxVisitedNodes) {
-+    public PathFinder(NodeEvaluator nodeEvaluator, int maxVisitedNodes, gg.tame.keila.async.path.@Nullable NodeEvaluatorGenerator nodeEvaluatorGenerator) { // Kaiiju - petal - async path processing - add nodeEvaluatorGenerator
++    public PathFinder(NodeEvaluator nodeEvaluator, int maxVisitedNodes, gg.tame.palladium.async.path.@Nullable NodeEvaluatorGenerator nodeEvaluatorGenerator) { // Kaiiju - petal - async path processing - add nodeEvaluatorGenerator
          this.nodeEvaluator = nodeEvaluator;
          this.maxVisitedNodes = maxVisitedNodes;
 +        /// Kaiiju start - petal - async path processing - support nodeEvaluatorgenerators
@@ -979,12 +979,12 @@ index 168b475b38b2872b27c1ab15f6846323ac16dd2c..f08c5891df1c39be7dceabb7aee2624e
 +        // Use a generated evaluator if we have one otherwise run sync
 +        NodeEvaluator nodeEvaluator = this.nodeEvaluatorGenerator == null
 +            ? this.nodeEvaluator
-+            : gg.tame.keila.async.path.NodeEvaluatorCache.takeNodeEvaluator(this.nodeEvaluatorGenerator, this.nodeEvaluator);
++            : gg.tame.palladium.async.path.NodeEvaluatorCache.takeNodeEvaluator(this.nodeEvaluatorGenerator, this.nodeEvaluator);
 +        nodeEvaluator.prepare(region, mob);
 +        Node start = nodeEvaluator.getStart();
          if (start == null) {
 +            if (this.nodeEvaluatorGenerator != null) {
-+                gg.tame.keila.async.path.NodeEvaluatorCache.removeNodeEvaluator(nodeEvaluator); // Kaiiju - petal - async path processing - handle nodeEvaluatorGenerator
++                gg.tame.palladium.async.path.NodeEvaluatorCache.removeNodeEvaluator(nodeEvaluator); // Kaiiju - petal - async path processing - handle nodeEvaluatorGenerator
 +            }
 +            // Kaiiju end - petal - async path processing
              return null;
@@ -1008,19 +1008,19 @@ index 168b475b38b2872b27c1ab15f6846323ac16dd2c..f08c5891df1c39be7dceabb7aee2624e
 +
 +            final int maxVisitedNodes = this.maxVisitedNodes;
 +            final BooleanSupplier captureDebug = this.captureDebug;
-+            return new gg.tame.keila.async.path.AsyncPath(this, Lists.newArrayList(), targets, finder -> {
++            return new gg.tame.palladium.async.path.AsyncPath(this, Lists.newArrayList(), targets, finder -> {
 +                try {
 +                    nodeEvaluator.invalidateCache();
 +                    return finder.findPath(nodeEvaluator,
-+                            gg.tame.keila.async.path.NodeEvaluatorCache.HEAP_LOCAL.get(),
-+                            gg.tame.keila.async.path.NodeEvaluatorCache.NEIGHBORS_LOCAL.get(),
++                            gg.tame.palladium.async.path.NodeEvaluatorCache.HEAP_LOCAL.get(),
++                            gg.tame.palladium.async.path.NodeEvaluatorCache.NEIGHBORS_LOCAL.get(),
 +                            maxVisitedNodes,
 +                            captureDebug,
 +                            start, map, maxRange, reachRange, maxVisitedNodesMultiplier);
 +                } finally {
 +                    nodeEvaluator.done();
 +                    nodeEvaluator.clearNodes();
-+                    gg.tame.keila.async.path.NodeEvaluatorCache.returnNodeEvaluator(nodeEvaluator);
++                    gg.tame.palladium.async.path.NodeEvaluatorCache.returnNodeEvaluator(nodeEvaluator);
 +                }
 +            });
 +            // Kaiiju end - petal - async path processing

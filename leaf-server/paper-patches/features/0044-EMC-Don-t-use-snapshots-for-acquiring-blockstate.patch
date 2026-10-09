@@ -15,7 +15,7 @@ index 31e665388bc6222210bb1a1184084a1f6786ce6b..720b4afb4438964149073f47c886ab68
      @Override
      public BlockState getState() {
 -        return CraftBlockStates.getBlockState(this);
-+        return CraftBlockStates.getBlockState(this, gg.tame.keila.config.modules.opt.TileEntitySnapshotCreation.enabled); // Leaf - EMC - Don't use snapshots for acquiring blockstate
++        return CraftBlockStates.getBlockState(this, gg.tame.palladium.config.modules.opt.TileEntitySnapshotCreation.enabled); // Leaf - EMC - Don't use snapshots for acquiring blockstate
      }
  
      // Paper start
@@ -28,7 +28,7 @@ index bcd73c788768f9a278181926fb56df510d271a76..53346c7364bbf507693cb769b2a49f77
  
      public static BlockState getBlockState(Block block) {
 -        return CraftBlockStates.getBlockState(block, true);
-+        return CraftBlockStates.getBlockState(block, gg.tame.keila.config.modules.opt.TileEntitySnapshotCreation.enabled); // Leaf - EMC - Don't use snapshots for acquiring blockstate
++        return CraftBlockStates.getBlockState(block, gg.tame.palladium.config.modules.opt.TileEntitySnapshotCreation.enabled); // Leaf - EMC - Don't use snapshots for acquiring blockstate
      }
  
      public static BlockState getBlockState(Block block, boolean useSnapshot) {

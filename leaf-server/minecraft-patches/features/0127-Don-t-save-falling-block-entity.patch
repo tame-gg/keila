@@ -16,7 +16,7 @@ index 51f1b141f5f2abd96d36d3ea1954f8dded936506..419982ecea1e846c997db9d9b35958d1
 +    // Leaf start - PMC - Don't save falling block entity
 +    @Override
 +    public boolean shouldBeSaved() {
-+        return !gg.tame.keila.config.modules.opt.DontSaveEntity.dontSaveFallingBlock && super.shouldBeSaved();
++        return !gg.tame.palladium.config.modules.opt.DontSaveEntity.dontSaveFallingBlock && super.shouldBeSaved();
 +    }
 +    // Leaf end - PMC - Don't save falling block entity
  }

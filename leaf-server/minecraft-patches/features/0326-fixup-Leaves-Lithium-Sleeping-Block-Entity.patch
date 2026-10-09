@@ -34,7 +34,7 @@ index 40e38007a07737efd167fd0f4a78f2ca33bed8bd..c8d27c4848efa2dcb988eded8b80b526
 +                (level1, pos, state1, blockEntity) -> {
 +                    final VibrationSystem.Data vibrationData = blockEntity.getVibrationData();
 +                    VibrationSystem.Ticker.tick(level1, vibrationData, blockEntity.getVibrationUser());
-+                    if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled
++                    if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled
 +                        && vibrationData.getCurrentVibration() == null
 +                        && vibrationData.getSelectionStrategy().chosenCandidate(Long.MAX_VALUE).isEmpty()) {
 +                        blockEntity.lithium$startSleeping();
@@ -57,7 +57,7 @@ index 39f5d04a2795d5e62a961c9fa5a23b79d9d81fa2..bff235c015381b79477838dd9ec09c69
 +                (level1, pos, state1, blockEntity) -> {
 +                    final VibrationSystem.Data vibrationData = blockEntity.getVibrationData();
 +                    VibrationSystem.Ticker.tick(level1, vibrationData, blockEntity.getVibrationUser());
-+                    if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled
++                    if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled
 +                        && vibrationData.getCurrentVibration() == null
 +                        && vibrationData.getSelectionStrategy().chosenCandidate(Long.MAX_VALUE).isEmpty()) {
 +                        blockEntity.lithium$startSleeping();
@@ -260,7 +260,7 @@ index 79e5a0ed25ec40391a0b78f309eabfc9fa9f0de9..70e84a9eb442d93c0d7e6ab5e8e0c788
      public SculkCatalystBlockEntity(BlockPos pos, BlockState blockState) {
          super(BlockEntityType.SCULK_CATALYST, pos, blockState);
          this.catalystListener = new SculkCatalystBlockEntity.CatalystListener(blockState, new BlockPositionSource(pos));
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.catalystListener.getSculkSpreader().lithium$setGameEventCallback(this::wakeUpNow); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.catalystListener.getSculkSpreader().lithium$setGameEventCallback(this::wakeUpNow); // Leaves - Lithium Sleeping Block Entity
      }
  
      // Paper start - Fix NPE in SculkBloomEvent world access
@@ -269,7 +269,7 @@ index 79e5a0ed25ec40391a0b78f309eabfc9fa9f0de9..70e84a9eb442d93c0d7e6ab5e8e0c788
          sculkCatalyst.catalystListener.getSculkSpreader().updateCursors(level, pos, level.getRandom(), true);
          org.bukkit.craftbukkit.event.CraftEventFactory.setSourceBlockOverrideRT(null); // CraftBukkit //  Leaf - SparklyPaper - parallel world ticking
 +        // Leaves start - Lithium Sleeping Block Entity
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && sculkCatalyst.getListener().getSculkSpreader().getCursors().isEmpty()) {
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && sculkCatalyst.getListener().getSculkSpreader().getCursors().isEmpty()) {
 +            sculkCatalyst.lithium$startSleeping();
 +        }
 +        // Leaves end - Lithium Sleeping Block Entity
@@ -280,7 +280,7 @@ index 79e5a0ed25ec40391a0b78f309eabfc9fa9f0de9..70e84a9eb442d93c0d7e6ab5e8e0c788
          super.loadAdditional(input);
          this.catalystListener.sculkSpreader.load(input);
 +        // Leaves start - Lithium Sleeping Block Entity
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && !this.getListener().getSculkSpreader().getCursors().isEmpty()) {
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && !this.getListener().getSculkSpreader().getCursors().isEmpty()) {
 +            this.wakeUpNow();
 +        }
 +        // Leaves end - Lithium Sleeping Block Entity
@@ -337,7 +337,7 @@ index 39aa9e1703ade12899f26ffc8063895e52138adb..21daebdccc74750ece1ffb6b94bc5d6e
          this.vibrationUser = this.createVibrationUser();
          this.vibrationData = new VibrationSystem.Data();
          this.vibrationListener = new VibrationSystem.Listener(this);
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.vibrationListener.lithium$setGameEventCallback(this::wakeUpNow); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.vibrationListener.lithium$setGameEventCallback(this::wakeUpNow); // Leaves - Lithium Sleeping Block Entity
      }
  
      public SculkSensorBlockEntity(BlockPos pos, BlockState blockState) {
@@ -346,7 +346,7 @@ index 39aa9e1703ade12899f26ffc8063895e52138adb..21daebdccc74750ece1ffb6b94bc5d6e
          this.vibrationData = input.read("listener", VibrationSystem.Data.CODEC).orElseGet(VibrationSystem.Data::new);
          this.rangeOverride = input.getInt(PAPER_LISTENER_RANGE_NBT_KEY).orElse(null); // Paper start - Configurable sculk sensor listener range
 +        // Leaves start - Lithium Sleeping Block Entity
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && vibrationData.getSelectionStrategy().chosenCandidate(Long.MAX_VALUE).isPresent()) {
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && vibrationData.getSelectionStrategy().chosenCandidate(Long.MAX_VALUE).isPresent()) {
 +            this.wakeUpNow();
 +        }
 +        // Leaves end - Lithium Sleeping Block Entity
@@ -403,7 +403,7 @@ index 8a999d8e72b306d1e4a371c7a43cdf6e5b13daff..30e711cb4272cda6f0ef159f2f40080a
  
      public SculkShriekerBlockEntity(BlockPos pos, BlockState blockState) {
          super(BlockEntityType.SCULK_SHRIEKER, pos, blockState);
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.vibrationListener.lithium$setGameEventCallback(this::wakeUpNow); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.vibrationListener.lithium$setGameEventCallback(this::wakeUpNow); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
@@ -412,7 +412,7 @@ index 8a999d8e72b306d1e4a371c7a43cdf6e5b13daff..30e711cb4272cda6f0ef159f2f40080a
          this.warningLevel = input.getIntOr("warning_level", 0);
          this.vibrationData = input.read("listener", VibrationSystem.Data.CODEC).orElseGet(VibrationSystem.Data::new);
 +        // Leaves start - Lithium Sleeping Block Entity
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.vibrationData.getSelectionStrategy().chosenCandidate(Long.MAX_VALUE).isPresent()) {
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.vibrationData.getSelectionStrategy().chosenCandidate(Long.MAX_VALUE).isPresent()) {
 +            this.wakeUpNow();
 +        }
 +        // Leaves end - Lithium Sleeping Block Entity

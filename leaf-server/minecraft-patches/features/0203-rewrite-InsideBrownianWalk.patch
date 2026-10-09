@@ -26,7 +26,7 @@ index 55e2396d8c2f74df4a38c4b556b5dad64dd33b1d..13724f5463aa6a1a1ec91cc361ab3862
 -                                .findFirst()
 -                                .ifPresent(pos -> walkTarget.set(new WalkTarget(pos, speedModifier, 0)));
 +                            // Leaf start - rewrite InsideBrownianWalk
-+                            BlockPos[] list = gg.tame.keila.util.BlockAreaUtils.getBlocksBetween(
++                            BlockPos[] list = gg.tame.palladium.util.BlockAreaUtils.getBlocksBetween(
 +                                blockPos.offset(-1, -1, -1),
 +                                blockPos.offset(1, 1, 1)
 +                            );

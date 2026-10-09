@@ -65,7 +65,7 @@ public class ServerPhotographer extends ServerPlayer {
 
         photographer.recorder.start();
         // Leaf start - SparklyPaper - parallel world ticking mod (make configurable)
-        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled && !server.isSameThread()) {
+        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled && !server.isSameThread()) {
             server.submit(() -> {
                 getServer().getPlayerList().placeNewPhotographer(photographer.recorder, photographer, world);
             });
@@ -97,7 +97,7 @@ public class ServerPhotographer extends ServerPlayer {
         if (this.followPlayer != null) {
             if (this.getCamera() == this || this.getCamera().level() != this.level()) {
                 // Leaf start - SparklyPaper - parallel world ticking mod (make configurable)
-                if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
+                if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
                     this.getBukkitEntity().taskScheduler.schedule(entity -> {
                         ((ServerPhotographer) entity).getBukkitPlayer().teleport(((ServerPhotographer) entity).getCamera().getBukkitEntity().getLocation());
                         ((ServerPhotographer) entity).setCamera(((ServerPhotographer) entity).followPlayer);
@@ -110,7 +110,7 @@ public class ServerPhotographer extends ServerPlayer {
             }
             if (lastPosVec3.distanceToSqr(this.position()) > 1024D) {
                 // Leaf start - SparklyPaper - parallel world ticking mod (make configurable)
-                if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
+                if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
                     this.getBukkitEntity().taskScheduler.schedule(entity -> {
                         ((ServerPhotographer) entity).getBukkitPlayer().teleport(((ServerPhotographer) entity).getCamera().getBukkitEntity().getLocation());
                     }, entity -> {}, 0);
@@ -159,7 +159,7 @@ public class ServerPhotographer extends ServerPlayer {
         photographers.remove(this);
         this.recorder.stop();
         // Leaf start - SparklyPaper - parallel world ticking mod (make configurable)
-        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
+        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
             getServer().submit(() -> getServer().getPlayerList().removePhotographer(this));
         } else {
             getServer().getPlayerList().removePhotographer(this);

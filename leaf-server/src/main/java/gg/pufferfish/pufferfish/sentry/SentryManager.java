@@ -4,7 +4,7 @@ import io.sentry.Sentry;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import gg.tame.keila.config.modules.misc.SentryDSN;
+import gg.tame.palladium.config.modules.misc.SentryDSN;
 
 public class SentryManager {
 

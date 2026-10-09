@@ -48,9 +48,9 @@ index c19a6843ba53d5c1850b45b82a967b9dd397e6b8..029926e1a8be234218f227c982237e95
 +            ++this.lastUpdateY;
 +            Supplier<Holder<Biome>> getter = this.biome;
 +            if (getter == null) {
-+                this.biome = getter = new gg.tame.keila.world.biome.PositionalBiomeGetter(this.biomeGetter, this.pos);
++                this.biome = getter = new gg.tame.palladium.world.biome.PositionalBiomeGetter(this.biomeGetter, this.pos);
 +            }
-+            ((gg.tame.keila.world.biome.PositionalBiomeGetter) getter).update(blockX, blockY, blockZ);
++            ((gg.tame.palladium.world.biome.PositionalBiomeGetter) getter).update(blockX, blockY, blockZ);
 +            // Leaf end - Reduce worldgen allocations
              this.blockY = blockY;
              this.waterHeight = waterHeight;

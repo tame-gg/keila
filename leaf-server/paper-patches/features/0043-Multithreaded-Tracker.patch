@@ -67,7 +67,7 @@ index 9305b09ea714647d7ae79e3815841bb6e8e6f232..268d47b9d0c1fe53225ede7413c758ec
      private boolean hasPlayedBefore = false;
      private final ConversationTracker conversationTracker = new ConversationTracker();
 -    private final Map<UUID, Set<WeakReference<Plugin>>> invertedVisibilityEntities = new it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap<>(); // SparklyPaper - optimize canSee checks
-+    private final Map<UUID, Set<WeakReference<Plugin>>> invertedVisibilityEntities = gg.tame.keila.config.modules.async.MultithreadedTracker.enabled ? it.unimi.dsi.fastutil.objects.Object2ObjectMaps.synchronize(new it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap<>()) : new it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap<>(); // SparklyPaper - optimize canSee checks // Leaf - Multithreaded tracker
++    private final Map<UUID, Set<WeakReference<Plugin>>> invertedVisibilityEntities = gg.tame.palladium.config.modules.async.MultithreadedTracker.enabled ? it.unimi.dsi.fastutil.objects.Object2ObjectMaps.synchronize(new it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap<>()) : new it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap<>(); // SparklyPaper - optimize canSee checks // Leaf - Multithreaded tracker
      private final Set<UUID> unlistedEntities = new HashSet<>(); // Paper - Add Listing API for Player
      private static final WeakHashMap<Plugin, WeakReference<Plugin>> pluginWeakReferences = new WeakHashMap<>();
      private int hash = 0;

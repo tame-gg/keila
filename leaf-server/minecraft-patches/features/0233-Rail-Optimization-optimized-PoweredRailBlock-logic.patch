@@ -20,8 +20,8 @@ index 0a683715c52431fd8bb07b3647136a036f265435..b455d7193ece81af8d9197adb91c5aa8
      @Override
      protected void updateState(BlockState state, Level level, BlockPos pos, Block block) {
 +        // Leaf start - Rail Optimization
-+        if (gg.tame.keila.config.modules.opt.OptimizedPoweredRails.enabled) {
-+            gg.tame.keila.world.block.OptimizedPoweredRails.updateState(this, state, level, pos);
++        if (gg.tame.palladium.config.modules.opt.OptimizedPoweredRails.enabled) {
++            gg.tame.palladium.world.block.OptimizedPoweredRails.updateState(this, state, level, pos);
 +            return;
 +        }
 +        // Leaf end - Rail Optimization

@@ -588,7 +588,7 @@ index 9323383f7d1226d887fc9219354ac9613204cbc2..900a50ed18e931cd090d970634fa2772
      @Override
      public com.destroystokyo.paper.util.VersionFetcher getVersionFetcher() {
 -        return new com.destroystokyo.paper.PaperVersionFetcher();
-+        return new gg.tame.keila.version.KeilaVersionFetcher(); // Leaf - Rebrand
++        return new gg.tame.palladium.version.PalladiumVersionFetcher(); // Leaf - Rebrand
      }
  
      @Override

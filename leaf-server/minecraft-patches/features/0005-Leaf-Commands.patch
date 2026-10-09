@@ -25,7 +25,7 @@ index 36727fbe3e8435695b83168a7e1561eaeb0fcd3b..86fb0f46759fa2884f335d12bfc27ccd
          }
          org.purpurmc.purpur.PurpurConfig.registerCommands();
          */// Purpur end - Purpur config files // Purpur end - Migrate Setting to reintroduce end void rings
-+        gg.tame.keila.command.KeilaCommands.registerCommands(this); // Keila - Keila commands
++        gg.tame.palladium.command.PalladiumCommands.registerCommands(this); // Palladium - Palladium commands
          com.destroystokyo.paper.VersionHistoryManager.INSTANCE.getClass(); // Paper - load version history now
  
          // this.worldData.setGameType(properties.gameMode.get()); // CraftBukkit - moved to world loading

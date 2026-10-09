@@ -3,7 +3,7 @@
 
 <div align="center">
 
-# Keila
+# Palladium
 
 The tame.gg Minecraft server fork for performance-heavy Paper networks.
 
@@ -16,48 +16,48 @@ The tame.gg Minecraft server fork for performance-heavy Paper networks.
 
 </div>
 
-Keila is the tame.gg fork of [Leaf](https://github.com/Winds-Studio/Leaf), built on top of [Purpur](https://github.com/PurpurMC/Purpur), [Paper](https://papermc.io/), and the performance work of the wider Paper fork ecosystem. It keeps compatibility with Paper-style server operations while adding Keila-owned runtime safety, benchmark, release, and operator tooling around high-risk performance changes.
+Palladium is the tame.gg fork of [Leaf](https://github.com/Winds-Studio/Leaf), built on top of [Purpur](https://github.com/PurpurMC/Purpur), [Paper](https://papermc.io/), and the performance work of the wider Paper fork ecosystem. It keeps compatibility with Paper-style server operations while adding Palladium-owned runtime safety, benchmark, release, and operator tooling around high-risk performance changes.
 
 > [!WARNING]
-> Keila is performance-oriented server software. Back up worlds and configs before switching, test plugins in a staging environment, and treat experimental async features as opt-in until they have passed your workload.
+> Palladium is performance-oriented server software. Back up worlds and configs before switching, test plugins in a staging environment, and treat experimental async features as opt-in until they have passed your workload.
 
-## Why Keila
+## Why Palladium
 
 - **Paper-compatible base**: keeps the familiar Paper/Purpur administration and plugin model.
 - **Performance-first roadmap**: tracks async pathfinding, chunk send, player-data save, mob spawning, entity tracking, packet flow, IO, and benchmark work in one place.
-- **Operator visibility**: `/keila perf` exposes queue, async, and JVM memory views without requiring a profiler for basic triage.
+- **Operator visibility**: `/palladium perf` exposes queue, async, and JVM memory views without requiring a profiler for basic triage.
 - **Runtime safety culture**: risky systems are expected to ship with metrics, rollback paths, and staged rollout documentation.
-- **Release-ready CI**: GitHub Actions can build, verify, rename, checksum, and publish a `keila-<version>.jar` artifact.
-- **Upstream attribution**: Keila builds on Paper, Purpur, Leaf, Gale, Pufferfish, and other fork work instead of hiding that history.
+- **Release-ready CI**: GitHub Actions can build, verify, rename, checksum, and publish a `palladium-<version>.jar` artifact.
+- **Upstream attribution**: Palladium builds on Paper, Purpur, Leaf, Gale, Pufferfish, and other fork work instead of hiding that history.
 
 ## Current Identity
 
 | Field | Value |
 | --- | --- |
-| Project | `keila` |
+| Project | `palladium` |
 | Authors | `tame.gg, asianrizz, koels` |
 | Release version | `0.1.1` |
-| Maven group | `gg.tame.keila` |
-| Java package | `gg.tame.keila` |
+| Maven group | `gg.tame.palladium` |
+| Java package | `gg.tame.palladium` |
 | Minecraft target | `1.21.11` |
 | Java runtime | Temurin 21 LTS |
 
 ## Download
 
-Use the **keila** workflow from [GitHub Actions](https://github.com/tame-gg/keila/actions/workflows/release.yml) or create a `v*` tag to build a release artifact. The release workflow produces:
+Use the **palladium** workflow from [GitHub Actions](https://github.com/tame-gg/keila/actions/workflows/release.yml) or create a `v*` tag to build a release artifact. The release workflow produces:
 
-- `keila-0.1.1.jar`
-- `keila-0.1.1.jar.sha256`
-- `keila-0.1.1.yml`
-- `keila-0.1.1-notes.md`
+- `palladium-0.1.1.jar`
+- `palladium-0.1.1.jar.sha256`
+- `palladium-0.1.1.yml`
+- `palladium-0.1.1-notes.md`
 
 Until tame.gg-owned download endpoints are configured, GitHub Actions artifacts are the release source of truth.
 
 ## Quick Start
 
 ```bash
-git clone https://github.com/tame-gg/keila.git
-cd keila
+git clone https://github.com/tame-gg/keila.git palladium
+cd palladium
 
 ./gradlew applyAllPatches
 ./gradlew check
@@ -68,7 +68,7 @@ scripts/prepareRelease.sh dist
 The release-ready jar will be written to:
 
 ```text
-dist/keila-0.1.1.jar
+dist/palladium-0.1.1.jar
 ```
 
 ## Local Verification
@@ -85,20 +85,20 @@ This runs the patch audit, applies all patches, executes Gradle checks, builds t
 
 | Command | Purpose |
 | --- | --- |
-| `/keila version` | Show the Keila server identity and version path. |
-| `/keila mspt` | Inspect server tick timing. |
-| `/keila perf queues` | Inspect async pathfinding queue counters. |
-| `/keila perf async` | Inspect high-risk async feature state. |
-| `/keila perf memory` | Inspect JVM memory and processor data. |
-| `/keila features` | List and run 50 live operator feature commands. |
+| `/palladium version` | Show the Palladium server identity and version path. |
+| `/palladium mspt` | Inspect server tick timing. |
+| `/palladium perf queues` | Inspect async pathfinding queue counters. |
+| `/palladium perf async` | Inspect high-risk async feature state. |
+| `/palladium perf memory` | Inspect JVM memory and processor data. |
+| `/palladium features` | List and run 50 live operator feature commands. |
 
 ## Documentation
 
-- [Keila identity](docs/keila/identity.md)
-- [Runtime safety gates](docs/keila/runtime-safety.md)
-- [Optimization roadmap](docs/keila/optimization-roadmap.md)
-- [Roadmap implementation status](docs/keila/roadmap-implementation-status.md)
-- [Feature foundation](docs/keila/feature-foundation.md)
+- [Palladium identity](docs/palladium/identity.md)
+- [Runtime safety gates](docs/palladium/runtime-safety.md)
+- [Optimization roadmap](docs/palladium/optimization-roadmap.md)
+- [Roadmap implementation status](docs/palladium/roadmap-implementation-status.md)
+- [Feature foundation](docs/palladium/feature-foundation.md)
 - [Release process](docs/release/release-process.md)
 - [Upstream sync policy](docs/upstream/sync-policy.md)
 - [Patch risk index](docs/upstream/patch-risk-index.md)
@@ -106,18 +106,18 @@ This runs the patch audit, applies all patches, executes Gradle checks, builds t
 
 ## API
 
-Keila keeps inherited Paper/Purpur/Leaf API compatibility and reserves `gg.tame.keila` for Keila-owned API surfaces.
+Palladium keeps inherited Paper/Purpur/Leaf API compatibility and reserves `gg.tame.palladium` for Palladium-owned API surfaces.
 
 ### Maven
 
 ```xml
 <repository>
-    <id>keila</id>
+    <id>palladium</id>
     <url>https://maven.tame.gg/snapshots/</url>
 </repository>
 
 <dependency>
-    <groupId>gg.tame.keila</groupId>
+    <groupId>gg.tame.palladium</groupId>
     <artifactId>leaf-api</artifactId>
     <version>1.21.11-R0.1-SNAPSHOT</version>
     <scope>provided</scope>
@@ -132,7 +132,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("gg.tame.keila:leaf-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly("gg.tame.palladium:leaf-api:1.21.11-R0.1-SNAPSHOT")
 }
 
 java {
@@ -145,27 +145,27 @@ java {
 | Path | Purpose |
 | --- | --- |
 | `leaf-api/` | API module and inherited API patch surface. |
-| `leaf-server/` | Server module, patch queues, and Keila-owned server code. |
-| `docs/keila/` | Keila-specific identity, runtime safety, roadmap, and tuning docs. |
+| `leaf-server/` | Server module, patch queues, and Palladium-owned server code. |
+| `docs/palladium/` | Palladium-specific identity, runtime safety, roadmap, and tuning docs. |
 | `docs/upstream/` | Upstream sync and patch-risk maintenance docs. |
 | `scripts/` | Patch audit, release, benchmark, and verification helpers. |
 | `.github/workflows/` | Build, patch audit, and release automation. |
 
 ## Release Automation
 
-The [keila workflow](.github/workflows/release.yml) compiles the server, verifies the patch stack, renames the paperclip jar, writes release metadata, uploads artifacts, and publishes a GitHub Release when run manually or from a `v*` tag.
+The [palladium workflow](.github/workflows/release.yml) compiles the server, verifies the patch stack, renames the paperclip jar, writes release metadata, uploads artifacts, and publishes a GitHub Release when run manually or from a `v*` tag.
 
 Default release metadata:
 
 ```yaml
-name: keila
+name: palladium
 authors: tame.gg, asianrizz, koels
 version: 0.1.1
 ```
 
 ## Credits
 
-Keila exists because the Paper fork ecosystem has carried years of difficult server work forward. Keila inherits, adapts, or learns from:
+Palladium exists because the Paper fork ecosystem has carried years of difficult server work forward. Palladium inherits, adapts, or learns from:
 
 - [Paper](https://papermc.io/)
 - [Purpur](https://github.com/PurpurMC/Purpur)

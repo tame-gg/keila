@@ -12,7 +12,7 @@ index e5689d4d875fe17041d7b9a7b62179bf06870c32..5fba6bc44775f704525401078802c470
  
      @Override
      public double[] getTPS() {
-+        if (gg.tame.keila.config.modules.misc.Including5sIngetTPS.enabled) return getTPSIncluding5SecondAverage(); // Leaf - Including 5s in getTPS()
++        if (gg.tame.palladium.config.modules.misc.Including5sIngetTPS.enabled) return getTPSIncluding5SecondAverage(); // Leaf - Including 5s in getTPS()
          return this.getServer().getTPS();
      }
  

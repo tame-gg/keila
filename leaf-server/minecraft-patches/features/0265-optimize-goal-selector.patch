@@ -30,8 +30,8 @@ index 859b859d29b637200cf7c9a0bd52d9f712413e3d..0938c1ab06878a62bd734255d1963001
      };
      private final Map<Goal.Flag, WrappedGoal> lockedFlags = new EnumMap<>(Goal.Flag.class);
 -    private final Set<WrappedGoal> availableGoals = new ObjectLinkedOpenHashSet<>();
-+    private final gg.tame.keila.util.map.BinaryGoalSet keila$availableGoals = new gg.tame.keila.util.map.BinaryGoalSet(); // Leaf - optimize goal selector
-+    private final Set<WrappedGoal> availableGoals = keila$availableGoals; // Leaf - optimize goal selector
++    private final gg.tame.palladium.util.map.BinaryGoalSet palladium$availableGoals = new gg.tame.palladium.util.map.BinaryGoalSet(); // Leaf - optimize goal selector
++    private final Set<WrappedGoal> availableGoals = palladium$availableGoals; // Leaf - optimize goal selector
      private static final Goal.Flag[] GOAL_FLAG_VALUES = Goal.Flag.values(); // Paper - remove streams from GoalSelector
      private final ca.spottedleaf.moonrise.common.set.OptimizedSmallEnumSet<net.minecraft.world.entity.ai.goal.Goal.Flag> goalTypes = new ca.spottedleaf.moonrise.common.set.OptimizedSmallEnumSet<>(Goal.Flag.class); // Paper - remove streams from GoalSelector
      private int curRate; // Paper - EAR 2
@@ -45,7 +45,7 @@ index 859b859d29b637200cf7c9a0bd52d9f712413e3d..0938c1ab06878a62bd734255d1963001
      public boolean hasTasks() {
 -        for (WrappedGoal task : this.availableGoals) {
 +        // Leaf start - optimize goal selector
-+        gg.tame.keila.util.map.BinaryGoalSet availableGoals = this.keila$availableGoals;
++        gg.tame.palladium.util.map.BinaryGoalSet availableGoals = this.palladium$availableGoals;
 +        WrappedGoal[] elements = availableGoals.elements();
 +        for (int i = 0, j = availableGoals.size(); i < j; i++) {
 +            WrappedGoal task = elements[i];
@@ -59,7 +59,7 @@ index 859b859d29b637200cf7c9a0bd52d9f712413e3d..0938c1ab06878a62bd734255d1963001
      public void removeGoal(Goal goal) {
 -        for (WrappedGoal wrappedGoal : this.availableGoals) {
 +        // Leaf start - optimize goal selector
-+        gg.tame.keila.util.map.BinaryGoalSet availableGoals = this.keila$availableGoals;
++        gg.tame.palladium.util.map.BinaryGoalSet availableGoals = this.palladium$availableGoals;
 +        WrappedGoal[] elements = availableGoals.elements();
 +        for (int i = 0, j = availableGoals.size(); i < j; i++) {
 +            WrappedGoal wrappedGoal = elements[i];
@@ -72,7 +72,7 @@ index 859b859d29b637200cf7c9a0bd52d9f712413e3d..0938c1ab06878a62bd734255d1963001
  
      public void tick() {
 +        // Leaf start - optimize goal selector
-+        final gg.tame.keila.util.map.BinaryGoalSet availableGoals = this.keila$availableGoals;
++        final gg.tame.palladium.util.map.BinaryGoalSet availableGoals = this.palladium$availableGoals;
 +        final WrappedGoal[] elements = availableGoals.elements();
 +        final long disabled = this.goalTypes.getBackingSet();
 +        final int elemSize = availableGoals.size();
@@ -174,7 +174,7 @@ index 859b859d29b637200cf7c9a0bd52d9f712413e3d..0938c1ab06878a62bd734255d1963001
  
 -        for (WrappedGoal wrappedGoal : this.availableGoals) {
 +        // Leaf start - optimize goal selector
-+        gg.tame.keila.util.map.BinaryGoalSet availableGoals = this.keila$availableGoals;
++        gg.tame.palladium.util.map.BinaryGoalSet availableGoals = this.palladium$availableGoals;
 +        WrappedGoal[] elements = availableGoals.elements();
 +        for (int i = 0, j = availableGoals.size(); i < j; i++) {
 +            WrappedGoal wrappedGoal = elements[i];
