@@ -47,7 +47,7 @@ index bc7f2a98442995413fb941c10b13d5d4e1f778ea..22cb2e73a314e7cc6e77acfefe21f1ad
                  // Paper - improve tick loop - done above
  
 -                try (Profiler.Scope scope = Profiler.use(this.createProfiler())) {
-+                try (Profiler.Scope scope = gg.tame.keila.util.KeilaConstants.DISABLE_VANILLA_PROFILER ? null : Profiler.use(this.createProfiler())) { // Leaf - Configurable vanilla profiler
++                try (Profiler.Scope scope = gg.tame.palladium.util.PalladiumConstants.DISABLE_VANILLA_PROFILER ? null : Profiler.use(this.createProfiler())) { // Leaf - Configurable vanilla profiler
                      this.processPacketsAndTick(flag);
                      ProfilerFiller profilerFiller = Profiler.get();
                      profilerFiller.push("nextTickWait");
@@ -60,7 +60,7 @@ index e13ddecde6a5599a4688707a1898db093d314d2b..d9cae732e2692eaa514ba9c9b8375b90
                              gameExecutor,
                              DATA_RELOAD_INITIAL_TASK,
 -                            LOGGER.isDebugEnabled()
-+                            !gg.tame.keila.util.KeilaConstants.DISABLE_VANILLA_PROFILER // Leaf - Configurable vanilla profiler
++                            !gg.tame.palladium.util.PalladiumConstants.DISABLE_VANILLA_PROFILER // Leaf - Configurable vanilla profiler
                          )
                          .done()
                          .thenApply(object -> reloadableServerResources);
@@ -90,12 +90,12 @@ index 05fa05111a99e1d4b4f992c2349f43125e8b330f..5056d0b5d7ca4324ea4e9e7cdd50ad4f
  
 +    // Leaf start - Configurable vanilla profiler
 +    public static boolean showRemovalWarning(CommandSourceStack source, String command) {
-+        if (gg.tame.keila.util.KeilaConstants.DISABLE_VANILLA_PROFILER) {
++        if (gg.tame.palladium.util.PalladiumConstants.DISABLE_VANILLA_PROFILER) {
 +            net.kyori.adventure.text.minimessage.MiniMessage mm = net.kyori.adventure.text.minimessage.MiniMessage.miniMessage();
 +
 +            source.getSender().sendMessage(mm.deserialize("<gold>/" + command + " command is unavailable, since Minecraft's vanilla profiler has been disabled."));
 +            source.getSender().sendMessage(mm.deserialize("<gold>Please use <click:suggest_command:'/spark'><grey>/spark</grey></click> instead, or check Leaf docs for more information:"));
-+            source.getSender().sendMessage(mm.deserialize("<gold><click:open_url:'" + gg.tame.keila.util.KeilaConstants.DISABLE_VANILLA_PROFILER_DOCS_URL + "'>" + gg.tame.keila.util.KeilaConstants.DISABLE_VANILLA_PROFILER_DOCS_URL + "</click>"));
++            source.getSender().sendMessage(mm.deserialize("<gold><click:open_url:'" + gg.tame.palladium.util.PalladiumConstants.DISABLE_VANILLA_PROFILER_DOCS_URL + "'>" + gg.tame.palladium.util.PalladiumConstants.DISABLE_VANILLA_PROFILER_DOCS_URL + "</click>"));
 +
 +            return true;
 +        }
@@ -135,7 +135,7 @@ index 52f7ab63a0f3b59ef068fc4417f9a2370301e31f..bef5e298acce72e35295dcea2a912512
          this.resources.close();
          this.resources = new MultiPackResourceManager(this.type, resourcePacks);
 -        return SimpleReloadInstance.create(this.resources, this.listeners, backgroundExecutor, gameExecutor, waitingFor, LOGGER.isDebugEnabled());
-+        return SimpleReloadInstance.create(this.resources, this.listeners, backgroundExecutor, gameExecutor, waitingFor, !gg.tame.keila.util.KeilaConstants.DISABLE_VANILLA_PROFILER); // Leaf - Configurable vanilla profiler
++        return SimpleReloadInstance.create(this.resources, this.listeners, backgroundExecutor, gameExecutor, waitingFor, !gg.tame.palladium.util.PalladiumConstants.DISABLE_VANILLA_PROFILER); // Leaf - Configurable vanilla profiler
      }
  
      @Override
@@ -147,7 +147,7 @@ index 9567003a8ed1a3783b743553ce8f690756da868d..7bc414aeb7d07fba692c8c2256ffa267
      }
  
      public static ProfilerFiller get() {
-+        if (gg.tame.keila.util.KeilaConstants.DISABLE_VANILLA_PROFILER) return InactiveProfiler.INSTANCE; // Leaf - Configurable vanilla profiler
++        if (gg.tame.palladium.util.PalladiumConstants.DISABLE_VANILLA_PROFILER) return InactiveProfiler.INSTANCE; // Leaf - Configurable vanilla profiler
          return ACTIVE_COUNT.get() == 0 ? getDefaultFiller() : Objects.requireNonNullElseGet(ACTIVE.get(), Profiler::getDefaultFiller);
      }
  

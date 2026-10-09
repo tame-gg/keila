@@ -57,7 +57,7 @@ index f6a20e5676136389cd504af503c1207d339aa70c..bbeac27580452c4f4b9658186cd8ef86
                  }
              } else if (ageValue == 15 && i < level.paperConfig().maxGrowthHeight.cactus) { // Paper - Configurable cactus/bamboo/reed growth height
 +                // Pluto start - Check if the cactus can even survive being placed
-+                if (gg.tame.keila.config.modules.opt.CheckSurvivalBeforeGrowth.cactusCheckSurvivalBeforeGrowth && !canSurvive(level, blockPos = pos.above())) { // Pluto - Decrease chunk/block lookups
++                if (gg.tame.palladium.config.modules.opt.CheckSurvivalBeforeGrowth.cactusCheckSurvivalBeforeGrowth && !canSurvive(level, blockPos = pos.above())) { // Pluto - Decrease chunk/block lookups
 +                    level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, blockPos, Block.getId(state));
 +                    // We're going to fake the block breaking to match vanilla standards.
 +                    for (net.minecraft.world.item.ItemStack drop : Block.getDrops(state, level, pos, null)) { // Use base cactus since we don't place a block

@@ -12,8 +12,8 @@ if [ "$size" -lt 1048576 ]; then
   exit 1
 fi
 
-manifest="/tmp/keila-release-manifest-$$.txt"
-listing="/tmp/keila-release-listing-$$.txt"
+manifest="/tmp/palladium-release-manifest-$$.txt"
+listing="/tmp/palladium-release-listing-$$.txt"
 trap 'rm -f "$manifest" "$listing"' EXIT
 
 unzip -p "$artifact" META-INF/MANIFEST.MF > "$manifest"

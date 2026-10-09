@@ -30,7 +30,7 @@ index 45b04c79c4beb35dc56add0242a4752c97eac08e..5bb682f88019de563a3b000c863d9235
                  }
                  // Gale end - Airplane - better checking for useless move packets
  
-+                if (gg.tame.keila.config.modules.opt.ReduceUselessPackets.reduceUselessEntityMovePackets && !onGroundChanged && isUselessMoveEntityPacket(packet)) packet = null; // Purpur - Dont send useless entity packets
++                if (gg.tame.palladium.config.modules.opt.ReduceUselessPackets.reduceUselessEntityMovePackets && !onGroundChanged && isUselessMoveEntityPacket(packet)) packet = null; // Purpur - Dont send useless entity packets
 +
                  if (this.entity.needsSync || this.trackDelta || this.entity instanceof LivingEntity && ((LivingEntity)this.entity).isFallFlying()) {
                      Vec3 deltaMovement = this.entity.getDeltaMovement();

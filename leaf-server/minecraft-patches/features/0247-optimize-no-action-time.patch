@@ -13,7 +13,7 @@ index 54033572e325f8486a438e31dde34f8407f9180a..bee0c24558e1c4c2765231c77805a969
  
      protected void updateNoActionTime() {
 +        // Leaf start - optimize no action time
-+        if (gg.tame.keila.config.modules.opt.OptimizeNoActionTime.disableLightCheck) {
++        if (gg.tame.palladium.config.modules.opt.OptimizeNoActionTime.disableLightCheck) {
 +            this.noActionTime++;
 +            return;
 +        }

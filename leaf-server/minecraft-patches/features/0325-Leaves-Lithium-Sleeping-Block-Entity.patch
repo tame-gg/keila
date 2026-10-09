@@ -49,7 +49,7 @@ index 6f01763c178324dd1741b996cd21cb9c23795b71..a724462c46a5ab00f68803e06793dbdc
              try (ProblemReporter.ScopedCollector scopedCollector = new ProblemReporter.ScopedCollector(this.entity.problemPath(), LOGGER)) {
                  this.entity.load(TagValueInput.create(scopedCollector, this.entity.registryAccess(), other));
                  this.entity.setUUID(uuid);
-+                if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.entity instanceof net.minecraft.world.entity.item.ItemEntity itemEntity) itemEntity.levelCallback.onMove(); // Leaves - Lithium Sleeping Block Entity
++                if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.entity instanceof net.minecraft.world.entity.item.ItemEntity itemEntity) itemEntity.levelCallback.onMove(); // Leaves - Lithium Sleeping Block Entity
              }
          }
      }
@@ -61,7 +61,7 @@ index ac594cc5ee90ff8c3f38fbe06f88baad82774f9e..69efa071d4e5adb75abb35e96233c9d9
  
          for (TickingBlockEntity tickingBlockEntity : this.blockEntityTickers) {
              BlockPos pos = tickingBlockEntity.getPos();
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && pos == null) pos = BlockPos.ZERO; // Leaves - Lithium Sleeping Block Entity
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && pos == null) pos = BlockPos.ZERO; // Leaves - Lithium Sleeping Block Entity
              csvOutput.writeRow(pos.getX(), pos.getY(), pos.getZ(), tickingBlockEntity.getType());
          }
      }
@@ -96,7 +96,7 @@ index 4b66eeb9f932f72617e6c65912a0add079b65147..621006ced1b053c44ecc2187e03635bc
          }
          // Paper end - Block invalid positions and bounding box
 +        // Leaves start - Lithium Sleeping Block Entity
-+        if (!gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) return;
++        if (!gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) return;
 +        if (this instanceof ItemEntity) {
 +            long sectionKey = ca.spottedleaf.moonrise.common.util.CoordinateUtils.getChunkSectionKey(this);
 +            net.caffeinemc.mods.lithium.common.tracking.entity.ChunkSectionItemEntityMovementTracker tracker = net.caffeinemc.mods.lithium.common.tracking.entity.ChunkSectionItemEntityMovementTracker.itemEntityMovementTrackerMap.get(new net.caffeinemc.mods.lithium.common.tracking.entity.ChunkSectionEntityMovementTracker.ChunkSectionIdentifier(sectionKey, level.getMinecraftWorld().uuid));
@@ -129,7 +129,7 @@ index d27940451ad2147a24f81f26318918506838bd95..66120153a2f722f6e698ffda09e320e5
  
      public void setItem(ItemStack stack) {
 +        // Leaves start - Lithium Sleeping Block Entity
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.subscriber != null) {
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.subscriber != null) {
 +            ItemStack oldStack = this.getItem();
 +            if (oldStack != stack) {
 +                if (!oldStack.isEmpty()) {
@@ -264,7 +264,7 @@ index 6f34f71d64febca49ffd52d9df2fac657434737d..e02184d0d52e04b35c4fb3534027bef3
          } else {
              float f = 0.0F;
  
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && container instanceof net.caffeinemc.mods.lithium.api.inventory.LithiumInventory optimizedInventory) return net.caffeinemc.mods.lithium.common.hopper.InventoryHelper.getLithiumStackList(optimizedInventory).getSignalStrength(container); // Leaves - Lithium Sleeping Block Entity
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && container instanceof net.caffeinemc.mods.lithium.api.inventory.LithiumInventory optimizedInventory) return net.caffeinemc.mods.lithium.common.hopper.InventoryHelper.getLithiumStackList(optimizedInventory).getSignalStrength(container); // Leaves - Lithium Sleeping Block Entity
              for (int i = 0; i < container.getContainerSize(); i++) {
                  ItemStack item = container.getItem(i);
                  if (!item.isEmpty()) {
@@ -276,7 +276,7 @@ index 14124df21792508be7c237a0d682f1e1be26e98c..9d7d1c8173afc832e3658609e838575c
      // CraftBukkit end
  
      public <T> @Nullable T set(DataComponentType<T> component, @Nullable T value) {
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && component == DataComponents.ENCHANTMENTS && this.subscriber instanceof net.caffeinemc.mods.lithium.common.util.change_tracking.ChangeSubscriber.EnchantmentSubscriber<ItemStack> enchantmentSubscriber) enchantmentSubscriber.lithium$notifyAfterEnchantmentChange(this, this.subscriberData); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && component == DataComponents.ENCHANTMENTS && this.subscriber instanceof net.caffeinemc.mods.lithium.common.util.change_tracking.ChangeSubscriber.EnchantmentSubscriber<ItemStack> enchantmentSubscriber) enchantmentSubscriber.lithium$notifyAfterEnchantmentChange(this, this.subscriberData); // Leaves - Lithium Sleeping Block Entity
          return this.components.set(component, value);
      }
  
@@ -336,7 +336,7 @@ index 43015706d3b3bb5520997adb7a5798468d7ecf42..d298eb6202196f80dede428b76ff349c
                  }
                  // Paper end - Add CompostItemEvent and EntityCompostItemEvent
                  this.level.levelEvent(LevelEvent.COMPOSTER_FILL, this.pos, blockState != this.state ? 1 : 0);
-+                if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.changed = false; // Leaves - Lithium Sleeping Block Entity
++                if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.changed = false; // Leaves - Lithium Sleeping Block Entity
                  this.removeItemNoUpdate(0);
              }
          }
@@ -355,7 +355,7 @@ index d27ca0aa1f0e3675d51ec76f1c482a9bc50971ab..ddb6b3dba945ca3b65d19f79948ec818
      @Override
      protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
          this.updateNeighborsInFront(level, pos, state);
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this instanceof ComparatorBlock && !oldState.is(Blocks.COMPARATOR)) net.caffeinemc.mods.lithium.common.block.entity.inventory_comparator_tracking.ComparatorTracking.notifyNearbyBlockEntitiesAboutNewComparator(level, pos); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this instanceof ComparatorBlock && !oldState.is(Blocks.COMPARATOR)) net.caffeinemc.mods.lithium.common.block.entity.inventory_comparator_tracking.ComparatorTracking.notifyNearbyBlockEntitiesAboutNewComparator(level, pos); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
@@ -378,7 +378,7 @@ index 6789dd6c6f9c1683bcf0abb20319ccd6775e613c..c00492a16ac13cb3e9f34011d643d0c1
              this.checkPoweredState(level, pos, state);
 +            // Leaves start - Lithium Sleeping Block Entity
 +            //invalidate caches of nearby hoppers when placing an update suppressed hopper
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && level.getBlockState(pos) != state) {
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && level.getBlockState(pos) != state) {
 +                for (Direction direction : UPDATE_SHAPE_ORDER) {
 +                    BlockEntity hopper = level.lithium$getLoadedExistingBlockEntity(pos.relative(direction));
 +                    if (hopper instanceof net.caffeinemc.mods.lithium.common.hopper.UpdateReceiver updateReceiver) {
@@ -394,7 +394,7 @@ index 6789dd6c6f9c1683bcf0abb20319ccd6775e613c..c00492a16ac13cb3e9f34011d643d0c1
  
      @Override
      protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, @Nullable Orientation orientation, boolean movedByPiston) {
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && level.lithium$getLoadedExistingBlockEntity(pos) instanceof net.caffeinemc.mods.lithium.common.hopper.UpdateReceiver updateReceiver) updateReceiver.lithium$invalidateCacheOnUndirectedNeighborUpdate(); // Leaves - Lithium Sleeping Block Entity /* invalidate cache when the block is replaced */
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && level.lithium$getLoadedExistingBlockEntity(pos) instanceof net.caffeinemc.mods.lithium.common.hopper.UpdateReceiver updateReceiver) updateReceiver.lithium$invalidateCacheOnUndirectedNeighborUpdate(); // Leaves - Lithium Sleeping Block Entity /* invalidate cache when the block is replaced */
          this.checkPoweredState(level, pos, state);
      }
  
@@ -441,7 +441,7 @@ index 366c0611010e528ec038d12df70bb4dcea045b50..f57ece3a0fd5cd813e13afd40b2e9542
          this.recipesUsed.clear();
          this.recipesUsed.putAll(input.read("RecipesUsed", RECIPES_USED_CODEC).orElse(Map.of()));
          this.cookSpeedMultiplier = input.getDoubleOr("Paper.CookSpeedMultiplier", 1); // Paper - cook speed multiplier API
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.isSleeping() && this.level != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.isSleeping() && this.level != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
@@ -449,7 +449,7 @@ index 366c0611010e528ec038d12df70bb4dcea045b50..f57ece3a0fd5cd813e13afd40b2e9542
          if (flag) {
              setChanged(level, pos, state);
          }
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) furnace.checkSleep(state); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) furnace.checkSleep(state); // Leaves - Lithium Sleeping Block Entity
  
          if (usedLavaFromUnderneath) furnace.items.set(1, ItemStack.EMPTY); // Purpur - Furnace uses lava from underneath
      }
@@ -524,7 +524,7 @@ index 04f6b3c328377091734a111f5a219379e32b5640..f8cb1e67934a6c4abf5f4bc57d3f2492
      @Override
      protected void setItems(NonNullList<ItemStack> items) {
          this.items = items;
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
@@ -564,7 +564,7 @@ index 8b03d50a8f3edcba4a336c97913c95a9a820a3fe..93c0b89bd27b4afb998c3d2b6ffaea10
          super.loadAdditional(input);
          this.lockKey = LockCode.fromTag(input);
          this.name = parseCustomNameSafe(input, "CustomName");
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this instanceof net.caffeinemc.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeTracker inventoryChangeTracker) inventoryChangeTracker.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this instanceof net.caffeinemc.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeTracker inventoryChangeTracker) inventoryChangeTracker.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
@@ -691,7 +691,7 @@ index 0527e14039a928605c485828e69c29a913032517..7761239b49a52d58ad69113126ae80cb
          if (this.level != null) {
              if (ignoreBlockEntityUpdates) return; // Paper - Perf: Optimize Hoppers
              setChanged(this.level, this.worldPosition, this.blockState);
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) lithium$handleSetChanged(); // Leaves - Lithium Sleeping Block Entity
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) lithium$handleSetChanged(); // Leaves - Lithium Sleeping Block Entity
          }
      }
  
@@ -701,7 +701,7 @@ index 0527e14039a928605c485828e69c29a913032517..7761239b49a52d58ad69113126ae80cb
      public void setRemoved() {
 +        this.hasComparators = UNKNOWN; // Leaves - Lithium Sleeping Block Entity
          this.remove = true;
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.level != null && !this.level.isClientSide() && this instanceof net.caffeinemc.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeTracker inventoryChangeTracker) inventoryChangeTracker.lithium$emitRemoved(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.level != null && !this.level.isClientSide() && this instanceof net.caffeinemc.mods.lithium.common.block.entity.inventory_change_tracking.InventoryChangeTracker inventoryChangeTracker) inventoryChangeTracker.lithium$emitRemoved(); // Leaves - Lithium Sleeping Block Entity
      }
  
      public void clearRemoved() {
@@ -709,7 +709,7 @@ index 0527e14039a928605c485828e69c29a913032517..7761239b49a52d58ad69113126ae80cb
      public void setBlockState(BlockState blockState) {
          this.validateBlockState(blockState);
          this.blockState = blockState;
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$handleSetBlockState(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$handleSetBlockState(); // Leaves - Lithium Sleeping Block Entity
      }
  
      protected void applyImplicitComponents(DataComponentGetter componentGetter) {
@@ -763,7 +763,7 @@ index 74577d6523db1cce6413317c016887f2a7bb9977..920d48842a47cf0f4ee597b72ba10bd6
      }
  
      public static void serverTick(Level level, BlockPos pos, BlockState state, BrewingStandBlockEntity blockEntity) {
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.checkSleep(state); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.checkSleep(state); // Leaves - Lithium Sleeping Block Entity
          ItemStack itemStack = blockEntity.items.get(4);
          if (blockEntity.fuel <= 0 && itemStack.is(ItemTags.BREWING_FUEL)) {
              // CraftBukkit start
@@ -771,7 +771,7 @@ index 74577d6523db1cce6413317c016887f2a7bb9977..920d48842a47cf0f4ee597b72ba10bd6
                  itemStack.shrink(1);
              }
              // CraftBukkit end
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
              setChanged(level, pos, state);
          }
  
@@ -780,7 +780,7 @@ index 74577d6523db1cce6413317c016887f2a7bb9977..920d48842a47cf0f4ee597b72ba10bd6
                  blockEntity.brewTime = 0;
              }
 -
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
              setChanged(level, pos, state);
          } else if (isBrewable && blockEntity.fuel > 0) {
              blockEntity.fuel--;
@@ -788,7 +788,7 @@ index 74577d6523db1cce6413317c016887f2a7bb9977..920d48842a47cf0f4ee597b72ba10bd6
              blockEntity.brewTime = event.getBrewingTime(); // 400 -> event.getTotalBrewTime() // Paper - use brewing time from event
              // CraftBukkit end
              blockEntity.ingredient = itemStack1.getItem();
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
              setChanged(level, pos, state);
          }
  
@@ -796,7 +796,7 @@ index 74577d6523db1cce6413317c016887f2a7bb9977..920d48842a47cf0f4ee597b72ba10bd6
          }
  
          this.fuel = input.getByteOr("Fuel", (byte)0);
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.isSleeping() && this.level != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.isSleeping() && this.level != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
@@ -872,7 +872,7 @@ index a27f578eb4d2dbcdb5cd72cb0aa3ec98cdb543c2..824a4e21624a6e5dc1b0d05460d27471
          if (flag) {
              setChanged(level, pos, state);
 -        }
-+        } else if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) campfire.lithium$startSleeping(); // Leaves - Lithium Sleeping Block Entity
++        } else if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) campfire.lithium$startSleeping(); // Leaves - Lithium Sleeping Block Entity
      }
  
      public static void cooldownTick(Level level, BlockPos pos, BlockState state, CampfireBlockEntity blockEntity) {
@@ -881,7 +881,7 @@ index a27f578eb4d2dbcdb5cd72cb0aa3ec98cdb543c2..824a4e21624a6e5dc1b0d05460d27471
          if (flag) {
              setChanged(level, pos, state);
 -        }
-+        } else if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.lithium$startSleeping(); // Leaves - Lithium Sleeping Block Entity
++        } else if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.lithium$startSleeping(); // Leaves - Lithium Sleeping Block Entity
      }
  
      public static void particleTick(Level level, BlockPos pos, BlockState state, CampfireBlockEntity blockEntity) {
@@ -889,7 +889,7 @@ index a27f578eb4d2dbcdb5cd72cb0aa3ec98cdb543c2..824a4e21624a6e5dc1b0d05460d27471
              System.arraycopy(cookingState, 0, this.stopCooking, 0, Math.min(this.stopCooking.length, bytes.capacity()));
          });
          // Paper end - Add more Campfire API
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
@@ -897,7 +897,7 @@ index a27f578eb4d2dbcdb5cd72cb0aa3ec98cdb543c2..824a4e21624a6e5dc1b0d05460d27471
                  this.cookingTime[i] = event.getTotalCookTime(); // i -> event.getTotalCookTime()
                  // CraftBukkit end
                  this.cookingProgress[i] = 0;
-+                if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++                if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
                  this.items.set(i, stack.consumeAndReturn(1, entity));
                  level.gameEvent(GameEvent.BLOCK_CHANGE, this.getBlockPos(), GameEvent.Context.of(entity, this.getBlockState()));
                  this.markUpdated();
@@ -949,7 +949,7 @@ index 6b1299c20573ca009f6bffce829a4a593f548fce..37f043af6c83207f4cab57fc52447650
  
      public static void lidAnimateTick(Level level, BlockPos pos, BlockState state, ChestBlockEntity blockEntity) {
          blockEntity.chestLidController.tickLid();
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.checkSleep(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.checkSleep(); // Leaves - Lithium Sleeping Block Entity
      }
  
      public static void playSound(Level level, BlockPos pos, BlockState state, SoundEvent sound) {
@@ -957,7 +957,7 @@ index 6b1299c20573ca009f6bffce829a4a593f548fce..37f043af6c83207f4cab57fc52447650
      @Override
      public boolean triggerEvent(int id, int type) {
          if (id == 1) {
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.sleepingTicker != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.sleepingTicker != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
              this.chestLidController.shouldBeOpen(type > 0);
              return true;
          } else {
@@ -965,7 +965,7 @@ index 6b1299c20573ca009f6bffce829a4a593f548fce..37f043af6c83207f4cab57fc52447650
      @Override
      protected void setItems(NonNullList<ItemStack> items) {
          this.items = items;
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
@@ -1059,7 +1059,7 @@ index ffb5f2a07afcd6a3df0442ba48faa1557184d27c..5c591b95289f20142f8591884d71f96e
              }
          });
          this.containerData.set(9, input.getIntOr("triggered", 0));
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.isSleeping() && this.level != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.isSleeping() && this.level != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
@@ -1067,12 +1067,12 @@ index ffb5f2a07afcd6a3df0442ba48faa1557184d27c..5c591b95289f20142f8591884d71f96e
                  level.setBlock(pos, state.setValue(CrafterBlock.CRAFTING, false), Block.UPDATE_ALL);
              }
          }
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && i < 0) crafter.checkSleep(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && i < 0) crafter.checkSleep(); // Leaves - Lithium Sleeping Block Entity
      }
  
      public void setCraftingTicksRemaining(int craftingTicksRemaining) {
          this.craftingTicksRemaining = craftingTicksRemaining;
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.isSleeping() && this.level != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.isSleeping() && this.level != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
      }
  
      public int getRedstoneSignal() {
@@ -1137,7 +1137,7 @@ index b4a155cc914092dad83977df714fbbc033c69d19..b592a3bb2cdf084934555d2ee5bb8d46
      @Override
      protected void setItems(NonNullList<ItemStack> items) {
          this.items = items;
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
@@ -1174,13 +1174,13 @@ index 775928cfe700202a70b19589ca72afd9768b62f1..3a494660f79444f7edb867b149d8eee5
  
      public static void lidAnimateTick(Level level, BlockPos pos, BlockState state, EnderChestBlockEntity blockEntity) {
          blockEntity.chestLidController.tickLid();
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.checkSleep(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.checkSleep(); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
      public boolean triggerEvent(int id, int type) {
          if (id == 1) {
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.sleepingTicker != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.sleepingTicker != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
              this.chestLidController.shouldBeOpen(type > 0);
              return true;
          } else {
@@ -1238,7 +1238,7 @@ index 12f8105d6b12c5d63cb6e5e79435c7fd22655475..fbb4a5ce65589a36d910403bbc81a6df
  
      @Override
      public void setBlockState(BlockState blockState) {
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.level != null && !this.level.isClientSide() && blockState.getValue(HopperBlock.FACING) != this.getBlockState().getValue(HopperBlock.FACING)) this.invalidateCachedData(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.level != null && !this.level.isClientSide() && blockState.getValue(HopperBlock.FACING) != this.getBlockState().getValue(HopperBlock.FACING)) this.invalidateCachedData(); // Leaves - Lithium Sleeping Block Entity
          super.setBlockState(blockState);
          this.facing = blockState.getValue(HopperBlock.FACING);
      }
@@ -1246,7 +1246,7 @@ index 12f8105d6b12c5d63cb6e5e79435c7fd22655475..fbb4a5ce65589a36d910403bbc81a6df
              boolean result = tryMoveItems(level, pos, state, blockEntity, () -> {
                  return suckInItems(level, blockEntity);
              });
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.checkSleepingConditions(); // Leaves - Lithium Sleeping Block Entity
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) blockEntity.checkSleepingConditions(); // Leaves - Lithium Sleeping Block Entity
              if (!result && blockEntity.level.spigotConfig.hopperCheck > 1) {
                  blockEntity.setCooldown(blockEntity.level.spigotConfig.hopperCheck);
              }
@@ -1255,7 +1255,7 @@ index 12f8105d6b12c5d63cb6e5e79435c7fd22655475..fbb4a5ce65589a36d910403bbc81a6df
                      blockEntity.setCooldown(level.spigotConfig.hopperTransfer); // Spigot
                      setChanged(level, pos, state);
 +                    // Leaves start - Lithium Sleeping Block Entity
-+                    if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled
++                    if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled
 +                        && !blockEntity.isOnCooldown()
 +                        && !blockEntity.isSleeping()
 +                        && !state.getValue(HopperBlock.ENABLED)) {
@@ -1278,13 +1278,13 @@ index 12f8105d6b12c5d63cb6e5e79435c7fd22655475..fbb4a5ce65589a36d910403bbc81a6df
  
      private static boolean ejectItems(Level level, BlockPos pos, HopperBlockEntity blockEntity) {
 -        Container attachedContainer = getAttachedContainer(level, pos, blockEntity);
-+        Container attachedContainer = gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled ? blockEntity.getInsertInventory(level) : getAttachedContainer(level, pos, blockEntity); // Leaves - Lithium Sleeping Block Entity
++        Container attachedContainer = gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled ? blockEntity.getInsertInventory(level) : getAttachedContainer(level, pos, blockEntity); // Leaves - Lithium Sleeping Block Entity
          if (attachedContainer == null) {
              return false;
          } else {
              Direction opposite = blockEntity.facing.getOpposite();
 +            // Leaves start - Lithium Sleeping Block Entity
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) {
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) {
 +                Boolean res = lithiumInsert(level, pos, blockEntity, attachedContainer);
 +                if (res != null) {
 +                    return res;
@@ -1299,12 +1299,12 @@ index 12f8105d6b12c5d63cb6e5e79435c7fd22655475..fbb4a5ce65589a36d910403bbc81a6df
          BlockPos blockPos = BlockPos.containing(hopper.getLevelX(), hopper.getLevelY() + 1.0, hopper.getLevelZ());
          BlockState blockState = level.getBlockState(blockPos);
 -        Container sourceContainer = getSourceContainer(level, hopper, blockPos, blockState);
-+        Container sourceContainer = gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled ? getExtractInventory(level, hopper, blockPos, blockState) : getSourceContainer(level, hopper, blockPos, blockState); // Leaves - Lithium Sleeping Block Entity
++        Container sourceContainer = gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled ? getExtractInventory(level, hopper, blockPos, blockState) : getSourceContainer(level, hopper, blockPos, blockState); // Leaves - Lithium Sleeping Block Entity
          if (sourceContainer != null) {
              Direction direction = Direction.DOWN;
              skipPullModeEventFire = skipHopperEvents; // Paper - Perf: Optimize Hoppers
 +            // Leaves start - Lithium Sleeping Block Entity
-+            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) {
++            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) {
 +                Boolean res = lithiumExtract(level, hopper, sourceContainer);
 +                if (res != null) {
 +                    return res;
@@ -1319,7 +1319,7 @@ index 12f8105d6b12c5d63cb6e5e79435c7fd22655475..fbb4a5ce65589a36d910403bbc81a6df
              boolean flag = hopper.isGridAligned() && blockState.isCollisionShapeFullBlock(level, blockPos) && !blockState.is(BlockTags.DOES_NOT_BLOCK_HOPPERS);
              if (!flag) {
 -                for (ItemEntity itemEntity : getItemsAtAndAbove(level, hopper)) {
-+                for (ItemEntity itemEntity : gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled ? lithiumGetInputItemEntities(level, hopper) : getItemsAtAndAbove(level, hopper)) { // Leaves - Lithium Sleeping Block Entity
++                for (ItemEntity itemEntity : gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled ? lithiumGetInputItemEntities(level, hopper) : getItemsAtAndAbove(level, hopper)) { // Leaves - Lithium Sleeping Block Entity
                      if (addItem(hopper, itemEntity)) {
                          return true;
                      }
@@ -1337,7 +1337,7 @@ index 12f8105d6b12c5d63cb6e5e79435c7fd22655475..fbb4a5ce65589a36d910403bbc81a6df
  
      public void setCooldown(int cooldownTime) {
 +        // Leaves start - Lithium Sleeping Block Entity
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) {
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) {
 +            if (cooldownTime == 7) {
 +                if (this.tickedGameTime == Long.MAX_VALUE) {
 +                    this.sleepOnlyCurrentTick();
@@ -1356,7 +1356,7 @@ index 12f8105d6b12c5d63cb6e5e79435c7fd22655475..fbb4a5ce65589a36d910403bbc81a6df
      @Override
      protected void setItems(NonNullList<ItemStack> items) {
          this.items = items;
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
      }
  
      public static void entityInside(Level level, BlockPos pos, BlockState state, Entity entity, HopperBlockEntity blockEntity) {
@@ -2134,7 +2134,7 @@ index 61b99c895c0e248f0e7c4c634644dcff54a964d9..e751683aa52da7e850f793916fdfb75b
                      doNeighborUpdates(level, pos, state);
                  }
          }
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.animationStatus == ShulkerBoxBlockEntity.AnimationStatus.CLOSED && this.progressOld == 0.0f && this.progress == 0.0f) this.lithium$startSleeping(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.animationStatus == ShulkerBoxBlockEntity.AnimationStatus.CLOSED && this.progressOld == 0.0f && this.progress == 0.0f) this.lithium$startSleeping(); // Leaves - Lithium Sleeping Block Entity
      }
  
      public ShulkerBoxBlockEntity.AnimationStatus getAnimationStatus() {
@@ -2142,7 +2142,7 @@ index 61b99c895c0e248f0e7c4c634644dcff54a964d9..e751683aa52da7e850f793916fdfb75b
  
      @Override
      public boolean triggerEvent(int id, int type) {
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && this.sleepingTicker != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && this.sleepingTicker != null) this.wakeUpNow(); // Leaves - Lithium Sleeping Block Entity
          if (id == 1) {
              this.openCount = type;
              if (type == 0) {
@@ -2150,7 +2150,7 @@ index 61b99c895c0e248f0e7c4c634644dcff54a964d9..e751683aa52da7e850f793916fdfb75b
      @Override
      protected void setItems(NonNullList<ItemStack> items) {
          this.itemStacks = items;
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$emitStackListReplaced(); // Leaves - Lithium Sleeping Block Entity
      }
  
      @Override
@@ -2211,7 +2211,7 @@ index b6f319824fb353c0b783fc4b2e732792653b0d79..b1d67fab7258ed24b5d30d9268900a1a
          BlockState neighborState,
          RandomSource random
      ) {
-+        if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$handleShapeUpdate(level, state, pos, neighborPos, neighborState); // Leaves - Lithium Sleeping Block Entity /* Triggers when a shape update (= update that observers can detect) is sent */
++        if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled) this.lithium$handleShapeUpdate(level, state, pos, neighborPos, neighborState); // Leaves - Lithium Sleeping Block Entity /* Triggers when a shape update (= update that observers can detect) is sent */
          return state;
      }
  
@@ -2223,14 +2223,14 @@ index 96d4b20e2a264921d690cb193687df6e94d1ce1b..7e234ce9282502f114ed14e53d85d4ec
                      (pos, ticker1) -> {
                          TickingBlockEntity tickingBlockEntity = this.createTicker(blockEntity, ticker);
                          if (ticker1 != null) {
-+                            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && blockEntity instanceof net.caffeinemc.mods.lithium.common.block.entity.SleepingBlockEntity sleepingBlockEntity) sleepingBlockEntity.lithium$setTickWrapper(ticker1); // Leaves - Lithium Sleeping Block Entity
++                            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && blockEntity instanceof net.caffeinemc.mods.lithium.common.block.entity.SleepingBlockEntity sleepingBlockEntity) sleepingBlockEntity.lithium$setTickWrapper(ticker1); // Leaves - Lithium Sleeping Block Entity
                              ticker1.rebind(tickingBlockEntity);
                              return (LevelChunk.RebindableTickingBlockEntityWrapper)ticker1;
                          } else if (this.isInLevel()) {
                              LevelChunk.RebindableTickingBlockEntityWrapper rebindableTickingBlockEntityWrapper = new LevelChunk.RebindableTickingBlockEntityWrapper(
                                  tickingBlockEntity
                              );
-+                            if (gg.tame.keila.config.modules.opt.SleepingBlockEntity.enabled && blockEntity instanceof net.caffeinemc.mods.lithium.common.block.entity.SleepingBlockEntity sleepingBlockEntity) sleepingBlockEntity.lithium$setTickWrapper(rebindableTickingBlockEntityWrapper); // Leaves - Lithium Sleeping Block Entity
++                            if (gg.tame.palladium.config.modules.opt.SleepingBlockEntity.enabled && blockEntity instanceof net.caffeinemc.mods.lithium.common.block.entity.SleepingBlockEntity sleepingBlockEntity) sleepingBlockEntity.lithium$setTickWrapper(rebindableTickingBlockEntityWrapper); // Leaves - Lithium Sleeping Block Entity
                              this.level.addBlockEntityTicker(rebindableTickingBlockEntityWrapper);
                              return rebindableTickingBlockEntityWrapper;
                          } else {

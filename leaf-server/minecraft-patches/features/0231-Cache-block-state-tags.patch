@@ -24,7 +24,7 @@ index ae57c6f2d1c6f8b756efa77d97fca562b97aef35..0569fcce0de69ac35808989298491c4a
      public static VoxelShape nonClimbableShape(BlockGetter level, BlockPos pos) {
          BlockState blockState = level.getBlockState(pos);
 -        return !blockState.is(BlockTags.CLIMBABLE) && (!(blockState.getBlock() instanceof TrapDoorBlock) || !blockState.getValue(TrapDoorBlock.OPEN))
-+        return ((blockState.tagFlag & (gg.tame.keila.util.BlockMasks.TRAP_DOOR_CL_OPEN | gg.tame.keila.util.BlockMasks.CLIMBABLE_TAG)) == 0) // Leaf - Cache block state tags
++        return ((blockState.tagFlag & (gg.tame.palladium.util.BlockMasks.TRAP_DOOR_CL_OPEN | gg.tame.palladium.util.BlockMasks.CLIMBABLE_TAG)) == 0) // Leaf - Cache block state tags
              ? blockState.getCollisionShape(level, pos)
              : Shapes.empty();
      }
@@ -67,7 +67,7 @@ index 47cff92e3244b556ee565b088003abd2784d4341..320df6752be17d81484a809ee511b061
 +        // Leaf start - Cache block state tags
 +        public void initPathType() {
 +            pathType = (byte) net.minecraft.world.level.pathfinder.WalkNodeEvaluator.getPathTypeFromState(this.asState()).ordinal();
-+            tagFlag = gg.tame.keila.util.BlockMasks.init(asState());
++            tagFlag = gg.tame.palladium.util.BlockMasks.init(asState());
 +        }
 +        // Leaf end - Cache block state tags
 +
@@ -83,7 +83,7 @@ index 0d27cd18e5169852d4429d63a7a846cbb66c8147..a2401316d3baf832ba682dc16b2ea16e
  
      private PathType compute(BlockGetter level, BlockPos pos, int index, long packedPos) {
 -        PathType pathTypeFromState = WalkNodeEvaluator.getPathTypeFromState(level, pos);
-+        PathType pathTypeFromState = WalkNodeEvaluator.keilaPathType(level, pos); // Keila - Cache block state tags
++        PathType pathTypeFromState = WalkNodeEvaluator.palladiumPathType(level, pos); // Palladium - Cache block state tags
          this.positions[index] = packedPos;
          this.pathTypes[index] = pathTypeFromState;
          return pathTypeFromState;
@@ -96,7 +96,7 @@ index 12cb285b8c2519cb8c8eded98d06ec8aec91c8b2..66df727d1f0b48f9ffb9ec81a325ca5f
      public PathType getPathTypeFromState(int x, int y, int z) {
          BlockPos blockPos = this.mutablePos.set(x, y, z);
 -        return this.cache == null ? WalkNodeEvaluator.getPathTypeFromState(this.level, blockPos) : this.cache.getOrCompute(this.level, blockPos);
-+        return this.cache == null ? WalkNodeEvaluator.keilaPathType(this.level, blockPos) : this.cache.getOrCompute(this.level, blockPos); // Keila - Cache block state tags
++        return this.cache == null ? WalkNodeEvaluator.palladiumPathType(this.level, blockPos) : this.cache.getOrCompute(this.level, blockPos); // Palladium - Cache block state tags
      }
  
      public BlockState getBlockState(BlockPos pos) {
@@ -110,7 +110,7 @@ index 876aef8dab7187a69bcb380692d0f6a583fb38bd..46130fd10265a2128abf1960f266a346
  
 +    // Leaf start - Cache block state tags
 +    private static final PathType[] PATH_TYPES = PathType.values();
-+    public static PathType keilaPathType(BlockGetter level, BlockPos blockPos) {
++    public static PathType palladiumPathType(BlockGetter level, BlockPos blockPos) {
 +        BlockState blockState = level.getBlockStateIfLoaded(blockPos);
 +        if (blockState == null) {
 +            return PathType.BLOCKED;

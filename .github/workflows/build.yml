@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - "keila/**"
+      - "palladium/**"
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v5
       - name: Configure git identity for paperweight
         run: |
-          git config --global user.name "keila-ci"
+          git config --global user.name "palladium-ci"
           git config --global user.email "ci@tame.gg"
       - name: Apply patches
         run: ./gradlew applyAllPatches --stacktrace

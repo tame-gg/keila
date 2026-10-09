@@ -13,7 +13,7 @@ index da4b0d7d583aa8e54a34a20d24b47b4c1754b559..ec3a665fd1d566325e52a49909d73910
              BlockPos blockPos = BlockPos.containing(x, y, z);
              boolean isLoaded = level.isLoaded(blockPos);
 -            return (!this.biomes.isPresent() || isLoaded && this.biomes.get().contains(level.getBiome(blockPos)))
-+            return (!this.biomes.isPresent() || isLoaded && this.biomes.get().contains(gg.tame.keila.config.modules.opt.OptimizeBiome.advancement ? level.getBiomeCached(null, blockPos) : level.getBiome(blockPos))) // Leaf - cache getBiome
++            return (!this.biomes.isPresent() || isLoaded && this.biomes.get().contains(gg.tame.palladium.config.modules.opt.OptimizeBiome.advancement ? level.getBiomeCached(null, blockPos) : level.getBiome(blockPos))) // Leaf - cache getBiome
                  && (!this.structures.isPresent() || isLoaded && level.structureManager().getStructureWithPieceAt(blockPos, this.structures.get()).isValid())
                  && (!this.smokey.isPresent() || isLoaded && this.smokey.get() == CampfireBlock.isSmokeyPos(level, blockPos))
                  && (!this.light.isPresent() || this.light.get().matches(level, blockPos))
@@ -43,7 +43,7 @@ index c0ed4a8c23eaaf802985cd3f9c286e2fab1d9f59..0cb3e9f4e51f30fc21c50eeb96ff1bb8
          ServerLevel level, StructureManager structureManager, ChunkGenerator generator, MobCategory category, RandomSource random, BlockPos pos
      ) {
 -        Holder<Biome> biome = level.getBiome(pos);
-+        Holder<Biome> biome = gg.tame.keila.config.modules.opt.OptimizeBiome.mobSpawn ? level.getBiomeCached(null, pos) : level.getBiome(pos); // Leaf - cache getBiome
++        Holder<Biome> biome = gg.tame.palladium.config.modules.opt.OptimizeBiome.mobSpawn ? level.getBiomeCached(null, pos) : level.getBiome(pos); // Leaf - cache getBiome
          return category == MobCategory.WATER_AMBIENT && biome.is(BiomeTags.REDUCED_WATER_AMBIENT_SPAWNS) && random.nextFloat() < 0.98F
              ? Optional.empty()
              : mobsAt(level, structureManager, generator, category, pos, biome).getRandom(random);
@@ -52,7 +52,7 @@ index c0ed4a8c23eaaf802985cd3f9c286e2fab1d9f59..0cb3e9f4e51f30fc21c50eeb96ff1bb8
          return isInNetherFortressBounds(pos, level, category, structureManager)
              ? NetherFortressStructure.FORTRESS_ENEMIES
 -            : generator.getMobsAt(biome != null ? biome : level.getBiome(pos), structureManager, category, pos);
-+            : generator.getMobsAt(biome != null ? biome : (gg.tame.keila.config.modules.opt.OptimizeBiome.mobSpawn ? level.getBiomeCached(null, pos) : level.getBiome(pos)), structureManager, category, pos); // Leaf - cache getBiome
++            : generator.getMobsAt(biome != null ? biome : (gg.tame.palladium.config.modules.opt.OptimizeBiome.mobSpawn ? level.getBiomeCached(null, pos) : level.getBiome(pos)), structureManager, category, pos); // Leaf - cache getBiome
      }
  
      public static boolean isInNetherFortressBounds(BlockPos pos, ServerLevel level, MobCategory category, StructureManager structureManager) {
@@ -73,7 +73,7 @@ index 93cbe1d76efd97899ea520a92e88b94639824174..7b03cdec6dccaf6991e32ccbbe2fa8df
          this.noiseBiomeSource = noiseBiomeSource;
          this.biomeZoomSeed = biomeZoomSeed;
 +        // Leaf start - cache getBiome
-+        if (gg.tame.keila.config.modules.opt.OptimizeBiome.enabled && noiseBiomeSource instanceof net.minecraft.world.level.Level) {
++        if (gg.tame.palladium.config.modules.opt.OptimizeBiome.enabled && noiseBiomeSource instanceof net.minecraft.world.level.Level) {
 +            biomeCache = new Holder[65536];
 +            biomeCachePos = new long[65536];
 +        } else {

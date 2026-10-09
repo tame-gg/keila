@@ -49,7 +49,7 @@ index 4105b399459c91c1a2b8a7115f8e6a124974605e..5a7350e08ea1b591a60a2e5dfb8c9470
 +    private static net.kyori.adventure.text.Component getUnknownCommandMessage(
 +        net.kyori.adventure.text.TextComponent.Builder builder, CommandSyntaxException commandSyntaxException, String command
 +    ) {
-+        String rawMessage = gg.tame.keila.config.modules.misc.UnknownCommandMessage.unknownCommandMessage;
++        String rawMessage = gg.tame.palladium.config.modules.misc.UnknownCommandMessage.unknownCommandMessage;
 +
 +        if ("default".equals(rawMessage)) {
 +            return getVanillaUnknownCommandMessage(builder, commandSyntaxException, command);

@@ -13,9 +13,9 @@ index d49df249e3da312aa78f98f86d37d99a8ce12048..db5fb9141332ac9b7021e54397339175
              final boolean canSpawn;
              int maxSpawns = Integer.MAX_VALUE;
 +            // Leaf start - throttle mob spawning
-+            if (gg.tame.keila.config.modules.opt.ThrottleNaturalMobSpawning.enabled) {
-+                int spawnChance = gg.tame.keila.config.modules.opt.ThrottleNaturalMobSpawning.spawnChance[mobCategory.ordinal()];
-+                long failedAttempt = gg.tame.keila.config.modules.opt.ThrottleNaturalMobSpawning.failedAttempts[mobCategory.ordinal()];
++            if (gg.tame.palladium.config.modules.opt.ThrottleNaturalMobSpawning.enabled) {
++                int spawnChance = gg.tame.palladium.config.modules.opt.ThrottleNaturalMobSpawning.spawnChance[mobCategory.ordinal()];
++                long failedAttempt = gg.tame.palladium.config.modules.opt.ThrottleNaturalMobSpawning.failedAttempts[mobCategory.ordinal()];
 +                if (failedAttempt >= 0L
 +                    && chunk.failedSpawnAttempts[mobCategory.ordinal()] >= failedAttempt
 +                    && (level.random.nextInt() & Integer.MAX_VALUE) >= spawnChance) {

@@ -32,9 +32,9 @@ index 5dadb6e34be84f5ab6cbf1a7dee49bc85426840c..357b06b74968c450136557d5fd5e7d7c
 +                } else {
 +                    BlockState blockState = chunk.getBlockStateFinal(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 +                    int flags = blockState.tagFlag;
-+                    return (!(yOffset <= 0.5) || (flags & gg.tame.keila.util.BlockMasks.FENCE_TAG) == 0)
-+                        && (flags & gg.tame.keila.util.BlockMasks.WALL_TAG) == 0
-+                        && (flags & gg.tame.keila.util.BlockMasks.FENCE_GATE_CL) == 0
++                    return (!(yOffset <= 0.5) || (flags & gg.tame.palladium.util.BlockMasks.FENCE_TAG) == 0)
++                        && (flags & gg.tame.palladium.util.BlockMasks.WALL_TAG) == 0
++                        && (flags & gg.tame.palladium.util.BlockMasks.FENCE_GATE_CL) == 0
 +                        ? blockPos.atY(Mth.floor(this.position.y - yOffset))
 +                        : blockPos;
 +                }

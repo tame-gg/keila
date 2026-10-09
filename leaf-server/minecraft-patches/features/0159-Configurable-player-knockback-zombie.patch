@@ -22,7 +22,7 @@ index b3d3c3c7155970319ef47a9db0a3ec576b6a3146..5b409859db3d9ac02a316e7d5d5db6ff
  
 +    // Leaf start - Configurable player knockback zombie
 +    private boolean canKnockback(@Nullable Entity attacker, LivingEntity target) {
-+        if (!gg.tame.keila.config.modules.gameplay.Knockback.canPlayerKnockbackZombie) {
++        if (!gg.tame.palladium.config.modules.gameplay.Knockback.canPlayerKnockbackZombie) {
 +            if (attacker instanceof ServerPlayer && target.getType() == EntityType.ZOMBIE) { // Player -> Zombie
 +                return false;
 +            } else if (attacker instanceof Projectile projectile && projectile.getOwner() instanceof ServerPlayer && target.getType() == EntityType.ZOMBIE) { // Player -> projectile -> Zombie

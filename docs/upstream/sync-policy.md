@@ -1,6 +1,6 @@
-# Keila Upstream Sync Policy
+# Palladium Upstream Sync Policy
 
-Keila tracks Paper, Purpur, Leaf, and Keila-specific patches.
+Palladium tracks Paper, Purpur, Leaf, and Palladium-specific patches.
 
 ## Sync Steps
 
@@ -18,10 +18,10 @@ Every upstream sync should list:
 - Paper commits pulled in.
 - Purpur commits pulled in.
 - Leaf commits pulled in.
-- Keila patches touched.
+- Palladium patches touched.
 - High-risk systems touched.
 - Tests and benchmarks run.
 
-## Keila Patch Rule
+## Palladium Patch Rule
 
-Keila-specific behavior must live in clearly named patches or Keila-owned source files. Avoid burying Keila behavior inside upstream rebrand patches.
+Palladium-specific behavior must live in clearly named patches or Palladium-owned source files. Avoid burying Palladium behavior inside upstream rebrand patches.

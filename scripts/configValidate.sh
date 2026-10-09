@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-config="${1:-config/keila-global.yml}"
+config="${1:-config/palladium-global.yml}"
 test -f "$config"
 test -s "$config"
 

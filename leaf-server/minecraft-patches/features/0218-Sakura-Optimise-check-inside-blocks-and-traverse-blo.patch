@@ -19,7 +19,7 @@ index 673d4e06d6dc4c94ddaafcdc86cbdbd686964ddd..667e51bdd9bf54bec9bcf5fa9a80b16d
              AABB aabb = boundingBox.move(delta);
              if (this.careful) {
 -                for (BlockPos blockPos : BlockPos.betweenClosed(aabb.inflate(1.0))) {
-+                for (BlockPos blockPos : gg.tame.keila.util.list.SimpleBlockPosIterator.iterable(aabb.inflate(1.0))) { // Leaf - Sakura - optimise check inside blocks
++                for (BlockPos blockPos : gg.tame.palladium.util.list.SimpleBlockPosIterator.iterable(aabb.inflate(1.0))) { // Leaf - Sakura - optimise check inside blocks
                      if (!this.blockTraversalPossible(this.ghast.level(), null, null, blockPos, false, false)) {
                          return false;
                      }
@@ -32,7 +32,7 @@ index dfda0560e364aa7777bc1aa76febc55f1c2dd5a0..f55c2d40f62048b2d62ab3539929b05a
      private void handleFirstTickBubbleColumn() {
          if (this.firstTick) {
 -            for (BlockPos blockPos : BlockPos.betweenClosed(this.getBoundingBox())) {
-+            for (BlockPos blockPos : gg.tame.keila.util.list.SimpleBlockPosIterator.iterable(this.getBoundingBox())) { // Leaf - Sakura - optimise check inside blocks
++            for (BlockPos blockPos : gg.tame.palladium.util.list.SimpleBlockPosIterator.iterable(this.getBoundingBox())) { // Leaf - Sakura - optimise check inside blocks
                  BlockState blockState = this.level().getBlockState(blockPos);
                  if (blockState.is(Blocks.BUBBLE_COLUMN)) {
                      blockState.entityInside(this.level(), blockPos, this, InsideBlockEffectApplier.NOOP, true);
@@ -45,7 +45,7 @@ index 8a21910fe7ed61c903c4f36fced63b179ace4577..f59b2201b1ac260d9076bf73ca1a337d
          Vec3 vec3 = to.subtract(from);
          if (vec3.lengthSqr() < Mth.square(1.0E-5F)) {
 -            for (BlockPos blockPos : BlockPos.betweenClosed(boundingBox)) {
-+            for (BlockPos blockPos : gg.tame.keila.util.list.SimpleBlockPosIterator.iterable(boundingBox)) { // Leaf - Sakura - optimise check inside blocks
++            for (BlockPos blockPos : gg.tame.palladium.util.list.SimpleBlockPosIterator.iterable(boundingBox)) { // Leaf - Sakura - optimise check inside blocks
                  if (!visitor.visit(blockPos, 0)) {
                      return false;
                  }
@@ -59,7 +59,7 @@ index 8a21910fe7ed61c903c4f36fced63b179ace4577..f59b2201b1ac260d9076bf73ca1a337d
 +            final boolean zZero = vec3.z() == 0.0;
 +            if (xZero && yZero || yZero && zZero || xZero && zZero) {
 +                int blockIndex = 0;
-+                for (final BlockPos blockPos : gg.tame.keila.util.list.SimpleBlockPosIterator.traverseBoundsInDirection(vec3, boundingBox, 16.0)) {
++                for (final BlockPos blockPos : gg.tame.palladium.util.list.SimpleBlockPosIterator.traverseBoundsInDirection(vec3, boundingBox, 16.0)) {
 +                    if (!visitor.visit(blockPos, blockIndex++)) {
 +                        return false;
 +                    }
@@ -75,7 +75,7 @@ index 8a21910fe7ed61c903c4f36fced63b179ace4577..f59b2201b1ac260d9076bf73ca1a337d
                  return false;
              } else {
 -                for (BlockPos blockPos2 : BlockPos.betweenCornersInDirection(boundingBox, vec3)) {
-+                for (BlockPos blockPos2 : gg.tame.keila.util.list.SimpleBlockPosIterator.iterable(boundingBox)) { // Leaf - Sakura - optimise check inside blocks
++                for (BlockPos blockPos2 : gg.tame.palladium.util.list.SimpleBlockPosIterator.iterable(boundingBox)) { // Leaf - Sakura - optimise check inside blocks
                      if (set.add(blockPos2.asLong()) && !visitor.visit(blockPos2, i + 1)) {
                          return false;
                      }

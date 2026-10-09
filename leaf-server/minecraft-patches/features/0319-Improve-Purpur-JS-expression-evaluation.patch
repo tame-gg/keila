@@ -22,8 +22,8 @@ index 1f3389185ccf997165dc2caf9f78ec560cfd68bd..f669fd71372ea0f05ee05f37fa834382
 -        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(getFromCache(() -> this.level().purpurConfig.phantomAttackDamage, () -> this.level().purpurConfig.phantomAttackDamageCache, () -> (double) (6 + this.getPhantomSize())));
 -        // Purpur end - Configurable entity base attributes
 +        // Leaf start - Improve Purpur JS expression evaluation
-+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(keila$getMaxHealth(this));
-+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(keila$getAttackDamage(this));
++        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(palladium$getMaxHealth(this));
++        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(palladium$getAttackDamage(this));
 +        // Leaf end - Improve Purpur JS expression evaluation
      }
  
@@ -33,7 +33,7 @@ index 1f3389185ccf997165dc2caf9f78ec560cfd68bd..f669fd71372ea0f05ee05f37fa834382
      // Purpur end - Configurable entity base attributes
  
 +    // Leaf start - Improve Purpur JS expression evaluation
-+    private static double keila$getMaxHealth(Phantom phantom) {
++    private static double palladium$getMaxHealth(Phantom phantom) {
 +        final Level level = phantom.level();
 +        if (level.purpurConfig.phantomMaxHealthEnabled) {
 +            return phantom.getFromCache(() -> level.purpurConfig.phantomMaxHealth, () -> level.purpurConfig.phantomMaxHealthCache, () -> 20.0D); // Purpur - Configurable entity base attributes
@@ -41,7 +41,7 @@ index 1f3389185ccf997165dc2caf9f78ec560cfd68bd..f669fd71372ea0f05ee05f37fa834382
 +        return 20.0D;
 +    }
 +
-+    private static double keila$getAttackDamage(Phantom phantom) {
++    private static double palladium$getAttackDamage(Phantom phantom) {
 +        final Level level = phantom.level();
 +        if (level.purpurConfig.phantomAttackDamageEnabled) {
 +            return phantom.getFromCache(() -> level.purpurConfig.phantomAttackDamage, () -> level.purpurConfig.phantomAttackDamageCache, () -> (double) (6 + phantom.getPhantomSize())); // Purpur - Configurable entity base attributes
@@ -75,7 +75,7 @@ index d05ee78e20aedd540416645958a64b33856f7fa0..d5182d0d3e50602d9887a87c3b0fe10b
      // Purpur end - Mobs always drop experience
  
 +    // Leaf start - Improve Purpur JS expression evaluation
-+    private static double keila$getMaxHealth(Slime slime, int size) {
++    private static double palladium$getMaxHealth(Slime slime, int size) {
 +        final Level level = slime.level();
 +        if (level.purpurConfig.slimeMaxHealthEnabled) {
 +            return slime.getFromCache(slime::getMaxHealthEquation, slime::getMaxHealthCache, () -> (double) (size * size));
@@ -83,7 +83,7 @@ index d05ee78e20aedd540416645958a64b33856f7fa0..d5182d0d3e50602d9887a87c3b0fe10b
 +        return size * size;
 +    }
 +
-+    private static double keila$getAttackDamage(Slime slime, int attackDamage) {
++    private static double palladium$getAttackDamage(Slime slime, int attackDamage) {
 +        final Level level = slime.level();
 +        if (level.purpurConfig.slimeAttackDamageEnabled) {
 +            return slime.getFromCache(slime::getAttackDamageEquation, slime::getAttackDamageCache, () -> (double) attackDamage);
@@ -100,10 +100,10 @@ index d05ee78e20aedd540416645958a64b33856f7fa0..d5182d0d3e50602d9887a87c3b0fe10b
          this.reapplyPosition();
          this.refreshDimensions();
 -        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(getFromCache(this::getMaxHealthEquation, this::getMaxHealthCache, () -> (double) (size * size))); // Purpur - Configurable entity base attributes
-+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(keila$getMaxHealth(this, i)); // Leaf - Improve Purpur JS expression evaluation
++        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(palladium$getMaxHealth(this, i)); // Leaf - Improve Purpur JS expression evaluation
          this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2F + 0.1F * i);
 -        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(getFromCache(this::getAttackDamageEquation, this::getAttackDamageCache, () -> (double) i)); // Purpur - Configurable entity base attributes
-+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(keila$getAttackDamage(this, i)); // Leaf - Improve Purpur JS expression evaluation
++        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(palladium$getAttackDamage(this, i)); // Leaf - Improve Purpur JS expression evaluation
          if (resetHealth) {
              this.setHealth(this.getMaxHealth());
          }
@@ -116,7 +116,7 @@ index 60afd81d3bf671889fbff5d4a3fabb38a8e2d461..55327d98c9a714e8e3f8569f21e08143
          if (this.level() instanceof ServerLevel serverLevel) {
              Projectile.Delayed<AbstractArrow> delayedEntity = Projectile.spawnProjectileUsingShootDelayed( // Paper - delayed
 -                arrow, serverLevel, projectile, d, d1 + squareRoot * 0.2F, d2, 1.6F, serverLevel.purpurConfig.skeletonBowAccuracyMap.getOrDefault(serverLevel.getDifficulty().getId(), (float) (14 - serverLevel.getDifficulty().getId() * 4))  // Purpur - skeleton bow accuracy option
-+                arrow, serverLevel, projectile, d, d1 + squareRoot * 0.2F, d2, 1.6F, keila$getBowAccuracy(serverLevel) // Leaf - Improve Purpur JS expression evaluation
++                arrow, serverLevel, projectile, d, d1 + squareRoot * 0.2F, d2, 1.6F, palladium$getBowAccuracy(serverLevel) // Leaf - Improve Purpur JS expression evaluation
              );
  
              // Paper start - call EntityShootBowEvent
@@ -125,7 +125,7 @@ index 60afd81d3bf671889fbff5d4a3fabb38a8e2d461..55327d98c9a714e8e3f8569f21e08143
      }
  
 +    // Leaf start - Improve Purpur JS expression evaluation
-+    private static float keila$getBowAccuracy(ServerLevel serverLevel) {
++    private static float palladium$getBowAccuracy(ServerLevel serverLevel) {
 +        if (serverLevel.purpurConfig.skeletonBowAccuracyEnabled) {
 +            return serverLevel.purpurConfig.skeletonBowAccuracyMap.getOrDefault(serverLevel.getDifficulty().getId(), (float) (14 - serverLevel.getDifficulty().getId() * 4)); // Purpur - skeleton bow accuracy option
 +        }

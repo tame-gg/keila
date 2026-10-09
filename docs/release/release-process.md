@@ -1,4 +1,4 @@
-# Keila Release Process
+# Palladium Release Process
 
 ## Requirements
 
@@ -6,7 +6,7 @@
 - After changing Java runtimes, rerun Paperweight tasks with `--rerun-tasks` or clear stale `.gradle/caches/paperweight` task output.
 - Local SSD or CI runner with filesystem features supported by Gradle.
 - Clean Git history with tags.
-- Keila-owned Maven/download endpoints configured.
+- Palladium-owned Maven/download endpoints configured.
 
 ## Commands
 
@@ -19,7 +19,7 @@ scripts/prepareRelease.sh dist
 
 ## GitHub Workflow
 
-The `keila` workflow compiles the Mojmap paperclip jar, renames it to `keila-0.1.1.jar` by default, writes release metadata, uploads the release-ready artifact, and publishes a GitHub Release when run manually or from a `v*` tag.
+The `palladium` workflow compiles the Mojmap paperclip jar, renames it to `palladium-0.1.1.jar` by default, writes release metadata, uploads the release-ready artifact, and publishes a GitHub Release when run manually or from a `v*` tag.
 
 ## Release Notes
 
@@ -28,7 +28,7 @@ Each release should include:
 - Minecraft version.
 - Paper commit.
 - Leaf base.
-- Keila commits.
+- Palladium commits.
 - High-risk patch changes.
 - Checksums.
 - Known compatibility risks.

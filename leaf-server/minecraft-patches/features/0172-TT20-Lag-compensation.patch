@@ -14,7 +14,7 @@ index dc0121dbe057a9d0c245fcdcb343e10803992718..c23368f90c8c3992fc2ddc688692c344
  
          this.server.spark.tickStart(); // Paper - spark
          new com.destroystokyo.paper.event.server.ServerTickStartEvent(this.tickCount+1).callEvent(); // Paper - Server Tick Events
-+        if (gg.tame.keila.config.modules.misc.LagCompensation.enabled) gg.tame.keila.misc.LagCompensation.TPSCalculator.onTick(); // Leaf - TT20 - Lag compensation - tick hook
++        if (gg.tame.palladium.config.modules.misc.LagCompensation.enabled) gg.tame.palladium.misc.LagCompensation.TPSCalculator.onTick(); // Leaf - TT20 - Lag compensation - tick hook
          this.tickCount++;
          this.tickRateManager.tick();
          this.tickChildren(hasTimeLeft);
@@ -29,8 +29,8 @@ index 3e81c98e2e6b0f1424429ab52aa43d229c867cc7..be35248556e21b227adde0f02f7f958d
 -        return level.getWorldBorder().world != null ? (isFastLava(level) ? level.getWorldBorder().world.purpurConfig.lavaSpeedNether : level.getWorldBorder().world.purpurConfig.lavaSpeedNotNether) : (isFastLava(level) ? 10 : 30); // Purpur - Make lava flow speed configurable
 +        // Leaf start - TT20 - Lag compensation
 +        int delay = level.getWorldBorder().world != null ? (isFastLava(level) ? level.getWorldBorder().world.purpurConfig.lavaSpeedNether : level.getWorldBorder().world.purpurConfig.lavaSpeedNotNether) : (isFastLava(level) ? 10 : 30); // Purpur - Make lava flow speed configurable
-+        if (gg.tame.keila.config.modules.misc.LagCompensation.enabled && gg.tame.keila.config.modules.misc.LagCompensation.enableForLava) {
-+            delay = gg.tame.keila.misc.LagCompensation.tt20(delay, true);
++        if (gg.tame.palladium.config.modules.misc.LagCompensation.enabled && gg.tame.palladium.config.modules.misc.LagCompensation.enableForLava) {
++            delay = gg.tame.palladium.misc.LagCompensation.tt20(delay, true);
 +        }
 +        return delay;
 +        // Leaf end - TT20 - Lag compensation
@@ -46,7 +46,7 @@ index 4533d9f76f4ea21cee3c3114bcfcded40fe7321b..6f88a991bcc96f5819ebe85e5e353bf6
      @Override
      public int getTickDelay(LevelReader level) {
 -        return 5;
-+        return gg.tame.keila.config.modules.misc.LagCompensation.enabled && gg.tame.keila.config.modules.misc.LagCompensation.enableForWater ? gg.tame.keila.misc.LagCompensation.tt20(5, true) : 5; // Leaf - TT20 - Lag compensation
++        return gg.tame.palladium.config.modules.misc.LagCompensation.enabled && gg.tame.palladium.config.modules.misc.LagCompensation.enableForWater ? gg.tame.palladium.misc.LagCompensation.tt20(5, true) : 5; // Leaf - TT20 - Lag compensation
      }
  
      @Override

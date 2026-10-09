@@ -47,7 +47,7 @@ index 2e78fcc3ef67c830ee0b476b14e1892a05723dc8..ad79080efeadc5b6a494fffe18bf4869
 -                final BlockPos pos = new BlockPos((location & 15) | offsetX, (location >>> (4 + 4)) | offsetY, ((location >>> 4) & 15) | offsetZ); // Leaf - Micro optimizations for random tick - no redundant mask
 +                // Leaf start - Reduce optimiseRandomTick new BlockPos instance create
 +                final BlockPos pos = POS_CACHE.set((location & 15) | offsetX, (location >>> 8) | offsetY, ((location >>> 4) & 15) | offsetZ);
-+                final BlockPos finalPos = gg.tame.keila.config.modules.opt.MutableBlockPos.enabled ? pos : pos.immutable();
++                final BlockPos finalPos = gg.tame.palladium.config.modules.opt.MutableBlockPos.enabled ? pos : pos.immutable();
 +                state.randomTick(this, finalPos, simpleRandom); // Leaf - Micro optimizations for random tick - no redundant cast
 +                // Leaf end - Reduce optimiseRandomTick new BlockPos instance create
  

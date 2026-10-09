@@ -4,7 +4,7 @@ set -euo pipefail
 feature="${1:-high-risk-feature}"
 
 cat <<EOF
-# Keila rollout checklist: $feature
+# Palladium rollout checklist: $feature
 - Baseline Spark profile captured
 - Synthetic benchmark completed
 - Soak test completed

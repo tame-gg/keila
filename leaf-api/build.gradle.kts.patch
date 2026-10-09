@@ -129,7 +129,7 @@
 +    compilerArgs.add("-Xlint:-module")
 +    compilerArgs.add("-Xlint:-removal")
 +    compilerArgs.add("-Xlint:-dep-ann")
-+    compilerArgs.add("--enable-preview") // Keila - keep API compile args aligned with server
++    compilerArgs.add("--enable-preview") // Palladium - keep API compile args aligned with server
 +    compilerArgs.add("--add-modules=jdk.incubator.vector") // Gale - Pufferfish - SIMD support
 +}
 +// Gale end - hide irrelevant compilation warnings

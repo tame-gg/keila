@@ -71,10 +71,10 @@ index 57c5360f5030e832fe7b5e0e2f0411be7eb23a2a..67e2d911be8ed5fd67bf33441fd1e28b
 -                return false;
 -            } else if (inBlockState.is(BlockTags.CLIMBABLE)) {
 +            final int flags = inBlockState.tagFlag;
-+            if (this.isFallFlying() && (flags & gg.tame.keila.util.BlockMasks.CAN_GLIDE_THROUGH_TAG) != 0) {
++            if (this.isFallFlying() && (flags & gg.tame.palladium.util.BlockMasks.CAN_GLIDE_THROUGH_TAG) != 0) {
 +                return 0;
-+            } else if ((flags & gg.tame.keila.util.BlockMasks.CLIMBABLE_TAG) != 0
-+                || ((flags & gg.tame.keila.util.BlockMasks.TRAP_DOOR_CL) != 0 && this.trapdoorUsableAsLadder(blockPos, inBlockState))) {
++            } else if ((flags & gg.tame.palladium.util.BlockMasks.CLIMBABLE_TAG) != 0
++                || ((flags & gg.tame.palladium.util.BlockMasks.TRAP_DOOR_CL) != 0 && this.trapdoorUsableAsLadder(blockPos, inBlockState))) {
                  this.lastClimbablePos = Optional.of(blockPos);
 -                return true;
 -            } else if (inBlockState.getBlock() instanceof TrapDoorBlock && this.trapdoorUsableAsLadder(blockPos, inBlockState)) {

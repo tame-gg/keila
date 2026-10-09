@@ -72,7 +72,7 @@ index 784d9de7abecd0816b2a5a6b256ad4e275791fff..d6fe8de09a01cece29bf8e61152e71d5
              }
  
 -            return Util.sequence(list).thenApply(completed -> {
-+            return Util.sequence(list, gg.tame.keila.config.modules.opt.FasterStructureGenFutureSequencing.enabled).thenApply(completed -> { // Leaf - Faster sequencing of futures for chunk structure gen
++            return Util.sequence(list, gg.tame.palladium.config.modules.opt.FasterStructureGenFutureSequencing.enabled).thenApply(completed -> { // Leaf - Faster sequencing of futures for chunk structure gen
                  double d2 = stopwatch.stop().elapsed(TimeUnit.MILLISECONDS) / 1000.0;
                  LOGGER.debug("Calculation for {} took {}s", structureSet, d2);
                  return completed;

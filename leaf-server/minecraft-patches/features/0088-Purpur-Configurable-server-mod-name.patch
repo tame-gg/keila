@@ -15,7 +15,7 @@ index eba1c5264cd0bc9d05b3727d613a4ce42f465be6..86c3469b4f39f5bb0a41292748149c93
      @DontObfuscate
      public String getServerModName() {
 -        return io.papermc.paper.ServerBuildInfo.buildInfo().brandName(); // Paper
-+        return gg.tame.keila.config.modules.misc.ServerBrand.serverModName; // Paper // Leaf - Configurable server mod name
++        return gg.tame.palladium.config.modules.misc.ServerBrand.serverModName; // Paper // Leaf - Configurable server mod name
      }
  
      public SystemReport fillSystemReport(SystemReport systemReport) {

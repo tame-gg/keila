@@ -28,13 +28,13 @@ index 8aac7a3abe42683515dd7bef3e7d9f783ea05ff1..1aa9389e58c9b76b12ce99f429e275f0
 -        if (io.papermc.paper.configuration.GlobalConfiguration.get().proxies.isProxyOnlineMode()
 +        // Leaf start - Configurable vanilla username check
 +        boolean allPrevChecksPassed;
-+        if (!gg.tame.keila.config.modules.misc.VanillaUsernameCheck.removeAllCheck
++        if (!gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.removeAllCheck
 +            && io.papermc.paper.configuration.GlobalConfiguration.get().proxies.isProxyOnlineMode()
              && io.papermc.paper.configuration.GlobalConfiguration.get().unsupportedSettings.performUsernameValidation
              && !this.iKnowThisMayNotBeTheBestIdeaButPleaseDisableUsernameValidation) {
 -            Validate.validState(StringUtil.isReasonablePlayerName(packet.name()), "Invalid characters in username");
 +            allPrevChecksPassed = true;
-+            if (!gg.tame.keila.config.modules.misc.VanillaUsernameCheck.allowOldPlayersJoin) {
++            if (!gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.allowOldPlayersJoin) {
 +                Validate.validState(StringUtil.isReasonablePlayerName(packet.name()), "Invalid characters in username");
 +            }
 +        } else {
@@ -49,7 +49,7 @@ index 8aac7a3abe42683515dd7bef3e7d9f783ea05ff1..1aa9389e58c9b76b12ce99f429e275f0
                      try {
                          GameProfile gameprofile = ServerLoginPacketListenerImpl.this.createOfflineProfile(ServerLoginPacketListenerImpl.this.requestedUsername); // Spigot
 +                        // Leaf start - Configurable vanilla username check
-+                        if (gg.tame.keila.config.modules.misc.VanillaUsernameCheck.allowOldPlayersJoin) {
++                        if (gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.allowOldPlayersJoin) {
 +                            if (server.playerDataStorage.load(new net.minecraft.server.players.NameAndId(gameprofile)).orElse(null) != null) {
 +                                server.getPlayerList().playedPlayers.add(packet.name());
 +                            } else if (allPrevChecksPassed) {
@@ -98,7 +98,7 @@ index 7f7406f6ca9d5d97fc5bab992f70c0702c718af8..2b10da9b31ca19bff46b3d758d8a3fed
          player.getAdvancements().stopListening();
          this.players.remove(player);
          this.playersByName.remove(player.getScoreboardName().toLowerCase(java.util.Locale.ROOT)); // Spigot
-+        if (gg.tame.keila.config.modules.misc.VanillaUsernameCheck.allowOldPlayersJoin) this.playedPlayers.remove(player.getGameProfile().name()); // Leaf - Configurable vanilla username check
++        if (gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.allowOldPlayersJoin) this.playedPlayers.remove(player.getGameProfile().name()); // Leaf - Configurable vanilla username check
          this.removeFromSendAllPlayerInfoBuckets(player); // Gale - Purpur - spread out sending all player info
          this.server.getCustomBossEvents().onPlayerDisconnect(player);
          UUID uuid = player.getUUID();
@@ -111,7 +111,7 @@ index da0018214439511288a43ca665abec6f01441f47..d21806680b1a4c1293ee1aed6c3cc9d2
  
      public static boolean isValidPlayerName(String playerName) {
 +        // Leaf start - Configurable vanilla username check
-+        return isValidPlayerName(playerName, gg.tame.keila.config.modules.misc.VanillaUsernameCheck.shouldSkipNonPlayerNameCheck());
++        return isValidPlayerName(playerName, gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.shouldSkipNonPlayerNameCheck());
 +    }
 +    public static boolean isValidPlayerNameVanilla(String playerName) {
 +        return playerName.length() <= 16 && playerName.chars().filter(i -> i <= 32 || i >= 127).findAny().isEmpty();
@@ -128,9 +128,9 @@ index da0018214439511288a43ca665abec6f01441f47..d21806680b1a4c1293ee1aed6c3cc9d2
      public static boolean isReasonablePlayerName(final String name) {
 -        if (true) return org.purpurmc.purpur.PurpurConfig.usernameValidCharactersPattern.matcher(name).matches(); // Purpur - Configurable valid characters for usernames
 +        // Leaf start - Configurable vanilla username check
-+        if (gg.tame.keila.config.modules.misc.VanillaUsernameCheck.allowOldPlayersJoin && net.minecraft.server.MinecraftServer.getServer().getPlayerList().playedPlayers.contains(name)) return true;
-+        if (gg.tame.keila.config.modules.misc.VanillaUsernameCheck.useUsernameRegex) {
-+            return gg.tame.keila.config.modules.misc.VanillaUsernameCheck.usernameRegex.matcher(name).matches() && name.length() <= 16; // Purpur - Configurable valid characters for usernames // Leaf - use our own config
++        if (gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.allowOldPlayersJoin && net.minecraft.server.MinecraftServer.getServer().getPlayerList().playedPlayers.contains(name)) return true;
++        if (gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.useUsernameRegex) {
++            return gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.usernameRegex.matcher(name).matches() && name.length() <= 16; // Purpur - Configurable valid characters for usernames // Leaf - use our own config
 +        }
 +        // Leaf end - Configurable vanilla username check
          if (name.isEmpty() || name.length() > 16) {
@@ -149,14 +149,14 @@ index 8dbdb40095321cfb2164026f5ca7e0d0c8f1914f..16ea3364aa60ed404752be40cfdf08cc
 +        if (nameOrId.left().isEmpty()) {
 +            return nameOrId;
 +        }
-+        return gg.tame.keila.config.modules.misc.VanillaUsernameCheck.enforceSkullValidation && !net.minecraft.util.StringUtil.isValidPlayerNameVanilla(nameOrId.left().get()) ? Either.left("INVALID_OWNER") : nameOrId;
++        return gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.enforceSkullValidation && !net.minecraft.util.StringUtil.isValidPlayerNameVanilla(nameOrId.left().get()) ? Either.left("INVALID_OWNER") : nameOrId;
 +    }
 +
 +    private static Optional<String> sanitizePartialPlayerName(Optional<String> name) {
 +        if (name.isEmpty()) {
 +            return name;
 +        }
-+        return gg.tame.keila.config.modules.misc.VanillaUsernameCheck.enforceSkullValidation && !net.minecraft.util.StringUtil.isValidPlayerNameVanilla(name.get()) ? Optional.of("INVALID_OWNER") : name;
++        return gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.enforceSkullValidation && !net.minecraft.util.StringUtil.isValidPlayerNameVanilla(name.get()) ? Optional.of("INVALID_OWNER") : name;
 +    }
 +
 +    private static Either<GameProfile, ResolvableProfile.Partial> sanitizeStaticPlayerName(Either<GameProfile, ResolvableProfile.Partial> contents) {
@@ -164,7 +164,7 @@ index 8dbdb40095321cfb2164026f5ca7e0d0c8f1914f..16ea3364aa60ed404752be40cfdf08cc
 +            return contents;
 +        }
 +        GameProfile gameProfile = contents.left().get();
-+        return gg.tame.keila.config.modules.misc.VanillaUsernameCheck.enforceSkullValidation && !net.minecraft.util.StringUtil.isValidPlayerNameVanilla(gameProfile.name()) ? Either.left(new GameProfile(gameProfile.id(), "INVALID_OWNER", gameProfile.properties())) : contents;
++        return gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.enforceSkullValidation && !net.minecraft.util.StringUtil.isValidPlayerNameVanilla(gameProfile.name()) ? Either.left(new GameProfile(gameProfile.id(), "INVALID_OWNER", gameProfile.properties())) : contents;
 +    }
 +    // Leaf end - Configurable vanilla username check - Enforce skull validation
 +

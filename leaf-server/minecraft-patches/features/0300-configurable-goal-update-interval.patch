@@ -13,10 +13,10 @@ index 526e9538d617ae4db85f0b85533cc8c3c85566a2..60a0bb67330f8231eee89c5527204147
          this(mob, avoidClass, livingEntity -> true, maxDist, walkSpeedModifier, sprintSpeedModifier, predicateOnAvoidEntity);
      }
  
-+    private final int keila$internal = Math.max(1, reducedTickDelay(gg.tame.keila.config.modules.opt.EntityGoal.chanceAvoidEntity)); private int keila$counter; // Leaf - configurable goal update interval
++    private final int palladium$internal = Math.max(1, reducedTickDelay(gg.tame.palladium.config.modules.opt.EntityGoal.chanceAvoidEntity)); private int palladium$counter; // Leaf - configurable goal update interval
      @Override
      public boolean canUse() {
-+        keila$counter++; if (keila$counter < keila$internal) { return false; } else { keila$counter = this.mob.random.nextInt(keila$internal); } // Leaf - configurable goal update interval
++        palladium$counter++; if (palladium$counter < palladium$internal) { return false; } else { palladium$counter = this.mob.random.nextInt(palladium$internal); } // Leaf - configurable goal update interval
          this.toAvoid = getServerLevel(this.mob)
              .getNearestEntity(
                  this.mob.level().getEntitiesOfClass(this.avoidClass, this.mob.getBoundingBox().inflate(this.maxDist, 3.0, this.maxDist), livingEntity -> true),
@@ -28,10 +28,10 @@ index 3b158592d97f5ee2ad10b1da75101cb1669871a3..0d5b565dc7c8d5dd1394b31b388b7d39
          this.speedModifier = speedModifier;
      }
  
-+    private final int keila$internal = Math.max(1, reducedTickDelay(gg.tame.keila.config.modules.opt.EntityGoal.chanceFollowParent)); private int keila$counter; // Leaf - configurable goal update interval
++    private final int palladium$internal = Math.max(1, reducedTickDelay(gg.tame.palladium.config.modules.opt.EntityGoal.chanceFollowParent)); private int palladium$counter; // Leaf - configurable goal update interval
      @Override
      public boolean canUse() {
-+        keila$counter++; if (keila$counter < keila$internal) { return false; } else { keila$counter = this.animal.random.nextInt(keila$internal); } // Leaf - configurable goal update interval
++        palladium$counter++; if (palladium$counter < palladium$internal) { return false; } else { palladium$counter = this.animal.random.nextInt(palladium$internal); } // Leaf - configurable goal update interval
          if (this.animal.getAge() >= 0) {
              return false;
          } else {
@@ -43,14 +43,14 @@ index db3f5164170a29570a2b050328b34c918b526a2a..c2c96dc8e023d6b949cd35a2bca83eca
          this.targetingConditions = globalTemptationLookupIndex >= 0 ? TEMPT_TARGETING.copy() : TEMPT_TARGETING.copy().selector((entity, level) -> this.shouldFollow(entity)); // Paper - optimise temptation checks - skip selector if we have a lookup index.
      }
  
-+    private final int keila$internal = Math.max(1, reducedTickDelay(gg.tame.keila.config.modules.opt.EntityGoal.chanceTempt)); private int keila$counter; // Leaf - configurable goal update interval
++    private final int palladium$internal = Math.max(1, reducedTickDelay(gg.tame.palladium.config.modules.opt.EntityGoal.chanceTempt)); private int palladium$counter; // Leaf - configurable goal update interval
      @Override
      public boolean canUse() {
          if (this.calmDown > 0) {
              this.calmDown--;
              return false;
          } else {
-+            if (!isRunning()) { keila$counter++; if (keila$counter < keila$internal) { return false; } else { keila$counter = this.mob.random.nextInt(keila$internal); } } // Leaf - configurable goal update interval
++            if (!isRunning()) { palladium$counter++; if (palladium$counter < palladium$internal) { return false; } else { palladium$counter = this.mob.random.nextInt(palladium$internal); } } // Leaf - configurable goal update interval
              // Paper start - optimise temptation lookups
              final TargetingConditions rangeTargetingConditions = this.targetingConditions.range(this.mob.getAttributeValue(Attributes.TEMPT_RANGE));
  
@@ -63,7 +63,7 @@ index e8dc0eca01cf1a4eb1fe2a799e4dcbe391843318..bfa2781704a7b1ed4f000b8c5c5ef31d
          super(mob, mustSee, mustReach);
          this.targetType = targetType;
 -        this.randomInterval = reducedTickDelay(interval);
-+        this.randomInterval = gg.tame.keila.config.modules.opt.EntityGoal.chanceTarget > 0 && interval <= 10 ? reducedTickDelay(gg.tame.keila.config.modules.opt.EntityGoal.chanceTarget) : reducedTickDelay(interval); // Leaf - configurable goal update interval
++        this.randomInterval = gg.tame.palladium.config.modules.opt.EntityGoal.chanceTarget > 0 && interval <= 10 ? reducedTickDelay(gg.tame.palladium.config.modules.opt.EntityGoal.chanceTarget) : reducedTickDelay(interval); // Leaf - configurable goal update interval
          this.setFlags(EnumSet.of(Goal.Flag.TARGET));
          this.targetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(selector);
      }
@@ -75,10 +75,10 @@ index 809933cf4eea9dcedae4195cfecfe392973e96b6..e3901f14d7414b03df30db8c87708576
              this.startAggroTargetConditions = TargetingConditions.forCombat().range(this.getFollowDistance()).selector(this.isAngerInducing);
          }
  
-+        private final int keila$internal = Math.max(1, reducedTickDelay(gg.tame.keila.config.modules.opt.EntityGoal.chanceEndermanLookForPlayer)); private int keila$counter; // Leaf - configurable goal update interval
++        private final int palladium$internal = Math.max(1, reducedTickDelay(gg.tame.palladium.config.modules.opt.EntityGoal.chanceEndermanLookForPlayer)); private int palladium$counter; // Leaf - configurable goal update interval
          @Override
          public boolean canUse() {
-+            keila$counter++; if (keila$counter < keila$internal) { return false; } else { keila$counter = this.mob.random.nextInt(keila$internal); } // Leaf - configurable goal update interval
++            palladium$counter++; if (palladium$counter < palladium$internal) { return false; } else { palladium$counter = this.mob.random.nextInt(palladium$internal); } // Leaf - configurable goal update interval
              this.pendingTarget = getServerLevel(this.enderman).getNearestPlayer(this.startAggroTargetConditions.range(this.getFollowDistance()), this.enderman);
              return this.pendingTarget != null;
          }

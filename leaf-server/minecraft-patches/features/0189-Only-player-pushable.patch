@@ -14,7 +14,7 @@ index ea84b5b99c3a16cd132ce53b40c3adfbeea710af..2939b38e0e9745ca142709f2f9a5dd3d
          }
  
 -        this.pushEntities();
-+        if (!gg.tame.keila.config.modules.gameplay.OnlyPlayerPushable.enabled) this.pushEntities(); // Leaf - Only player pushable
++        if (!gg.tame.palladium.config.modules.gameplay.OnlyPlayerPushable.enabled) this.pushEntities(); // Leaf - Only player pushable
          profilerFiller.pop();
          // Paper start - Add EntityMoveEvent
          // Purpur start - Ridables
@@ -25,7 +25,7 @@ index ea84b5b99c3a16cd132ce53b40c3adfbeea710af..2939b38e0e9745ca142709f2f9a5dd3d
 -        List<Entity> pushableEntities = this.level().getPushableEntities(this, this.getBoundingBox());
 +        // Leaf start - Only player pushable
 +        final AABB box = this.getBoundingBox();
-+        List<Entity> pushableEntities = gg.tame.keila.config.modules.gameplay.OnlyPlayerPushable.enabled
++        List<Entity> pushableEntities = gg.tame.palladium.config.modules.gameplay.OnlyPlayerPushable.enabled
 +            ? getNearbyPushablePlayers(this, box, EntitySelector.pushableBy(this))
 +            : this.level().getPushableEntities(this, box);
 +        // Leaf end - Only player pushable
@@ -86,7 +86,7 @@ index 4f4abeed259a736a08444be12f6e39e057e33315..9d5b4309884f9d5fa42cfd46f96502b1
      @Override
      protected void pushEntities() {
 -        if (!this.level().paperConfig().entities.armorStands.doCollisionEntityLookups) return; // Paper - Option to prevent armor stands from doing entity lookups
-+        if (gg.tame.keila.config.modules.gameplay.OnlyPlayerPushable.enabled || !this.level().paperConfig().entities.armorStands.doCollisionEntityLookups) return; // Paper - Option to prevent armor stands from doing entity lookups // Leaf - Only player pushable
++        if (gg.tame.palladium.config.modules.gameplay.OnlyPlayerPushable.enabled || !this.level().paperConfig().entities.armorStands.doCollisionEntityLookups) return; // Paper - Option to prevent armor stands from doing entity lookups // Leaf - Only player pushable
          for (Entity entity : this.level().getEntitiesOfClass(AbstractMinecart.class, this.getBoundingBox(), RIDABLE_MINECARTS)) { // Paper - optimise collisions
              if (this.distanceToSqr(entity) <= 0.2) {
                  entity.push(this);

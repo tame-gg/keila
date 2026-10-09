@@ -13,7 +13,7 @@ index 614c7d9f673c926562acc8fa3b3788623900db41..51f37d026382369ac0d53b0ce64495da
          }
  
 -        final JFrame jFrame = new JFrame("Purpur Minecraft server"); // Purpur - Improve GUI
-+        final JFrame jFrame = new JFrame(gg.tame.keila.config.modules.misc.ServerBrand.serverGUIName); // Purpur - Improve GUI // Leaf - Configurable server GUI name
++        final JFrame jFrame = new JFrame(gg.tame.palladium.config.modules.misc.ServerBrand.serverGUIName); // Purpur - Improve GUI // Leaf - Configurable server GUI name
          final MinecraftServerGui minecraftServerGui = new MinecraftServerGui(server);
          jFrame.setDefaultCloseOperation(2);
          jFrame.add(minecraftServerGui);
@@ -22,7 +22,7 @@ index 614c7d9f673c926562acc8fa3b3788623900db41..51f37d026382369ac0d53b0ce64495da
          jFrame.setVisible(true);
          // Paper start - Improve ServerGUI
 -        jFrame.setName("Purpur Minecraft server"); // Purpur - Improve GUI
-+        jFrame.setName(gg.tame.keila.config.modules.misc.ServerBrand.serverGUIName); // Purpur - Improve GUI // Leaf - Configurable server GUI name
++        jFrame.setName(gg.tame.palladium.config.modules.misc.ServerBrand.serverGUIName); // Purpur - Improve GUI // Leaf - Configurable server GUI name
          try {
              jFrame.setIconImage(javax.imageio.ImageIO.read(java.util.Objects.requireNonNull(MinecraftServerGui.class.getClassLoader().getResourceAsStream("logo.png"))));
          } catch (java.io.IOException ignore) {
@@ -31,7 +31,7 @@ index 614c7d9f673c926562acc8fa3b3788623900db41..51f37d026382369ac0d53b0ce64495da
              public void windowClosing(WindowEvent event) {
                  if (!minecraftServerGui.isClosing.getAndSet(true)) {
 -                    jFrame.setTitle("Purpur Minecraft server - shutting down!"); // Purpur - Improve GUI
-+                    jFrame.setTitle(gg.tame.keila.config.modules.misc.ServerBrand.serverGUIName + " - shutting down!"); // Purpur - Improve GUI // Leaf - Configurable server GUI name
++                    jFrame.setTitle(gg.tame.palladium.config.modules.misc.ServerBrand.serverGUIName + " - shutting down!"); // Purpur - Improve GUI // Leaf - Configurable server GUI name
                      server.halt(true);
                      minecraftServerGui.runFinalizers();
                  }

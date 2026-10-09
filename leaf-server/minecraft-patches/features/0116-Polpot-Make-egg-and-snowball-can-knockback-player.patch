@@ -18,7 +18,7 @@ index 3dfe7eef12d40d986d2eb3f750b09b47ee04aecc..329af7b66500519fdb0a938f0e7ff5bd
          int i = entity.level().purpurConfig.snowballDamage >= 0 ? entity.level().purpurConfig.snowballDamage : entity instanceof Blaze ? 3 : 0; // Purpur - Add configurable snowball damage
          entity.hurt(this.damageSources().thrown(this, this.getOwner()), i);
 +        // Leaf start - Polpot - Make snowball can knockback player
-+        if (gg.tame.keila.config.modules.gameplay.Knockback.snowballCanKnockback && entity instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
++        if (gg.tame.palladium.config.modules.gameplay.Knockback.snowballCanKnockback && entity instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
 +            serverPlayer.knockback(0.4F, this.getX() - entity.getX(), this.getZ() - entity.getZ());
 +            serverPlayer.markHurt();
 +        }
@@ -38,7 +38,7 @@ index c7db74ccc3f8c46e97c24857f297fe5fb5f45e36..55e7d7e76055ec38b1d3a22b18e70c66
 +        // Leaf start - Polpot - Make egg can knockback player
 +        net.minecraft.world.entity.Entity entity = result.getEntity();
 +        entity.hurt(this.damageSources().thrown(this, this.getOwner()), 0.0F);
-+        if (gg.tame.keila.config.modules.gameplay.Knockback.eggCanKnockback && entity instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
++        if (gg.tame.palladium.config.modules.gameplay.Knockback.eggCanKnockback && entity instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
 +            serverPlayer.knockback(0.4F, this.getX() - entity.getX(), this.getZ() - entity.getZ());
 +            serverPlayer.markHurt();
 +        }
