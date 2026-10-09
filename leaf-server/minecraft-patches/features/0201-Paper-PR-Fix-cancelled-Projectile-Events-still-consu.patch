@@ -240,7 +240,7 @@ index 9fd8210849bdc55ddbde00158c354beadea5549f..8aeac0d34c5afd18d5bdc09fa66d2fef
 @@ -179,6 +179,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
      public final Map<ServerExplosion.CacheKey, Float> explosionDensityCache = new java.util.HashMap<>(); // Paper - Optimize explosions
      public java.util.ArrayDeque<net.minecraft.world.level.block.RedstoneTorchBlock.Toggle> redstoneUpdateInfos; // Paper - Faster redstone torch rapid clock removal; Move from Map in BlockRedstoneTorch to here
-     public final net.minecraft.world.level.levelgen.BitRandomSource simpleRandom = gg.tame.keila.config.modules.opt.FastRNG.enabled ? new gg.tame.keila.util.math.random.FasterRandomSource(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()) : new ca.spottedleaf.moonrise.common.util.SimpleThreadUnsafeRandom(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()); // Gale - Pufferfish - move random tick random // Leaf - Faster random generator
+     public final net.minecraft.world.level.levelgen.BitRandomSource simpleRandom = gg.tame.palladium.config.modules.opt.FastRNG.enabled ? new gg.tame.palladium.util.math.random.FasterRandomSource(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()) : new ca.spottedleaf.moonrise.common.util.SimpleThreadUnsafeRandom(net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()); // Gale - Pufferfish - move random tick random // Leaf - Faster random generator
 +    public boolean shouldConsumeArrow = true; // Paper PR - prevent item consumption for cancelled shot events
  
      // Purpur start - Add adjustable breeding cooldown to config

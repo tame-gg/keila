@@ -13,7 +13,7 @@ index c42f8269c63ad76fe82aa9d6a8cfcde4bfd57160..0e6bebf112fe5d4709e940cd8d02779a
                      this.connection.spoofedProfile = ServerHandshakePacketListenerImpl.gson.fromJson(split[3], com.mojang.authlib.properties.Property[].class);
                  }
 -            } else if ((split.length == 3 || split.length == 4) && (ServerHandshakePacketListenerImpl.HOST_PATTERN.matcher(split[1]).matches())) {
-+            } else if (!gg.tame.keila.config.modules.misc.RemoveSpigotCheckBungee.enabled && (split.length == 3 || split.length == 4) && (ServerHandshakePacketListenerImpl.HOST_PATTERN.matcher(split[1]).matches())) { // Leaf - Remove Spigot check for broken BungeeCord configurations
++            } else if (!gg.tame.palladium.config.modules.misc.RemoveSpigotCheckBungee.enabled && (split.length == 3 || split.length == 4) && (ServerHandshakePacketListenerImpl.HOST_PATTERN.matcher(split[1]).matches())) { // Leaf - Remove Spigot check for broken BungeeCord configurations
                  Component message = Component.literal("Unknown data in login hostname, did you forget to enable BungeeCord in spigot.yml?");
                  this.connection.send(new ClientboundLoginDisconnectPacket(message));
                  this.connection.disconnect(message);

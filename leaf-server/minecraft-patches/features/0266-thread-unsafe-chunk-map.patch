@@ -12,7 +12,7 @@ index 0d51d2ac814d000724e056be6f480766fd892993..a48c84b53aac1d79567a276165d0ff31
      final ChunkUnloadQueue unloadQueue;
  
      private final ConcurrentLong2ReferenceChainedHashTable<NewChunkHolder> chunkHolders = ConcurrentLong2ReferenceChainedHashTable.createWithCapacity(16384, 0.25f);
-+    public final gg.tame.keila.world.ChunkCache<NewChunkHolder> chunkHoldersNoSync; // Leaf - thread unsafe chunk map
++    public final gg.tame.palladium.world.ChunkCache<NewChunkHolder> chunkHoldersNoSync; // Leaf - thread unsafe chunk map
      private final ServerLevel world;
      private final ChunkTaskScheduler taskScheduler;
      private long currentTick;
@@ -20,7 +20,7 @@ index 0d51d2ac814d000724e056be6f480766fd892993..a48c84b53aac1d79567a276165d0ff31
          this.taskScheduler = taskScheduler;
          this.ticketLockArea = new ReentrantAreaLock(taskScheduler.getChunkSystemLockShift());
          this.unloadQueue = new ChunkUnloadQueue(((ChunkSystemServerLevel)world).moonrise$getRegionChunkShift());
-+        this.chunkHoldersNoSync = new gg.tame.keila.world.ChunkCache<>(world.getChunkSource().mainThread); // Leaf - thread unsafe chunk map
++        this.chunkHoldersNoSync = new gg.tame.palladium.world.ChunkCache<>(world.getChunkSource().mainThread); // Leaf - thread unsafe chunk map
      }
  
      public boolean processTicketUpdates(final int chunkX, final int chunkZ) {
@@ -112,7 +112,7 @@ index c4b4bc7d429767dba1cbf1bcac96e68a56faf0b8..f0dde37856965acf0a3ca54be9d4a3c0
      private volatile NaturalSpawner.@Nullable SpawnState lastSpawnState; // Leaf - optimize mob spawning
      // Paper start
      public final ca.spottedleaf.concurrentutil.map.ConcurrentLong2ReferenceChainedHashTable<net.minecraft.world.level.chunk.LevelChunk> fullChunks = new ca.spottedleaf.concurrentutil.map.ConcurrentLong2ReferenceChainedHashTable<>();
-+    public final gg.tame.keila.world.ChunkCache<LevelChunk> fullChunksNonSync; // Leaf - thread unsafe chunk map
++    public final gg.tame.palladium.world.ChunkCache<LevelChunk> fullChunksNonSync; // Leaf - thread unsafe chunk map
      public int getFullChunksCount() {
          return this.fullChunks.size();
      }
@@ -149,7 +149,7 @@ index c4b4bc7d429767dba1cbf1bcac96e68a56faf0b8..f0dde37856965acf0a3ca54be9d4a3c0
          this.mainThreadProcessor = new ServerChunkCache.MainThreadExecutor(level);
          this.mainThread = Thread.currentThread();
          Path path = levelStorageAccess.getDimensionPath(level.dimension()).resolve("data");
-+        this.fullChunksNonSync = new gg.tame.keila.world.ChunkCache<>(mainThread); // Leaf - thread unsafe chunk map
++        this.fullChunksNonSync = new gg.tame.palladium.world.ChunkCache<>(mainThread); // Leaf - thread unsafe chunk map
  
          try {
              FileUtil.createDirectoriesSafe(path);

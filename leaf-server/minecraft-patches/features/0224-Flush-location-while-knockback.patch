@@ -13,7 +13,7 @@ index 1b8853a9f2df092439fb463c786e3add8344e8a9..77ea7ff14c3920c5c60c0c8a716256b8
                          this.damageStatsAndHearts(target, f3);
                          this.causeFoodExhaustion(this.level().spigotConfig.combatExhaustion, org.bukkit.event.entity.EntityExhaustionEvent.ExhaustionReason.ATTACK); // CraftBukkit - EntityExhaustionEvent // Spigot - Change to use configurable value
 +                        // Leaf start - Flush location while knockback
-+                        if (gg.tame.keila.config.modules.gameplay.Knockback.flushKnockback && this instanceof ServerPlayer player1 && target instanceof ServerPlayer player2) {
++                        if (gg.tame.palladium.config.modules.gameplay.Knockback.flushKnockback && this instanceof ServerPlayer player1 && target instanceof ServerPlayer player2) {
 +                            player1.connection.connection.flushChannel();
 +                            player2.connection.connection.flushChannel();
 +                        }
@@ -26,7 +26,7 @@ index 1b8853a9f2df092439fb463c786e3add8344e8a9..77ea7ff14c3920c5c60c0c8a716256b8
  
              if (!cancelled) {
 +            // Leaf start - Flush location while knockback
-+            if (gg.tame.keila.config.modules.gameplay.Knockback.flushKnockback) {
++            if (gg.tame.palladium.config.modules.gameplay.Knockback.flushKnockback) {
 +                target.needsSync = true;
 +                net.minecraft.server.level.ChunkMap.TrackedEntity targetTrackedEntity = target.moonrise$getTrackedEntity();
 +                if (targetTrackedEntity != null) {
@@ -44,7 +44,7 @@ index 1b8853a9f2df092439fb463c786e3add8344e8a9..77ea7ff14c3920c5c60c0c8a716256b8
                      this.damageStatsAndHearts(target, f2);
                      this.causeFoodExhaustion(this.level().spigotConfig.combatExhaustion, org.bukkit.event.entity.EntityExhaustionEvent.ExhaustionReason.ATTACK); // CraftBukkit - EntityExhaustionEvent // Spigot - Change to use configurable value
 +                    // Leaf start - Flush location while knockback
-+                    if (gg.tame.keila.config.modules.gameplay.Knockback.flushKnockback && this instanceof ServerPlayer player1 && target instanceof ServerPlayer player2) {
++                    if (gg.tame.palladium.config.modules.gameplay.Knockback.flushKnockback && this instanceof ServerPlayer player1 && target instanceof ServerPlayer player2) {
 +                        player1.connection.connection.flushChannel();
 +                        player2.connection.connection.flushChannel();
 +                    }

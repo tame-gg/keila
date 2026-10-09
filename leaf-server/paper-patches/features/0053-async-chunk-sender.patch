@@ -13,7 +13,7 @@ index 568d12d006996258e6b007622add1a059e475708..58a2f57cdbea21122ace08bb966b95c0
      }
  
 +    // Leaf start - async chunk sender
-+    public void keila$modifyBlocks(ClientboundLevelChunkWithLightPacket chunkPacket, ChunkPacketInfo<BlockState> chunkPacketInfo) {
++    public void palladium$modifyBlocks(ClientboundLevelChunkWithLightPacket chunkPacket, ChunkPacketInfo<BlockState> chunkPacketInfo) {
 +        chunkPacket.setReady(true);
 +    }
 +    // Leaf end - async chunk sender
@@ -31,7 +31,7 @@ index b03b2d098c20ce53403de7b0aeb0cf67a61bf7b4..b63ae1958bad9e373d94321444b1c47c
  
 +    // Leaf start - async chunk sender
 +    @Override
-+    public void keila$modifyBlocks(ClientboundLevelChunkWithLightPacket chunkPacket, ChunkPacketInfo<BlockState> chunkPacketInfo) {
++    public void palladium$modifyBlocks(ClientboundLevelChunkWithLightPacket chunkPacket, ChunkPacketInfo<BlockState> chunkPacketInfo) {
 +        if (!(chunkPacketInfo instanceof ChunkPacketInfoAntiXray)) {
 +            chunkPacket.setReady(true);
 +            return;

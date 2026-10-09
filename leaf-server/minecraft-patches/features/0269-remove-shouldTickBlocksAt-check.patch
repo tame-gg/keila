@@ -11,7 +11,7 @@ index 8b1abdeda41f99294ed4524b68bb980b1e265dcd..80f699cece888aa7001867d0d431f9d2
 @@ -1492,7 +1492,7 @@ public abstract class Level implements LevelAccessor, AutoCloseable, ca.spottedl
              // Spigot end
              if (tickingBlockEntity.isRemoved()) {
-                 ((gg.tame.keila.util.list.BlockEntityTickersList) this.blockEntityTickers).markAsRemoved(this.tileTickPosition); // toRemove.add(tickingBlockEntity); // SparklyPaper - optimize block entity removals // Paper - Fix MC-117075; use removeAll
+                 ((gg.tame.palladium.util.list.BlockEntityTickersList) this.blockEntityTickers).markAsRemoved(this.tileTickPosition); // toRemove.add(tickingBlockEntity); // SparklyPaper - optimize block entity removals // Paper - Fix MC-117075; use removeAll
 -            } else if (runsNormally && this.shouldTickBlocksAt(tickingBlockEntity.getPos())) {
 +            } else if (runsNormally /*&& this.shouldTickBlocksAt(tickingBlockEntity.getPos())*/) { // Leaf - remove shouldTickBlocksAt check - duplicate at BoundTickingBlockEntity#tick
                  tickingBlockEntity.tick();

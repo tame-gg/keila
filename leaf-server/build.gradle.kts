@@ -248,7 +248,7 @@ tasks.withType<JavaCompile> {
     compilerArgs.add("-Xlint:-module")
     compilerArgs.add("-Xlint:-removal")
     compilerArgs.add("-Xlint:-dep-ann")
-    compilerArgs.add("--enable-preview") // Keila - required by source using Java 21 preview patterns
+    compilerArgs.add("--enable-preview") // Palladium - required by source using Java 21 preview patterns
     compilerArgs.add("--add-modules=jdk.incubator.vector") // Gale - Pufferfish - SIMD support
 }
 // Gale end - hide irrelevant compilation warnings
@@ -271,20 +271,20 @@ tasks.jar {
         fun gitOrDefault(default: String, vararg args: String): String {
             return if (hasGitCommit) runCatching { git.exec(providers, *args).get().trim() }.getOrDefault(default).ifEmpty { default } else default
         }
-        val gitHash = gitOrDefault("unknown", "rev-parse", "--short=7", "HEAD") // Keila - tolerate source exports without a HEAD commit
+        val gitHash = gitOrDefault("unknown", "rev-parse", "--short=7", "HEAD") // Palladium - tolerate source exports without a HEAD commit
         val implementationVersion = "$mcVersion-${build ?: "DEV"}-$gitHash"
-        val date = gitOrDefault(buildTime.toString(), "show", "-s", "--format=%ci", gitHash) // Keila - tolerate source exports without a HEAD commit
-        val gitBranch = gitOrDefault("unknown", "rev-parse", "--abbrev-ref", "HEAD") // Keila - tolerate source exports without a HEAD commit
+        val date = gitOrDefault(buildTime.toString(), "show", "-s", "--format=%ci", gitHash) // Palladium - tolerate source exports without a HEAD commit
+        val gitBranch = gitOrDefault("unknown", "rev-parse", "--abbrev-ref", "HEAD") // Palladium - tolerate source exports without a HEAD commit
         attributes(
             "Main-Class" to "org.bukkit.craftbukkit.Main",
-            "Implementation-Title" to "Keila", // Keila - Rebrand
+            "Implementation-Title" to "Palladium", // Palladium - Rebrand
             "Implementation-Version" to implementationVersion,
             "Implementation-Vendor" to date,
-            "Specification-Title" to "Keila", // Keila - Rebrand
+            "Specification-Title" to "Palladium", // Palladium - Rebrand
             "Specification-Version" to project.version,
-            "Specification-Vendor" to "tame.gg", // Keila - Rebrand
-            "Brand-Id" to "tamegg:keila", // Keila - Rebrand
-            "Brand-Name" to "Keila", // Keila - Rebrand
+            "Specification-Vendor" to "tame.gg", // Palladium - Rebrand
+            "Brand-Id" to "tamegg:palladium", // Palladium - Rebrand
+            "Brand-Name" to "Palladium", // Palladium - Rebrand
             "Build-Number" to (build ?: ""),
             "Build-Time" to buildTime.toString(),
             "Git-Branch" to gitBranch,
@@ -501,9 +501,9 @@ tasks.named("createMojmapPaperclipJar") {
 // Gale end - branding changes - package license into jar
 
 // Leaf start - Leaf JUnit test suite
-tasks.register<Test>("runKeilaTests") {
+tasks.register<Test>("runPalladiumTests") {
     group = LifecycleBasePlugin.VERIFICATION_GROUP
-    include("**/KeilaTestSuite.class")
+    include("**/PalladiumTestSuite.class")
     workingDir = temporaryDir
     useJUnitPlatform {
         forkEvery = 1

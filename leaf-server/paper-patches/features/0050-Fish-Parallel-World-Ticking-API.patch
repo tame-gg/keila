@@ -27,7 +27,7 @@ index 8dbf8041587399e63c3099d71df3b7c0cf93c151..aecd9225bb0c4f12dff918d07f864d9c
 +    // Fish start - Parallel World Ticking API
 +    @Override
 +    public boolean isParallelWorldTickingEnabled() {
-+        return gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled;
++        return gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled;
 +    }
 +    // Fish end - Parallel World Ticking API
  }

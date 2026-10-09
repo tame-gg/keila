@@ -4,12 +4,12 @@
 # Credit: https://github.com/PurpurMC/Purpur
 
 # Usage:
-# upstreamCommit --paper HASH --purpur HASH --leaf HASH --keila HASH
+# upstreamCommit --paper HASH --purpur HASH --leaf HASH --palladium HASH
 # flag: --paper HASH - (Optional) the commit hash to use for comparing commits between paper (PaperMC/Paper/compare/HASH...HEAD)
 # flag: --purpur HASH - the commit hash to use for comparing commits between purpur (PurpurMC/Purpur/compare/HASH...HEAD)
 # flag: --leaf HASH - the commit hash to use for comparing commits between Leaf (Winds-Studio/Leaf/compare/HASH...HEAD)
 # flag: --leaves HASH - legacy alias for --leaf
-# flag: --keila HASH - the commit hash to use for comparing commits in tame-gg/keila
+# flag: --palladium HASH - the commit hash to use for comparing commits in tame-gg/keila
 
 function getCommits() {
     curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/"$1"/compare/"$2"..."$3" | jq -r '.commits[] | "'"$1"'@\(.sha[:8]) \(.commit.message | split("\r\n")[0] | split("\n")[0])" | sub("\\[ci( |-)skip]"; "[ci/skip]")'
@@ -22,10 +22,10 @@ PS1="$"
 paperHash=$(git diff gradle.properties | awk '/^-paperCommit =/{print $NF}')
 purpurHash=""
 leafHash=""
-keilaHash=""
+palladiumHash=""
 
 # Useless params standardize
-# TEMP=$(getopt --long paper:,purpur:,leaf:,leaves:,keila: -o "" -- "$@")
+# TEMP=$(getopt --long paper:,purpur:,leaf:,leaves:,palladium: -o "" -- "$@")
 # eval set -- "$TEMP"
 while true; do
     case "$1" in
@@ -41,8 +41,8 @@ while true; do
             leafHash="$2"
             shift 2
             ;;
-        --keila)
-            keilaHash="$2"
+        --palladium)
+            palladiumHash="$2"
             shift 2
             ;;
         *)
@@ -54,7 +54,7 @@ done
 paper=""
 purpur=""
 leaf=""
-keila=""
+palladium=""
 updated=""
 logsuffix=""
 
@@ -92,14 +92,14 @@ if [ -n "$leafHash" ]; then
     fi
 fi
 
-# Keila updates
-if [ -n "$keilaHash" ]; then
-    keila=$(getCommits "tame-gg/keila" "$keilaHash" "HEAD")
+# Palladium updates
+if [ -n "$palladiumHash" ]; then
+    palladium=$(getCommits "tame-gg/keila" "$palladiumHash" "HEAD")
 
     # Updates found
-    if [ -n "$keila" ]; then
-        updated="${updated:+$updated/}Keila"
-        logsuffix="$logsuffix\n\nKeila Changes:\n$keila"
+    if [ -n "$palladium" ]; then
+        updated="${updated:+$updated/}Palladium"
+        logsuffix="$logsuffix\n\nPalladium Changes:\n$palladium"
     fi
 fi
 

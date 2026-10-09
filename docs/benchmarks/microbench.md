@@ -1,11 +1,11 @@
-# Keila Microbench Plan
+# Palladium Microbench Plan
 
 Microbenchmarks are required for custom low-level utilities and repeated hot-path rewrites.
 
 ## Required Targets
 
-- `gg.tame.keila.util.queue.MpmcQueue`
-- `gg.tame.keila.world.ChunkCache`
+- `gg.tame.palladium.util.queue.MpmcQueue`
+- `gg.tame.palladium.world.ChunkCache`
 - VarInt and VarLong packet encoding
 - Random tick sampling
 - Entity distance checks

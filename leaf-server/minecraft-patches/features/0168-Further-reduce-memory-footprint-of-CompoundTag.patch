@@ -15,7 +15,7 @@ index c9c050966924ddd315e7829e7f3aee2afacc106b..6e859b1add79ce4e636e2994f59963da
          private static CompoundTag loadCompound(DataInput input, NbtAccounter nbtAccounter) throws IOException {
              nbtAccounter.accountBytes(48L);
 -            it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap<String, Tag> map = new it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap<>(8, 0.8f); // Paper - Reduce memory footprint of CompoundTag
-+            it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap<String, Tag> map = new gg.tame.keila.util.map.StringCanonizingOpenHashMap<>(8, 0.8f); // Paper - Reduce memory footprint of CompoundTag // Leaf - Further reduce memory footprint of CompoundTag
++            it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap<String, Tag> map = new gg.tame.palladium.util.map.StringCanonizingOpenHashMap<>(8, 0.8f); // Paper - Reduce memory footprint of CompoundTag // Leaf - Further reduce memory footprint of CompoundTag
  
              byte b;
              while ((b = input.readByte()) != 0) {
@@ -24,7 +24,7 @@ index c9c050966924ddd315e7829e7f3aee2afacc106b..6e859b1add79ce4e636e2994f59963da
  
      public CompoundTag() {
 -        this(new it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap<>(8, 0.8f)); // Paper - Reduce memory footprint of CompoundTag
-+        this(new gg.tame.keila.util.map.StringCanonizingOpenHashMap<>(8, 0.8f)); // Paper - Reduce memory footprint of CompoundTag // Leaf - Further reduce memory footprint of CompoundTag
++        this(new gg.tame.palladium.util.map.StringCanonizingOpenHashMap<>(8, 0.8f)); // Paper - Reduce memory footprint of CompoundTag // Leaf - Further reduce memory footprint of CompoundTag
      }
  
      @Override
@@ -33,8 +33,8 @@ index c9c050966924ddd315e7829e7f3aee2afacc106b..6e859b1add79ce4e636e2994f59963da
      @Override
      public CompoundTag copy() {
 +        // Leaf start - Further reduce memory footprint of CompoundTag
-+        if (this.tags instanceof gg.tame.keila.util.map.StringCanonizingOpenHashMap<Tag> stringCanonizingTags) {
-+            return new CompoundTag(gg.tame.keila.util.map.StringCanonizingOpenHashMap.deepCopy(stringCanonizingTags, Tag::copy));
++        if (this.tags instanceof gg.tame.palladium.util.map.StringCanonizingOpenHashMap<Tag> stringCanonizingTags) {
++            return new CompoundTag(gg.tame.palladium.util.map.StringCanonizingOpenHashMap.deepCopy(stringCanonizingTags, Tag::copy));
 +        }
 +        // Leaf end - Further reduce memory footprint of CompoundTag
          // Paper start - Reduce memory footprint of CompoundTag

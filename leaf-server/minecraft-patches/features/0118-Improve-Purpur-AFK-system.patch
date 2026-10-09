@@ -14,7 +14,7 @@ index 264c377b6b8a9a55bffb31a7c9af1b9aa7dc5078..4105b399459c91c1a2b8a7115f8e6a12
              StopCommand.register(this.dispatcher);
              TransferCommand.register(this.dispatcher);
              WhitelistCommand.register(this.dispatcher);
-+            if (gg.tame.keila.config.modules.gameplay.AfkCommand.enabled) org.purpurmc.purpur.command.AFKCommand.register(this.dispatcher); // Leaf - Improve Purpur AFK system
++            if (gg.tame.palladium.config.modules.gameplay.AfkCommand.enabled) org.purpurmc.purpur.command.AFKCommand.register(this.dispatcher); // Leaf - Improve Purpur AFK system
              org.purpurmc.purpur.command.CreditsCommand.register(this.dispatcher); // Purpur - Add credits command
              org.purpurmc.purpur.command.DemoCommand.register(this.dispatcher); // Purpur - Add demo command
              org.purpurmc.purpur.command.PingCommand.register(this.dispatcher); // Purpur - Add ping command
@@ -115,7 +115,7 @@ index 5917075d77ac6c558076323413444912f49f7cf2..ca4c47203d6bfbdba7f8f726c2937152
 +    // Leaf start - Improve Purpur AFK system
 +    public static final Map<java.util.UUID, Long> afkCooldown = new it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap<>();
 +    private boolean performAfkCooldown(String command) {
-+        if (!gg.tame.keila.config.modules.gameplay.AfkCommand.enabled || !"afk".equals(command)) {
++        if (!gg.tame.palladium.config.modules.gameplay.AfkCommand.enabled || !"afk".equals(command)) {
 +            return false;
 +        }
 +

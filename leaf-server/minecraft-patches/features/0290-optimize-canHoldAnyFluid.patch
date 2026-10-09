@@ -13,7 +13,7 @@ index 25c2d0f268caa99d14b9d7acf0bf1dde12a4bef0..33abd4f0b812dfdbf789b45f22b04166
      ) {
          return !this.isSourceBlockOfThisType(fluidState)
 -            && canHoldAnyFluid(spreadState)
-+            && (spreadState.tagFlag & gg.tame.keila.util.BlockMasks.CAN_HOLD_ANY_FLUID) != 0 // Leaf - optimize canHoldAnyFluid
++            && (spreadState.tagFlag & gg.tame.palladium.util.BlockMasks.CAN_HOLD_ANY_FLUID) != 0 // Leaf - optimize canHoldAnyFluid
              && canPassThroughWall(direction, level, pos, state, spreadPos, spreadState);
      }
  
@@ -22,7 +22,7 @@ index 25c2d0f268caa99d14b9d7acf0bf1dde12a4bef0..33abd4f0b812dfdbf789b45f22b04166
  
      private static boolean canHoldFluid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
 -        return canHoldAnyFluid(state) && canHoldSpecificFluid(level, pos, state, fluid);
-+        return (state.tagFlag & gg.tame.keila.util.BlockMasks.CAN_HOLD_ANY_FLUID) != 0 && canHoldSpecificFluid(level, pos, state, fluid); // Leaf - optimize canHoldAnyFluid
++        return (state.tagFlag & gg.tame.palladium.util.BlockMasks.CAN_HOLD_ANY_FLUID) != 0 && canHoldSpecificFluid(level, pos, state, fluid); // Leaf - optimize canHoldAnyFluid
      }
  
      private static boolean canHoldSpecificFluid(BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {

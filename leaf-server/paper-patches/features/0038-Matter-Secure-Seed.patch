@@ -26,7 +26,7 @@ index 09baa8c13a56e0f503815a436042b7b79b1698e4..40a67c18526e4220a30a2c1abc7a6346
 +        if (this.level.paperConfig().entities.spawning.allChunksAreSlimeChunks) {
 +            return true;
 +        }
-+        return gg.tame.keila.config.modules.misc.SecureSeed.enabled
++        return gg.tame.palladium.config.modules.misc.SecureSeed.enabled
 +            ? level.getChunk(this.getX(), this.getZ()).isSlimeChunk()
 +            : WorldgenRandom.seedSlimeChunk(this.getX(), this.getZ(), this.getWorld().getSeed(), level.spigotConfig.slimeSeed).nextInt(10) == 0; // Paper;
 +        // Leaf end - Matter - Secure Seed
@@ -43,7 +43,7 @@ index 37f7b160effd293135173586b49297f317b85b22..8dc7c241731681384c394171713122e7
              LevelSettings levelSettings;
 -            WorldOptions worldOptions = new WorldOptions(creator.seed(), creator.generateStructures(), creator.bonusChest());
 +            // Leaf start - Matter - Secure Seed
-+            WorldOptions worldOptions = gg.tame.keila.config.modules.misc.SecureSeed.enabled
++            WorldOptions worldOptions = gg.tame.palladium.config.modules.misc.SecureSeed.enabled
 +                ? new WorldOptions(creator.seed(), su.plo.matter.Globals.createRandomWorldSeed(), creator.generateStructures(), creator.bonusChest())
 +                : new WorldOptions(creator.seed(), creator.generateStructures(), creator.bonusChest());
 +            // Leaf end - Matter - Secure Seed

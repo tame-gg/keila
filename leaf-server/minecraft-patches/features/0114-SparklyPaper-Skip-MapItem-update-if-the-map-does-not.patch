@@ -19,7 +19,7 @@ index 63c9805a2c2c8ac8fff4e322e1627880c3fabd83..3cb1355bee81c8096a6074289044a769
              }
  
 -            if (!savedData.locked && slot != null && slot.getType() == EquipmentSlot.Type.HAND) {
-+            if (!savedData.locked && (!gg.tame.keila.config.modules.opt.SkipMapItemDataUpdates.enabled || shouldUpdateMap(savedData)) && slot != null && slot.getType() == EquipmentSlot.Type.HAND) { // SparklyPaper - don't update maps if they don't have the CraftMapRenderer in the render list
++            if (!savedData.locked && (!gg.tame.palladium.config.modules.opt.SkipMapItemDataUpdates.enabled || shouldUpdateMap(savedData)) && slot != null && slot.getType() == EquipmentSlot.Type.HAND) { // SparklyPaper - don't update maps if they don't have the CraftMapRenderer in the render list
                  this.update(level, entity, savedData);
              }
          }

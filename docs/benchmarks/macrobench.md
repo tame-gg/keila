@@ -1,4 +1,4 @@
-# Keila Macrobench Plan
+# Palladium Macrobench Plan
 
 Run macrobenchmarks on local SSD or CI hardware, not network-mounted source trees.
 
@@ -14,7 +14,7 @@ Run macrobenchmarks on local SSD or CI hardware, not network-mounted source tree
 - Elytra chunk-loading path with many players.
 - 1,000 fake-player join, move, and disconnect cycle.
 - Map/item-frame wall.
-- Replay-based parity run for every roadmap item in `docs/keila/optimization-roadmap.md`.
+- Replay-based parity run for every roadmap item in `docs/palladium/optimization-roadmap.md`.
 
 ## Measurements
 
@@ -29,4 +29,4 @@ Run macrobenchmarks on local SSD or CI hardware, not network-mounted source tree
 - Async queue depth and rejection count
 - Behavior mismatch count against the replay baseline.
 
-Each Keila performance patch should name the workload it improves and the workload it might risk.
+Each Palladium performance patch should name the workload it improves and the workload it might risk.

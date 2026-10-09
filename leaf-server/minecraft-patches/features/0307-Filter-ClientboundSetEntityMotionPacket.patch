@@ -32,7 +32,7 @@ index 2c82ebaf9865e31f157e167f7d712efd75a9d7f5..6772bffe21ee30556697ff9cccf9ff8d
                                      )
                                  );
 -                        } else { // Leaf - Multithreaded tracker - diff on change
-+                        } else if (!gg.tame.keila.config.modules.opt.ReduceUselessPackets.filterClientboundSetEntityMotionPacket || // Canvas - filter ClientboundSetEntityMotionPacket
++                        } else if (!gg.tame.palladium.config.modules.opt.ReduceUselessPackets.filterClientboundSetEntityMotionPacket || // Canvas - filter ClientboundSetEntityMotionPacket
 +                            (this.entity instanceof net.minecraft.world.entity.item.ItemEntity && flag1) ||
 +                            this.entity instanceof net.minecraft.world.entity.projectile.EyeOfEnder ||
 +                            this.entity instanceof net.minecraft.world.entity.animal.squid.Squid ||
@@ -46,7 +46,7 @@ index 2c82ebaf9865e31f157e167f7d712efd75a9d7f5..6772bffe21ee30556697ff9cccf9ff8d
                                      new ClientboundProjectilePowerPacket(abstractHurtingProjectile.getId(), abstractHurtingProjectile.accelerationPower)
                                  )));
 -                            } else {
-+                            } else if (!gg.tame.keila.config.modules.opt.ReduceUselessPackets.filterClientboundSetEntityMotionPacket || // Canvas - filter ClientboundSetEntityMotionPacket
++                            } else if (!gg.tame.palladium.config.modules.opt.ReduceUselessPackets.filterClientboundSetEntityMotionPacket || // Canvas - filter ClientboundSetEntityMotionPacket
 +                                (this.entity instanceof net.minecraft.world.entity.item.ItemEntity && flag1) ||
 +                                this.entity instanceof net.minecraft.world.entity.projectile.EyeOfEnder ||
 +                                this.entity instanceof net.minecraft.world.entity.animal.squid.Squid ||

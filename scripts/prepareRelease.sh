@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-release_name="${KEILA_RELEASE_NAME:-keila}"
-release_authors="${KEILA_RELEASE_AUTHORS:-tame.gg, asianrizz, koels}"
-release_version="${KEILA_RELEASE_VERSION:-0.1.1}"
+release_name="${PALLADIUM_RELEASE_NAME:-palladium}"
+release_authors="${PALLADIUM_RELEASE_AUTHORS:-tame.gg, asianrizz, koels}"
+release_version="${PALLADIUM_RELEASE_VERSION:-0.1.1}"
 dist_dir="${1:-dist}"
 
-source_artifact="${KEILA_SOURCE_ARTIFACT:-}"
+source_artifact="${PALLADIUM_SOURCE_ARTIFACT:-}"
 if [ -z "$source_artifact" ]; then
   source_artifact="$(find leaf-server/build/libs -maxdepth 1 -type f -name '*paperclip*-mojmap.jar' | sort | tail -n 1)"
 fi

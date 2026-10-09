@@ -23,7 +23,7 @@ index d842c2c215702824c0025446914c49b95250c759..aa5b07a083ac5b59cd4558d6be763c42
 +        // Leaf start - Cache CraftEntityType#minecraftToBukkit convert
 +        EntityType asBukkit = MINECRAFT_TO_BUKKIT_KEY_CACHE.get(minecraft);
 +
-+        if (gg.tame.keila.config.modules.opt.EnableCachedMTBEntityTypeConvert.enabled && asBukkit != null) {
++        if (gg.tame.palladium.config.modules.opt.EnableCachedMTBEntityTypeConvert.enabled && asBukkit != null) {
 +            return asBukkit;
 +        }
 +        // Leaf end - Cache CraftEntityType#minecraftToBukkit convert

@@ -12,7 +12,7 @@ index ef9d9f3ddaf25aa990715139e1916672f76c35e5..97b591ab30d6e0af4518b71fefcf9c8f
                      h.handlers = null;
                  }
              }
-+            gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
++            gg.tame.palladium.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
          }
      }
  
@@ -20,7 +20,7 @@ index ef9d9f3ddaf25aa990715139e1916672f76c35e5..97b591ab30d6e0af4518b71fefcf9c8f
              for (HandlerList h : allLists) {
                  h.unregister(plugin);
              }
-+            gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
++            gg.tame.palladium.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
          }
      }
  
@@ -28,17 +28,17 @@ index ef9d9f3ddaf25aa990715139e1916672f76c35e5..97b591ab30d6e0af4518b71fefcf9c8f
              for (HandlerList h : allLists) {
                  h.unregister(listener);
              }
-+            gg.tame.keila.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
++            gg.tame.palladium.event.player.PlayerInventoryOverflowEvent.isListeningInvOverflowCached = -1; // Leaf - PlayerInventoryOverflowEvent
          }
      }
  
-diff --git a/src/main/java/gg/tame/keila/event/player/PlayerInventoryOverflowEvent.java b/src/main/java/gg/tame/keila/event/player/PlayerInventoryOverflowEvent.java
+diff --git a/src/main/java/gg/tame/palladium/event/player/PlayerInventoryOverflowEvent.java b/src/main/java/gg/tame/palladium/event/player/PlayerInventoryOverflowEvent.java
 new file mode 100644
 index 0000000000000000000000000000000000000000..eae76671190ef84529c0dd503263e43a15a74e8a
 --- /dev/null
-+++ b/src/main/java/gg/tame/keila/event/player/PlayerInventoryOverflowEvent.java
++++ b/src/main/java/gg/tame/palladium/event/player/PlayerInventoryOverflowEvent.java
 @@ -0,0 +1,65 @@
-+package gg.tame.keila.event.player;
++package gg.tame.palladium.event.player;
 +
 +import org.bukkit.entity.Player;
 +import org.bukkit.event.HandlerList;

@@ -68,7 +68,7 @@ index 153922127a1f3f452f908acf68d9c4c8a7ee09dc..c4b4bc7d429767dba1cbf1bcac96e68a
 --- a/net/minecraft/server/level/ServerChunkCache.java
 +++ b/net/minecraft/server/level/ServerChunkCache.java
 @@ -619,8 +619,12 @@ public class ServerChunkCache extends ChunkSource implements ca.spottedleaf.moon
-             if (gg.tame.keila.config.modules.opt.OptimizeMobSpawning.enabled) { this.level.natureSpawnChunkMap.tick(this.level, list); } else { this.chunkMap.collectSpawningChunks(list); } // Leaf - optimize mob spawning
+             if (gg.tame.palladium.config.modules.opt.OptimizeMobSpawning.enabled) { this.level.natureSpawnChunkMap.tick(this.level, list); } else { this.chunkMap.collectSpawningChunks(list); } // Leaf - optimize mob spawning
              profiler.popPush("shuffleSpawningChunks");
              // Paper start - chunk tick iteration optimisation
 -            this.shuffleRandom.setSeed(this.level.random.nextLong());

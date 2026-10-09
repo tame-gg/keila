@@ -21,7 +21,7 @@ index dbf1cf2b24fe062d4abdcb9cee694301436899cf..6ca7f162be90e1521b97c94b93da9a49
      @Override
      public final int hashCode() { // Paper - Perf: Final for inline
 -        return (this.getY() + this.getZ() * 31) * 31 + this.getX();
-+        return gg.tame.keila.util.Vec3iHasher.hash(this.x, this.y, this.z); // Leaf - Optimize Vec3i hashing
++        return gg.tame.palladium.util.Vec3iHasher.hash(this.x, this.y, this.z); // Leaf - Optimize Vec3i hashing
      }
  
      @Override

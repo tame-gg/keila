@@ -22,7 +22,7 @@ index 73c51c66857f53128b737304205295b67e8444e8..348bf5ed91ded3537a86bc0708e0158a
  
      private static WorldgenRandom getSeededRandom() {
 -        return new WorldgenRandom(new LegacyRandomSource(0));
-+        return new WorldgenRandom(gg.tame.keila.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.keila.util.math.random.FasterRandomSource(0) : new LegacyRandomSource(0)); // Leaf - Faster random generator
++        return new WorldgenRandom(gg.tame.palladium.config.modules.opt.FastRNG.worldgenEnabled() ? new gg.tame.palladium.util.math.random.FasterRandomSource(0) : new LegacyRandomSource(0)); // Leaf - Faster random generator
      }
  
      @Override

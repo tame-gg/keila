@@ -28,13 +28,13 @@ index 8d9a243b335cfe95d8d785cc89d27ecebed61cb4..1cca7dab4cfb503d2f6e4bb80ac0e318
 -    private final Set<Activity> activeActivities = Sets.newHashSet();
 +    public static final Map[] EMPTY_MAP_ARRAY = {};
 +    public static final Set[] EMPTY_SET_ARRAY = {};
-+    public static final gg.tame.keila.util.map.BehaviorControlArraySet[] EMPTY_BEHAVIOR_ARRAY = {};
++    public static final gg.tame.palladium.util.map.BehaviorControlArraySet[] EMPTY_BEHAVIOR_ARRAY = {};
 +    private Map<Activity, Set<BehaviorControl<? super E>>>[] availableBehaviorsByPriorityArray = EMPTY_MAP_ARRAY;
-+    private gg.tame.keila.util.map.BehaviorControlArraySet<? super E>[] activeBehaviors = EMPTY_BEHAVIOR_ARRAY;
-+    private final Map<Activity, Set<Pair<MemoryModuleType<?>, MemoryStatus>>> activityRequirements = new gg.tame.keila.util.map.ActivityArrayMap<>(EMPTY_SET_ARRAY);
-+    private final Map<Activity, Set<MemoryModuleType<?>>> activityMemoriesToEraseWhenStopped = new gg.tame.keila.util.map.ActivityArrayMap<>(EMPTY_SET_ARRAY);
++    private gg.tame.palladium.util.map.BehaviorControlArraySet<? super E>[] activeBehaviors = EMPTY_BEHAVIOR_ARRAY;
++    private final Map<Activity, Set<Pair<MemoryModuleType<?>, MemoryStatus>>> activityRequirements = new gg.tame.palladium.util.map.ActivityArrayMap<>(EMPTY_SET_ARRAY);
++    private final Map<Activity, Set<MemoryModuleType<?>>> activityMemoriesToEraseWhenStopped = new gg.tame.palladium.util.map.ActivityArrayMap<>(EMPTY_SET_ARRAY);
 +    private Set<Activity> coreActivities = Set.of();
-+    private final Set<Activity> activeActivities = new gg.tame.keila.util.map.ActivityBitSet();
++    private final Set<Activity> activeActivities = new gg.tame.palladium.util.map.ActivityBitSet();
 +    // Leaf end - Replace brain maps with optimized collection
      private Activity defaultActivity = Activity.IDLE;
      private long lastScheduleUpdate = -9999L;
@@ -72,8 +72,8 @@ index 8d9a243b335cfe95d8d785cc89d27ecebed61cb4..1cca7dab4cfb503d2f6e4bb80ac0e318
              this.availableBehaviorsByPriority
 -                .computeIfAbsent(pair.getFirst(), integer -> Maps.newHashMap())
 -                .computeIfAbsent(activity, activity1 -> Sets.newLinkedHashSet())
-+                .computeIfAbsent(pair.getFirst(), integer -> new gg.tame.keila.util.map.ActivityArrayMap<>((Set<BehaviorControl<? super E>>[]) EMPTY_SET_ARRAY)) // Leaf - Replace brain maps with optimized collection
-+                .computeIfAbsent(activity, activity1 -> new gg.tame.keila.util.map.BehaviorControlArraySet<>()) // Leaf - Replace brain maps with optimized collection
++                .computeIfAbsent(pair.getFirst(), integer -> new gg.tame.palladium.util.map.ActivityArrayMap<>((Set<BehaviorControl<? super E>>[]) EMPTY_SET_ARRAY)) // Leaf - Replace brain maps with optimized collection
++                .computeIfAbsent(activity, activity1 -> new gg.tame.palladium.util.map.BehaviorControlArraySet<>()) // Leaf - Replace brain maps with optimized collection
                  .add((BehaviorControl<? super E>)pair.getSecond());
          }
 +        if (this.activeBehaviors != EMPTY_BEHAVIOR_ARRAY) this.activeBehaviors = EMPTY_BEHAVIOR_ARRAY; // Leaf - Replace brain maps with optimized collection
@@ -130,9 +130,9 @@ index 8d9a243b335cfe95d8d785cc89d27ecebed61cb4..1cca7dab4cfb503d2f6e4bb80ac0e318
 +            this.availableBehaviorsByPriorityArray = this.availableBehaviorsByPriority.values().toArray(EMPTY_MAP_ARRAY);
 +        }
 +        for (Map<Activity, Set<BehaviorControl<? super E>>> map : availableBehaviorsByPriorityArray) {
-+            var map1 = (gg.tame.keila.util.map.ActivityArrayMap<Set<BehaviorControl<? super E>>>) map;
++            var map1 = (gg.tame.palladium.util.map.ActivityArrayMap<Set<BehaviorControl<? super E>>>) map;
 +            for (int index = 0, size = map1.size(); index < size; index++) {
-+                var behaviorControls = (gg.tame.keila.util.map.BehaviorControlArraySet<? super E>) map1.v[index];
++                var behaviorControls = (gg.tame.palladium.util.map.BehaviorControlArraySet<? super E>) map1.v[index];
 +                var behaviorControlsRaw = behaviorControls.raw();
 +                for (int i = 0, size1 = behaviorControls.size(); i < size1; i++) {
 +                    BehaviorControl<? super E> behaviorControl = behaviorControlsRaw[i];
@@ -161,21 +161,21 @@ index 8d9a243b335cfe95d8d785cc89d27ecebed61cb4..1cca7dab4cfb503d2f6e4bb80ac0e318
 +        if (this.availableBehaviorsByPriorityArray.length != this.availableBehaviorsByPriority.size()) {
 +            this.availableBehaviorsByPriorityArray = this.availableBehaviorsByPriority.values().toArray(EMPTY_MAP_ARRAY);
 +        }
-+        var aact = (gg.tame.keila.util.map.ActivityBitSet) this.activeActivities;
++        var aact = (gg.tame.palladium.util.map.ActivityBitSet) this.activeActivities;
 +        if (activeBehaviors == EMPTY_BEHAVIOR_ARRAY || aact.unsetDirty()) {
 +            var list = it.unimi.dsi.fastutil.objects.ReferenceArrayList.wrap(activeBehaviors);
 +            list.clear();
 +            int activeSet = aact.bitSet();
 +            for (Map<Activity, Set<BehaviorControl<? super E>>> map : availableBehaviorsByPriorityArray) {
-+                for (int index = 0; index < gg.tame.keila.util.RegistryTypeManager.ACTIVITY_SIZE; index++) {
++                for (int index = 0; index < gg.tame.palladium.util.RegistryTypeManager.ACTIVITY_SIZE; index++) {
 +                    if ((activeSet & (1 << index)) == 0) {
 +                        continue;
 +                    }
-+                    var ele = ((gg.tame.keila.util.map.ActivityArrayMap<Set<BehaviorControl<? super E>>>) map).getValue(index);
++                    var ele = ((gg.tame.palladium.util.map.ActivityArrayMap<Set<BehaviorControl<? super E>>>) map).getValue(index);
 +                    if (ele == null) {
 +                        continue;
 +                    }
-+                    list.add((gg.tame.keila.util.map.BehaviorControlArraySet<? super E>) ele);
++                    list.add((gg.tame.palladium.util.map.BehaviorControlArraySet<? super E>) ele);
 +                }
 +            }
 +            activeBehaviors = it.unimi.dsi.fastutil.objects.ObjectArrays.setLength(list.elements(), list.size());
@@ -205,9 +205,9 @@ index 8d9a243b335cfe95d8d785cc89d27ecebed61cb4..1cca7dab4cfb503d2f6e4bb80ac0e318
 +            this.availableBehaviorsByPriorityArray = this.availableBehaviorsByPriority.values().toArray(new Map[0]);
 +        }
 +        for (Map<Activity, Set<BehaviorControl<? super E>>> map : availableBehaviorsByPriorityArray) {
-+            var map1 = (gg.tame.keila.util.map.ActivityArrayMap<Set<BehaviorControl<? super E>>>) map;
++            var map1 = (gg.tame.palladium.util.map.ActivityArrayMap<Set<BehaviorControl<? super E>>>) map;
 +            for (int index = 0, size = map1.size(); index < size; index++) {
-+                var behaviorControls = (gg.tame.keila.util.map.BehaviorControlArraySet<? super E>) map1.v[index];
++                var behaviorControls = (gg.tame.palladium.util.map.BehaviorControlArraySet<? super E>) map1.v[index];
 +                if (!behaviorControls.running()) {
 +                    continue;
 +                }

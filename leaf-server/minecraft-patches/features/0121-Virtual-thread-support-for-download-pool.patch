@@ -28,7 +28,7 @@ index 617f3804e9bd494c85915a60e05b8dd453c4c03c..b939f1807aaada171767bdfe5d63d7b9
 -        }
 -    }));
 -    // Paper end - Limit download pool size
-+    private static final TracingExecutor DOWNLOAD_POOL = new TracingExecutor(gg.tame.keila.async.ExecutorFactory.buildDownloadPoolExecutor()); // Leaf - Virtual thread support for download pool
++    private static final TracingExecutor DOWNLOAD_POOL = new TracingExecutor(gg.tame.palladium.async.ExecutorFactory.buildDownloadPoolExecutor()); // Leaf - Virtual thread support for download pool
      private static final DateTimeFormatter FILENAME_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss", Locale.ROOT);
      public static final int LINEAR_LOOKUP_THRESHOLD = 8;
      private static final Set<String> ALLOWED_UNTRUSTED_LINK_PROTOCOLS = Set.of("http", "https");

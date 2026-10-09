@@ -4,7 +4,7 @@ set -euo pipefail
 paper_commit=$(sed -n 's/^paperCommit=//p' gradle.properties)
 mc_version=$(sed -n 's/^mcVersion=//p' gradle.properties)
 
-echo "Keila upstream drift report"
+echo "Palladium upstream drift report"
 echo "mcVersion=$mc_version"
 echo "paperCommit=$paper_commit"
 echo "local HEAD=$(git rev-parse --short HEAD 2>/dev/null || echo unknown)"

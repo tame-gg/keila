@@ -19,7 +19,7 @@ index 948df8e65853aaade88385d7b349470d5bdeea7e..77451dca02e6ffeaf898b0093a2b6802
          private void sendToServer(final ChatType.Bound chatType, final @Nullable Function<Audience, net.minecraft.network.chat.Component> msgFunction) {
              final PlayerChatMessage toConsoleMessage = msgFunction == null ? ChatProcessor.this.message : ChatProcessor.this.message.withUnsignedContent(msgFunction.apply(ChatProcessor.this.server.console));
 -            ChatProcessor.this.server.logChatMessage(toConsoleMessage.decoratedContent(), chatType, !org.galemc.gale.configuration.GaleGlobalConfiguration.get().logToConsole.chat.notSecureMarker || ChatProcessor.this.server.getPlayerList().verifyChatTrusted(toConsoleMessage) ? null : "Not Secure"); // Gale - do not log Not Secure marker
-+            ChatProcessor.this.server.logChatMessage(toConsoleMessage.decoratedContent(), chatType, !gg.tame.keila.config.modules.network.ChatMessageSignature.enabled || !org.galemc.gale.configuration.GaleGlobalConfiguration.get().logToConsole.chat.notSecureMarker || ChatProcessor.this.server.getPlayerList().verifyChatTrusted(toConsoleMessage) ? null : "Not Secure"); // Gale - do not log Not Secure marker // Leaf - Mirai - Configurable chat message signatures
++            ChatProcessor.this.server.logChatMessage(toConsoleMessage.decoratedContent(), chatType, !gg.tame.palladium.config.modules.network.ChatMessageSignature.enabled || !org.galemc.gale.configuration.GaleGlobalConfiguration.get().logToConsole.chat.notSecureMarker || ChatProcessor.this.server.getPlayerList().verifyChatTrusted(toConsoleMessage) ? null : "Not Secure"); // Gale - do not log Not Secure marker // Leaf - Mirai - Configurable chat message signatures
          }
      }
  
