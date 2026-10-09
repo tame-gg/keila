@@ -163,7 +163,7 @@ index ca1b5d270848aebea3fb5c87daa5dc11ff1a877c..0a4b3329c647dde77445e46f221f9123
 -    private static final Map<BlockFace, MushroomBlockTexture> BY_BLOCKFACE = Maps.newHashMap();
 +    // Leaf start - Replace data maps with optimized collection
 +    private static final it.unimi.dsi.fastutil.bytes.Byte2ObjectMap<MushroomBlockTexture> BY_DATA = new it.unimi.dsi.fastutil.bytes.Byte2ObjectOpenHashMap<>();
-+    private static final Map<BlockFace, MushroomBlockTexture> BY_BLOCKFACE = new java.util.HashMap<>(); // Keila - null cap faces are valid legacy API keys
++    private static final Map<BlockFace, MushroomBlockTexture> BY_BLOCKFACE = new java.util.HashMap<>(); // Palladium - null cap faces are valid legacy API keys
 +    // Leaf end - Replace data maps with optimized collection
  
      private final Byte data;

@@ -39,7 +39,7 @@ import static net.kyori.adventure.text.format.TextColor.color;
 /**
  * An abstract version fetcher, derived from {@link PaperVersionFetcher}.
  * This class was then made to be a superclass of {@link PaperVersionFetcher},
- * {@link GaleVersionFetcher}, and {@link gg.tame.keila.version.KeilaVersionFetcher}.
+ * {@link GaleVersionFetcher}, and {@link gg.tame.palladium.version.PalladiumVersionFetcher}.
  * <br>
  * For fork developers, this modified Paper version fetcher makes it easier to
  * register and extend custom version fetchers using existing popular

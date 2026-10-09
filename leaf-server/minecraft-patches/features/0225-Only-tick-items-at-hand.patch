@@ -13,7 +13,7 @@ index 6dab07576f079db883f1212d7976a47342571a60..5ff7720f6a9e46c90f73f7af3fc3ef9b
              }
  
 +            // Leaf start - Only tick items at hand
-+            if (gg.tame.keila.config.modules.opt.OptimizeItemTicking.onlyTickItemsInHand) {
++            if (gg.tame.palladium.config.modules.opt.OptimizeItemTicking.onlyTickItemsInHand) {
 +                this.synchronizeSpecialItemUpdates(this.getMainHandItem());
 +                this.synchronizeSpecialItemUpdates(this.getOffhandItem());
 +            } else {
@@ -37,7 +37,7 @@ index 94a8e31089ba4d4620ee18e71bb7dbdbba3b37d1..b03a730248b8ffda48750ac88eaa4d18
  
          this.tickRegeneration();
 +        // Leaf start - Only tick items at hand
-+        if (gg.tame.keila.config.modules.opt.OptimizeItemTicking.onlyTickItemsInHand) {
++        if (gg.tame.palladium.config.modules.opt.OptimizeItemTicking.onlyTickItemsInHand) {
 +            this.getMainHandItem().inventoryTick(this.level(), this, EquipmentSlot.MAINHAND);
 +            this.getOffhandItem().inventoryTick(this.level(), this, EquipmentSlot.OFFHAND);
 +        } else {

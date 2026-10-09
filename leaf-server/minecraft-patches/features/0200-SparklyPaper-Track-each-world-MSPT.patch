@@ -52,7 +52,7 @@ index 8769993e7ca59da309087051a3cd38fc562c15d1..b65c839e45402c618020c77fe63b89bd
      @Override
      void updateBossBar(BossBar bossbar, Player player) {
 +        // SparklyPaper start - track world's MSPT
-+        if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++        if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +            // Get player's current world
 +            net.minecraft.server.level.ServerLevel serverLevel = ((org.bukkit.craftbukkit.CraftWorld) player.getWorld()).getHandle();
 +

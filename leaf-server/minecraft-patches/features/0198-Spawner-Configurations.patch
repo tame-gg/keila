@@ -14,7 +14,7 @@ index d7440b6022ae2711322d6d6cbe7208b4579c3f32..d93fb5abd9c204798fad858f3d2bf3b5
          if (level.purpurConfig.spawnerDeactivateByRedstone && level.hasNeighborSignal(pos)) return false; // Purpur - Redstone deactivates spawners
 +        // Leaf start - Spawner Configurations
 +        // Skip player proximity check if disabled in config
-+        if (gg.tame.keila.config.modules.gameplay.SpawnerSettings.enabled && !gg.tame.keila.config.modules.gameplay.SpawnerSettings.checkForNearbyPlayers) {
++        if (gg.tame.palladium.config.modules.gameplay.SpawnerSettings.enabled && !gg.tame.palladium.config.modules.gameplay.SpawnerSettings.checkForNearbyPlayers) {
 +            return true; // Always act as if players are nearby
 +        }
 +        // Leaf end - Spawner Configurations
@@ -49,9 +49,9 @@ index d7440b6022ae2711322d6d6cbe7208b4579c3f32..d93fb5abd9c204798fad858f3d2bf3b5
 +
 +        // Leaf start - Spawner Configurations
 +        // Apply custom min/max spawn delays if enabled
-+        if (gg.tame.keila.config.modules.gameplay.SpawnerSettings.enabled) {
-+            this.minSpawnDelay = gg.tame.keila.config.modules.gameplay.SpawnerSettings.minSpawnDelay;
-+            this.maxSpawnDelay = gg.tame.keila.config.modules.gameplay.SpawnerSettings.maxSpawnDelay;
++        if (gg.tame.palladium.config.modules.gameplay.SpawnerSettings.enabled) {
++            this.minSpawnDelay = gg.tame.palladium.config.modules.gameplay.SpawnerSettings.minSpawnDelay;
++            this.maxSpawnDelay = gg.tame.palladium.config.modules.gameplay.SpawnerSettings.maxSpawnDelay;
 +        }
 +        // Leaf end - Spawner Configurations
 +
@@ -66,8 +66,8 @@ index d7440b6022ae2711322d6d6cbe7208b4579c3f32..d93fb5abd9c204798fad858f3d2bf3b5
 +
 +                        // Leaf start - Spawner Configurations
 +                        // Skip collision check if block checks are disabled
-+                        boolean skipBlockChecks = gg.tame.keila.config.modules.gameplay.SpawnerSettings.enabled &&
-+                            !gg.tame.keila.config.modules.gameplay.SpawnerSettings.spawnerBlockChecks;
++                        boolean skipBlockChecks = gg.tame.palladium.config.modules.gameplay.SpawnerSettings.enabled &&
++                            !gg.tame.palladium.config.modules.gameplay.SpawnerSettings.spawnerBlockChecks;
 +                        if (skipBlockChecks || level.noCollision(optional.get().getSpawnAABB(vec3.x, vec3.y, vec3.z))) {
 +                            // 'skipBlockChecks' is true if SpawnerSettings.spawnerBlockChecks is false.
 +                            // It means we skip physical block checks like collision and custom rule isValidPosition.
@@ -75,8 +75,8 @@ index d7440b6022ae2711322d6d6cbe7208b4579c3f32..d93fb5abd9c204798fad858f3d2bf3b5
                              BlockPos blockPos = BlockPos.containing(vec3);
 +
 +                            // Add light level check if enabled
-+                            if (gg.tame.keila.config.modules.gameplay.SpawnerSettings.enabled &&
-+                                gg.tame.keila.config.modules.gameplay.SpawnerSettings.lightLevelCheck) {
++                            if (gg.tame.palladium.config.modules.gameplay.SpawnerSettings.enabled &&
++                                gg.tame.palladium.config.modules.gameplay.SpawnerSettings.lightLevelCheck) {
 +                                int lightLevel = level.getMaxLocalRawBrightness(blockPos);
 +                                if (lightLevel > maxAllowedLight(optional.get())) {
 +                                    continue;
@@ -84,15 +84,15 @@ index d7440b6022ae2711322d6d6cbe7208b4579c3f32..d93fb5abd9c204798fad858f3d2bf3b5
 +                            }
 +
 +                            // Add water check if enabled
-+                            if (gg.tame.keila.config.modules.gameplay.SpawnerSettings.enabled &&
-+                                gg.tame.keila.config.modules.gameplay.SpawnerSettings.waterPreventSpawnCheck &&
++                            if (gg.tame.palladium.config.modules.gameplay.SpawnerSettings.enabled &&
++                                gg.tame.palladium.config.modules.gameplay.SpawnerSettings.waterPreventSpawnCheck &&
 +                                level.getBlockState(blockPos).getFluidState().is(net.minecraft.tags.FluidTags.WATER)) {
 +                                continue;
 +                            }
 +
 +                            // Determine if mob-specific spawn rules (like block types, biome requirements) should be skipped
-+                            boolean skipMobSpecificRules = gg.tame.keila.config.modules.gameplay.SpawnerSettings.enabled &&
-+                                gg.tame.keila.config.modules.gameplay.SpawnerSettings.ignoreSpawnRules;
++                            boolean skipMobSpecificRules = gg.tame.palladium.config.modules.gameplay.SpawnerSettings.enabled &&
++                                gg.tame.palladium.config.modules.gameplay.SpawnerSettings.ignoreSpawnRules;
 +                            // Leaf end - Spawner Configurations
                              if (nextSpawnData.getCustomSpawnRules().isPresent()) {
                                  if (!optional.get().getCategory().isFriendly() && level.getDifficulty() == Difficulty.PEACEFUL) {
@@ -114,7 +114,7 @@ index d7440b6022ae2711322d6d6cbe7208b4579c3f32..d93fb5abd9c204798fad858f3d2bf3b5
                                  return;
                              }
  
-+                            if (!gg.tame.keila.config.modules.gameplay.SpawnerSettings.enabled || gg.tame.keila.config.modules.gameplay.SpawnerSettings.spawnerMaxNearbyCheck) { // Leaf - Spawner Configurations - Skip max nearby entity check if disabled
++                            if (!gg.tame.palladium.config.modules.gameplay.SpawnerSettings.enabled || gg.tame.palladium.config.modules.gameplay.SpawnerSettings.spawnerMaxNearbyCheck) { // Leaf - Spawner Configurations - Skip max nearby entity check if disabled
                              int size = level.getEntities(
                                      EntityTypeTest.forExactClass(entity.getClass()),
                                      new AABB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1).inflate(this.spawnRange),
@@ -151,9 +151,9 @@ index d7440b6022ae2711322d6d6cbe7208b4579c3f32..d93fb5abd9c204798fad858f3d2bf3b5
          this.spawnPotentials = input.read("SpawnPotentials", SpawnData.LIST_CODEC)
              .orElseGet(() -> WeightedList.of(this.nextSpawnData != null ? this.nextSpawnData : new SpawnData()));
 +        // Leaf start - Spawner Configurations
-+        if (gg.tame.keila.config.modules.gameplay.SpawnerSettings.enabled) {
-+            this.minSpawnDelay = gg.tame.keila.config.modules.gameplay.SpawnerSettings.minSpawnDelay;
-+            this.maxSpawnDelay = gg.tame.keila.config.modules.gameplay.SpawnerSettings.maxSpawnDelay;
++        if (gg.tame.palladium.config.modules.gameplay.SpawnerSettings.enabled) {
++            this.minSpawnDelay = gg.tame.palladium.config.modules.gameplay.SpawnerSettings.minSpawnDelay;
++            this.maxSpawnDelay = gg.tame.palladium.config.modules.gameplay.SpawnerSettings.maxSpawnDelay;
 +        } else {
          // Paper start - use int if set
          this.minSpawnDelay = input.getIntOr("Paper.MinSpawnDelay", input.getIntOr("MinSpawnDelay", 200));

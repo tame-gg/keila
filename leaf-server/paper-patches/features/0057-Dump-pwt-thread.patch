@@ -13,7 +13,7 @@ index fbd9aac889f320eefcb8f9c815c19e495022e26e..023360cb1e9a852b22d52ed82b24574f
                  logger.log(Level.SEVERE, "------------------------------");
  
 +                // Leaf start - dump pwt thread
-+                if (gg.tame.keila.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
++                if (gg.tame.palladium.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
 +                    logger.log(Level.SEVERE, "Parallel world ticking thread dump");
 +                    for (Thread thread : org.apache.commons.lang3.ThreadUtils.getAllThreads()) {
 +                        if (thread instanceof ServerLevelTickThread tickThread) {

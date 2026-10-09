@@ -42,7 +42,7 @@ index 9f4d73fd321f6f0cd19fdd1b63068d2ea6c0816b..8cafbe5c2975cbd01bb1f39a92864af9
              // Only start Metrics, if it's enabled in the config
              if (config.getBoolean("enabled", true)) {
 -                Metrics metrics = new Metrics("Paper", serverUUID, logFailedRequests, Bukkit.getLogger());
-+                Metrics metrics = new Metrics("Keila", serverUUID, logFailedRequests, Bukkit.getLogger()); // Gale - branding changes - metrics // Keila - metrics
++                Metrics metrics = new Metrics("Palladium", serverUUID, logFailedRequests, Bukkit.getLogger()); // Gale - branding changes - metrics // Palladium - metrics
  
                  metrics.addCustomChart(new Metrics.SimplePie("minecraft_version", () -> {
                      String minecraftVersion = Bukkit.getVersion();
@@ -51,18 +51,18 @@ index 9f4d73fd321f6f0cd19fdd1b63068d2ea6c0816b..8cafbe5c2975cbd01bb1f39a92864af9
                  metrics.addCustomChart(new Metrics.SingleLineChart("players", () -> Bukkit.getOnlinePlayers().size()));
                  metrics.addCustomChart(new Metrics.SimplePie("online_mode", () -> Bukkit.getOnlineMode() ? "online" : "offline"));
 -                final String paperVersion;
-+                final String keilaVersion; // Gale - branding changes - metrics // Keila - metrics
++                final String palladiumVersion; // Gale - branding changes - metrics // Palladium - metrics
                  final String implVersion = org.bukkit.craftbukkit.Main.class.getPackage().getImplementationVersion();
                  if (implVersion != null) {
                      final String buildOrHash = implVersion.substring(implVersion.lastIndexOf('-') + 1);
 -                    paperVersion = "git-Paper-%s-%s".formatted(Bukkit.getServer().getMinecraftVersion(), buildOrHash);
-+                    keilaVersion = "git-Keila-%s-%s".formatted(Bukkit.getServer().getMinecraftVersion(), buildOrHash); // Gale - branding changes - metrics // Keila - metrics
++                    palladiumVersion = "git-Palladium-%s-%s".formatted(Bukkit.getServer().getMinecraftVersion(), buildOrHash); // Gale - branding changes - metrics // Palladium - metrics
                  } else {
 -                    paperVersion = "unknown";
-+                    keilaVersion = "unknown"; // Gale - branding changes - metrics // Keila - metrics
++                    palladiumVersion = "unknown"; // Gale - branding changes - metrics // Palladium - metrics
                  }
 -                metrics.addCustomChart(new Metrics.SimplePie("paper_version", () -> paperVersion));
-+                metrics.addCustomChart(new Metrics.SimplePie("keila_version", () -> keilaVersion)); // Gale - branding changes - metrics // Keila - metrics
++                metrics.addCustomChart(new Metrics.SimplePie("palladium_version", () -> palladiumVersion)); // Gale - branding changes - metrics // Palladium - metrics
  
                  metrics.addCustomChart(new Metrics.DrilldownPie("java_version", () -> {
 -                    Map<String, Map<String, Integer>> map = new HashMap<>();

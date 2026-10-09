@@ -16,7 +16,7 @@ index 6fd00b09c1be79e8aec40e87493321c4e24a53c3..1bd52f976392544dc0e0967f2b046783
 -        return context.getArgument(name, EntitySelector.class).findEntities(context.getSource());
 +        // Leaf start - Skip inactive entity for execute
 +        EntitySelector entitySelector = context.getArgument(name, EntitySelector.class);
-+        return gg.tame.keila.config.modules.opt.SkipInactiveEntityForExecute.skipInactiveEntityForExecute && context.getSource().source instanceof net.minecraft.server.MinecraftServer ? entitySelector.findEntitiesSkipInactive(context.getSource()) : entitySelector.findEntities(context.getSource());
++        return gg.tame.palladium.config.modules.opt.SkipInactiveEntityForExecute.skipInactiveEntityForExecute && context.getSource().source instanceof net.minecraft.server.MinecraftServer ? entitySelector.findEntitiesSkipInactive(context.getSource()) : entitySelector.findEntities(context.getSource());
 +        // Leaf end - Skip inactive entity for execute
      }
  

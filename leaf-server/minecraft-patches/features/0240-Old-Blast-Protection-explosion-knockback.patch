@@ -35,7 +35,7 @@ index af01b77a586258c492b542536c54eddaa2b2a6f0..c45d4646104565a98a4c9deee60ca5d7
  
 +    // Leaf start - Old Blast Protection explosion knockback
 +    private static double getExplosionKnockback(Entity entity, double velocity, double knockbackResistance) {
-+        if (!gg.tame.keila.config.modules.gameplay.Knockback.oldBlastProtectionKnockbackBehavior) {
++        if (!gg.tame.palladium.config.modules.gameplay.Knockback.oldBlastProtectionKnockbackBehavior) {
 +            return velocity * (1.0 - knockbackResistance);
 +        }
 +

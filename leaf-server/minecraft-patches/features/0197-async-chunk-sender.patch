@@ -13,7 +13,7 @@ index 7129c5e1920008ac54f3a8ac83f5589396f4e4e9..b4402b7c441daa5a55495603ee31fe74
          private final LongHeapPriorityQueue loadQueue = new LongHeapPriorityQueue(CLOSEST_MANHATTAN_DIST);
  
          private volatile boolean removed;
-+        private final gg.tame.keila.async.chunk.AsyncChunkSender asyncSender = gg.tame.keila.config.modules.async.AsyncChunkSend.enabled ? new gg.tame.keila.async.chunk.AsyncChunkSender() : null; // Leaf - async chunk sender
++        private final gg.tame.palladium.async.chunk.AsyncChunkSender asyncSender = gg.tame.palladium.config.modules.async.AsyncChunkSend.enabled ? new gg.tame.palladium.async.chunk.AsyncChunkSender() : null; // Leaf - async chunk sender
  
          public PlayerChunkLoaderData(final ServerLevel world, final ServerPlayer player) {
              this.world = world;
@@ -22,7 +22,7 @@ index 7129c5e1920008ac54f3a8ac83f5589396f4e4e9..b4402b7c441daa5a55495603ee31fe74
          }
  
 +        // Leaf start - async chunk sender
-+        private boolean keila$sendChunk(final int chunkX, final int chunkZ) {
++        private boolean palladium$sendChunk(final int chunkX, final int chunkZ) {
 +            long k = CoordinateUtils.getChunkKey(chunkX, chunkZ);
 +            if (!this.sentChunks.contains(k)) {
 +                if (this.asyncSender.add(k)) {
@@ -34,7 +34,7 @@ index 7129c5e1920008ac54f3a8ac83f5589396f4e4e9..b4402b7c441daa5a55495603ee31fe74
 +            }
 +            throw new IllegalStateException();
 +        }
-+        private void keila$sendChunkRaw(final net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket chunkPacket) {
++        private void palladium$sendChunkRaw(final net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket chunkPacket) {
 +            final int chunkX = chunkPacket.getX();
 +            final int chunkZ = chunkPacket.getZ();
 +            if (this.sentChunks.add(CoordinateUtils.getChunkKey(chunkX, chunkZ))) {
@@ -51,7 +51,7 @@ index 7129c5e1920008ac54f3a8ac83f5589396f4e4e9..b4402b7c441daa5a55495603ee31fe74
 +                }
 +                // Paper end - PlayerChunkLoadEvent
 +                // Leaf start - Multithreaded tracker
-+                if (gg.tame.keila.config.modules.async.MultithreadedTracker.enabled) {
++                if (gg.tame.palladium.config.modules.async.MultithreadedTracker.enabled) {
 +                    ca.spottedleaf.moonrise.common.misc.NearbyPlayers.TrackedChunk trackedChunk = chunk.moonrise$getChunkHolder().holderData.nearbyPlayers;
 +                    if (trackedChunk != null) {
 +                        trackedChunk.trackingUpdateCountAtomic.getAndIncrement();
@@ -82,7 +82,7 @@ index 7129c5e1920008ac54f3a8ac83f5589396f4e4e9..b4402b7c441daa5a55495603ee31fe74
 -                this.sendChunk(pendingSendX, pendingSendZ);
 +                // Leaf start - async chunk sender
 +                if (this.asyncSender != null) {
-+                    if (this.keila$sendChunk(pendingSendX, pendingSendZ)) {
++                    if (this.palladium$sendChunk(pendingSendX, pendingSendZ)) {
 +                        this.sendQueue.dequeueLong();
 +                    } else {
 +                        break;
@@ -103,7 +103,7 @@ index 7129c5e1920008ac54f3a8ac83f5589396f4e4e9..b4402b7c441daa5a55495603ee31fe74
 +                net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket packet;
 +                while ((packet = this.asyncSender.recv()) != null) {
 +                    if (this.asyncSender.remove(CoordinateUtils.getChunkKey(packet.getX(), packet.getZ()))) {
-+                        this.keila$sendChunkRaw(packet);
++                        this.palladium$sendChunkRaw(packet);
 +                    }
 +                }
 +            }
@@ -213,7 +213,7 @@ index 9f43cfbdd49df61de869fd65fb2cbea39a563260..03470810c8dafc87c787fbd2aff2e1d3
 +        io.papermc.paper.antixray.ChunkPacketInfo<net.minecraft.world.level.block.state.BlockState> chunkPacketInfo = modifyBlocks ? chunk.getLevel().chunkPacketBlockController.getChunkPacketInfo(this, chunk) : null; // Paper - Ant-Xray
 +        this.chunkData = new ClientboundLevelChunkPacketData(chunk, chunkPacketInfo, blockEntities, heightmaps); // Paper - Anti-Xray
 +        this.lightData = new ClientboundLightUpdatePacketData(pos, lightEngine, skyLight, blockLight);
-+        chunk.getLevel().chunkPacketBlockController.keila$modifyBlocks(this, chunkPacketInfo); // Paper - Anti-Xray - Modify blocks
++        chunk.getLevel().chunkPacketBlockController.palladium$modifyBlocks(this, chunkPacketInfo); // Paper - Anti-Xray - Modify blocks
 +    }
 +    // Leaf end - async chunk sender
  
@@ -228,7 +228,7 @@ index 644948d64791d0ffa4166375d0f4419f1ffa214a..342e7f6fbb53966c879b369ffde5fee5
      }
  
 +    // Leaf start - async chunk sender
-+    public static void sendChunk(ServerGamePacketListenerImpl packetListener, ServerLevel level, LevelChunk chunk, gg.tame.keila.async.chunk.AsyncChunkSender chunkSender) {
++    public static void sendChunk(ServerGamePacketListenerImpl packetListener, ServerLevel level, LevelChunk chunk, gg.tame.palladium.async.chunk.AsyncChunkSender chunkSender) {
 +        final boolean shouldModify = level.chunkPacketBlockController.shouldModify(packetListener.player, chunk);
 +        net.minecraft.world.level.block.entity.BlockEntity[] blockEntities = chunk.blockEntities.values().toArray(new net.minecraft.world.level.block.entity.BlockEntity[0]);
 +        java.util.Map<net.minecraft.world.level.levelgen.Heightmap.Types, long[]> heightmaps = new java.util.EnumMap<>(net.minecraft.world.level.levelgen.Heightmap.Types.class);

@@ -17,7 +17,7 @@ index 86fb0f46759fa2884f335d12bfc27ccdd82f7dfa..1460fccb81d5ca17fd409dd04dd032d1
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
 @@ -299,6 +299,13 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
-        gg.tame.keila.command.KeilaCommands.registerCommands(this); // Keila - Keila commands
+        gg.tame.palladium.command.PalladiumCommands.registerCommands(this); // Palladium - Palladium commands
          com.destroystokyo.paper.VersionHistoryManager.INSTANCE.getClass(); // Paper - load version history now
  
 +        // Gale start - Pufferfish - SIMD support

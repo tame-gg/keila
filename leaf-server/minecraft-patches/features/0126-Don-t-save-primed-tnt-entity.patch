@@ -16,7 +16,7 @@ index 5dccf56d19dd217ec4b18a390779f0da0c428b98..28aed230b3a7da6ccedf1b1d9aab300f
 +    // Leaf start - PMC - Don't save primed tnt entity
 +    @Override
 +    public boolean shouldBeSaved() {
-+        return !gg.tame.keila.config.modules.opt.DontSaveEntity.dontSavePrimedTNT && super.shouldBeSaved();
++        return !gg.tame.palladium.config.modules.opt.DontSaveEntity.dontSavePrimedTNT && super.shouldBeSaved();
 +    }
 +    // Leaf - PMC - Don't save primed tnt entity
  }

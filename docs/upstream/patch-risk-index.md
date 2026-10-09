@@ -1,4 +1,4 @@
-# Keila Patch Risk Index
+# Palladium Patch Risk Index
 
 Use this index when accepting, updating, or removing patches.
 
@@ -10,7 +10,7 @@ Use this index when accepting, updating, or removing patches.
 - Region file or world storage changes
 - Player data saving changes
 - Network packet ordering changes
-- Any item marked `Research` in `docs/keila/optimization-roadmap.md`
+- Any item marked `Research` in `docs/palladium/optimization-roadmap.md`
 
 Requires stress tests, soak tests, and rollback notes.
 

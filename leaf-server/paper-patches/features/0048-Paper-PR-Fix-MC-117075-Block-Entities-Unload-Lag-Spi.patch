@@ -21,7 +21,7 @@ index 0000000000000000000000000000000000000000..c697adaa750843d4358005c5e922e44f
 +
 +import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 +import net.minecraft.world.level.block.entity.TickingBlockEntity;
-+import gg.tame.keila.util.list.BlockEntityTickersList;
++import gg.tame.palladium.util.list.BlockEntityTickersList;
 +import org.junit.jupiter.api.BeforeEach;
 +import org.junit.jupiter.api.Test;
 +import org.junit.jupiter.api.DisplayName;

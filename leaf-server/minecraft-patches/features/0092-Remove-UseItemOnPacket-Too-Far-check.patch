@@ -18,7 +18,7 @@ index 793d6b7300cd5a58d485099b981fa45c47e2343d..5aaa59e4fbc51d920620d99cd446eac1
 -                    if (Math.abs(vec3.x()) < 1.0000001 && Math.abs(vec3.y()) < 1.0000001 && Math.abs(vec3.z()) < 1.0000001) {
 +                    // Leaf start - Remove UseItemOnPacket Too Far check
 +                    //double d = 1.0000001;
-+                    final double maxDistance = gg.tame.keila.config.modules.gameplay.ConfigurableMaxUseItemDistance.maxUseItemDistance;
++                    final double maxDistance = gg.tame.palladium.config.modules.gameplay.ConfigurableMaxUseItemDistance.maxUseItemDistance;
 +                    if (maxDistance <= 0
 +                        || (Math.abs(vec3.x()) < maxDistance && Math.abs(vec3.y()) < maxDistance && Math.abs(vec3.z()) < maxDistance)
 +                    ) {

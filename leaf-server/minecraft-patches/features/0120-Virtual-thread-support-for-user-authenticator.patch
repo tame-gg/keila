@@ -13,7 +13,7 @@ index 1aa9389e58c9b76b12ce99f429e275f04992472f..9c2b53b4b64a4d96ce1dae56a364ae9c
      private static final AtomicInteger UNIQUE_THREAD_ID = new AtomicInteger(0);
      public static final Logger LOGGER = LogUtils.getLogger();
 -    private static final java.util.concurrent.ExecutorService authenticatorPool = java.util.concurrent.Executors.newCachedThreadPool(new com.google.common.util.concurrent.ThreadFactoryBuilder().setNameFormat("User Authenticator #%d").setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(LOGGER)).build()); // Paper - Cache authenticator threads
-+    private static final java.util.concurrent.ExecutorService authenticatorPool = gg.tame.keila.async.ExecutorFactory.buildAuthPoolExecutor(); // Leaf - Virtual thread support for user authenticator
++    private static final java.util.concurrent.ExecutorService authenticatorPool = gg.tame.palladium.async.ExecutorFactory.buildAuthPoolExecutor(); // Leaf - Virtual thread support for user authenticator
      private static final int MAX_TICKS_BEFORE_LOGIN = 600;
      private final byte[] challenge;
      final MinecraftServer server;

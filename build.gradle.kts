@@ -8,7 +8,7 @@ plugins {
 
 val paperMavenPublicUrl = "https://repo.papermc.io/repository/maven-public/"
 val leafMavenPublicUrl = "https://maven.leafmc.one/snapshots/"
-val keilaMavenPublishUrl = providers.environmentVariable("KEILA_MAVEN_URL").orElse("https://maven.tame.gg/snapshots/")
+val palladiumMavenPublishUrl = providers.environmentVariable("PALLADIUM_MAVEN_URL").orElse("https://maven.tame.gg/snapshots/")
 
 subprojects {
     apply(plugin = "java-library")
@@ -49,8 +49,8 @@ subprojects {
 
     extensions.configure<PublishingExtension> {
         repositories {
-            maven(keilaMavenPublishUrl.get()) {
-                name = "keila"
+            maven(palladiumMavenPublishUrl.get()) {
+                name = "palladium"
 
                 credentials.username = System.getenv("REPO_USER")
                 credentials.password = System.getenv("REPO_PASSWORD")

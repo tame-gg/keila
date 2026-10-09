@@ -27,7 +27,7 @@ index 8022152ed0ff77b7eed98058557c7b919c18cf83..1e8b94ea01d7662247affe1ffbe9bf65
 -                // No plugin could have relied on the behavior of false as the other call
 -                // site for IMIE did not exhibit the same behavior
 +        // Leaves start - Vanilla hopper
-+        if (gg.tame.keila.config.modules.gameplay.VanillaHopper.enabled && movedItem.getCount() <= movedItemCount) {
++        if (gg.tame.palladium.config.modules.gameplay.VanillaHopper.enabled && movedItem.getCount() <= movedItemCount) {
 +            if (!skipPullModeEventFire) {
 +                movedItem = callPullMoveEvent(hopper, container, movedItem);
 +                if (movedItem == null) { // cancelled

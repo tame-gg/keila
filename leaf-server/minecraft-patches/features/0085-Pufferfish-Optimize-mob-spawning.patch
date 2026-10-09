@@ -37,7 +37,7 @@ index d1cdcbb90ef3b7389bf45541bf5424bfaf897d97..8bc3b4e93de8bff6ff37ee808d07cd28
          // Paper end - rewrite chunk system
          // Paper start - Improved watchdog support - move final shutdown items here
          Util.shutdownExecutors();
-+        gg.tame.keila.async.ShutdownExecutors.shutdown(this); // Leaf
++        gg.tame.palladium.async.ShutdownExecutors.shutdown(this); // Leaf
          this.onServerExit();
          // Paper end - Improved watchdog support - move final shutdown items here
      }
@@ -49,7 +49,7 @@ index 48e38240eb7fcc6394d44996ed5606b97e52712e..0d476e6e79807f5520d82c01806bd428
  
              org.purpurmc.purpur.task.BossBarTask.startAll(); // Purpur - Implement TPSBar
              if (org.purpurmc.purpur.PurpurConfig.beeCountPayload) org.purpurmc.purpur.task.BeehiveTask.instance().register(); // Purpur - Give bee counts in beehives to Purpur clients
-+            if (gg.tame.keila.config.modules.async.AsyncMobSpawning.enabled) mobSpawnExecutor.start(); // Pufferfish
++            if (gg.tame.palladium.config.modules.async.AsyncMobSpawning.enabled) mobSpawnExecutor.start(); // Pufferfish
  
              this.notificationManager().serverStarted();
              return true;
@@ -72,7 +72,7 @@ index af67b07722bb0125acd081dab767d7e7b360623b..98f27aa176fb72bf1ce165309d31b7b8
          }
 +
 +        // Pufferfish start - optimize mob spawning
-+        if (gg.tame.keila.config.modules.async.AsyncMobSpawning.enabled) {
++        if (gg.tame.palladium.config.modules.async.AsyncMobSpawning.enabled) {
 +            for (ServerPlayer player : this.level.players) {
 +                // Paper start - per player mob spawning backoff
 +                for (int ii = 0; ii < ServerPlayer.MOBCATEGORY_TOTAL_ENUMS; ii++) {
@@ -125,7 +125,7 @@ index af67b07722bb0125acd081dab767d7e7b360623b..98f27aa176fb72bf1ce165309d31b7b8
          // Paper start - Optional per player mob spawns
          NaturalSpawner.SpawnState spawnState;
          if ((this.spawnFriendlies || this.spawnEnemies) && this.level.paperConfig().entities.spawning.perPlayerMobSpawns) { // don't count mobs when animals and monsters are disabled
-+            if (!gg.tame.keila.config.modules.async.AsyncMobSpawning.enabled) { // Pufferfish - moved down when async processing
++            if (!gg.tame.palladium.config.modules.async.AsyncMobSpawning.enabled) { // Pufferfish - moved down when async processing
              // re-set mob counts
              for (ServerPlayer player : this.level.players) {
                  // Paper start - per player mob spawning backoff
@@ -172,7 +172,7 @@ index af67b07722bb0125acd081dab767d7e7b360623b..98f27aa176fb72bf1ce165309d31b7b8
  
          if (!spawnCategories.isEmpty()) {
 -            if (this.level.getWorldBorder().isWithinBounds(pos)) { // Paper - rewrite chunk system
-+            if (this.level.getWorldBorder().isWithinBounds(pos) && (!gg.tame.keila.config.modules.async.AsyncMobSpawning.enabled || _pufferfish_spawnCountsReady.get())) { // Paper - rewrite chunk system // Pufferfish
++            if (this.level.getWorldBorder().isWithinBounds(pos) && (!gg.tame.palladium.config.modules.async.AsyncMobSpawning.enabled || _pufferfish_spawnCountsReady.get())) { // Paper - rewrite chunk system // Pufferfish
                  NaturalSpawner.spawnForChunk(this.level, chunk, spawnState, spawnCategories);
              }
          }

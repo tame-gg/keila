@@ -13,7 +13,7 @@ index 74fc5c79a1d5e22388b09ef3cbad25423e582a6b..39b9280e1c84d58f4e8c10f3af65dc89
              // Paper end
  
 -            movement = this.maybeBackOffFromEdge(movement, type);
-+            if (!gg.tame.keila.config.modules.opt.OptimizePlayerMovementProcessing.enabled) movement = this.maybeBackOffFromEdge(movement, type); // Leaf - Optimise player movement checks
++            if (!gg.tame.palladium.config.modules.opt.OptimizePlayerMovementProcessing.enabled) movement = this.maybeBackOffFromEdge(movement, type); // Leaf - Optimise player movement checks
              Vec3 vec3 = this.collide(movement);
              double d = vec3.lengthSqr();
              if (d > 1.0E-7 || movement.lengthSqr() - d < 1.0E-7) {

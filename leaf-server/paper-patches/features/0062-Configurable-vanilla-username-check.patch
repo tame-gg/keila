@@ -29,7 +29,7 @@ index b4ce727bd2926dda80aeb6ef8ea6c75bf99d4d0f..348c98515b26c777ad5c2977639cae51
  
 +    // Leaf start - Configurable vanilla username check
 +    public CraftPlayerProfile cloneCustom() {
-+        CraftPlayerProfile clone = new CraftPlayerProfile(this.getId(), this.getName(), gg.tame.keila.config.modules.misc.VanillaUsernameCheck.useUsernameRegex);
++        CraftPlayerProfile clone = new CraftPlayerProfile(this.getId(), this.getName(), gg.tame.palladium.config.modules.misc.VanillaUsernameCheck.useUsernameRegex);
 +        clone.setProperties(getProperties());
 +        return clone;
 +    }
