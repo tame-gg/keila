@@ -1,4 +1,4 @@
-package gg.tame.palladium.event;
+package gg.tame.keila.event;
 
 import org.bukkit.ExplosionResult;
 import org.bukkit.block.Block;

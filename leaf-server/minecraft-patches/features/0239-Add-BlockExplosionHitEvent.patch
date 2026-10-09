@@ -16,7 +16,7 @@ index bcbf7daa2c2b7941ab7cb333de15494969ca665c..af01b77a586258c492b542536c54edda
 -                .getBlockState(blockPos)
 -                .onExplosionHit(this.level, blockPos, this, (itemStack, blockPos1) -> addOrAppendStack(list, itemStack, blockPos1));
 +            // Leaf start - Add BlockExplosionHitEvent
-+            if (new gg.tame.palladium.event.BlockExplosionHitEvent(CraftLocation.toBukkit(blockPos, this.level.getWorld()).getBlock(), this.source == null ? null : this.source.getBukkitEntity(), org.bukkit.craftbukkit.CraftExplosionResult.toExplosionResult(this.blockInteraction)).callEvent()) {
++            if (new gg.tame.keila.event.BlockExplosionHitEvent(CraftLocation.toBukkit(blockPos, this.level.getWorld()).getBlock(), this.source == null ? null : this.source.getBukkitEntity(), org.bukkit.craftbukkit.CraftExplosionResult.toExplosionResult(this.blockInteraction)).callEvent()) {
 +                this.level
 +                    .getBlockState(blockPos)
 +                    .onExplosionHit(this.level, blockPos, this, (itemStack, blockPos1) -> addOrAppendStack(list, itemStack, blockPos1));
