@@ -7,8 +7,8 @@
 
 The tame.gg Minecraft server fork for performance-heavy Paper networks.
 
-[![Build](https://img.shields.io/github/actions/workflow/status/tame-gg/keila/build.yml?style=for-the-badge&label=build&colorA=151a18&colorB=2e8b57)](https://github.com/tame-gg/keila/actions/workflows/build.yml)
-[![Release](https://img.shields.io/github/actions/workflow/status/tame-gg/keila/release.yml?style=for-the-badge&label=release&colorA=151a18&colorB=3b82f6)](https://github.com/tame-gg/keila/actions/workflows/release.yml)
+[![Build](https://img.shields.io/github/actions/workflow/status/tame-gg/palladium/build.yml?style=for-the-badge&label=build&colorA=151a18&colorB=2e8b57)](https://github.com/tame-gg/palladium/actions/workflows/build.yml)
+[![Release](https://img.shields.io/github/actions/workflow/status/tame-gg/palladium/release.yml?style=for-the-badge&label=release&colorA=151a18&colorB=3b82f6)](https://github.com/tame-gg/palladium/actions/workflows/release.yml)
 [![Java 21](https://img.shields.io/badge/java-21-ef4444?style=for-the-badge&colorA=151a18)](https://adoptium.net/temurin/releases/?version=21)
 [![Minecraft](https://img.shields.io/badge/minecraft-1.21.11-f59e0b?style=for-the-badge&colorA=151a18)](https://www.minecraft.net/)
 
@@ -44,7 +44,7 @@ Palladium is the tame.gg fork of [Leaf](https://github.com/Winds-Studio/Leaf), b
 
 ## Download
 
-Use the **palladium** workflow from [GitHub Actions](https://github.com/tame-gg/keila/actions/workflows/release.yml) or create a `v*` tag to build a release artifact. The release workflow produces:
+Use the **palladium** workflow from [GitHub Actions](https://github.com/tame-gg/palladium/actions/workflows/release.yml) or create a `v*` tag to build a release artifact. The release workflow produces:
 
 - `palladium-0.1.1.jar`
 - `palladium-0.1.1.jar.sha256`
@@ -56,7 +56,7 @@ Until tame.gg-owned download endpoints are configured, GitHub Actions artifacts 
 ## Quick Start
 
 ```bash
-git clone https://github.com/tame-gg/keila.git
+git clone https://github.com/tame-gg/palladium.git
 cd palladium
 
 ./gradlew applyAllPatches

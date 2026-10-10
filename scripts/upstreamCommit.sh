@@ -9,7 +9,7 @@
 # flag: --purpur HASH - the commit hash to use for comparing commits between purpur (PurpurMC/Purpur/compare/HASH...HEAD)
 # flag: --leaf HASH - the commit hash to use for comparing commits between Leaf (Winds-Studio/Leaf/compare/HASH...HEAD)
 # flag: --leaves HASH - legacy alias for --leaf
-# flag: --palladium HASH - the commit hash to use for comparing commits in tame-gg/keila
+# flag: --palladium HASH - the commit hash to use for comparing commits in tame-gg/palladium
 
 function getCommits() {
     curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/"$1"/compare/"$2"..."$3" | jq -r '.commits[] | "'"$1"'@\(.sha[:8]) \(.commit.message | split("\r\n")[0] | split("\n")[0])" | sub("\\[ci( |-)skip]"; "[ci/skip]")'
@@ -94,7 +94,7 @@ fi
 
 # Palladium updates
 if [ -n "$palladiumHash" ]; then
-    palladium=$(getCommits "tame-gg/keila" "$palladiumHash" "HEAD")
+    palladium=$(getCommits "tame-gg/palladium" "$palladiumHash" "HEAD")
 
     # Updates found
     if [ -n "$palladium" ]; then

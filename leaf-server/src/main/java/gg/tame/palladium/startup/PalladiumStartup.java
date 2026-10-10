@@ -84,7 +84,7 @@ public final class PalladiumStartup {
         logger.info("  1. Review config/palladium-global.yml (async toggles need a restart when changed).");
         logger.info("  2. Try /palladium list — {} operator diagnostics are ready.", featureCommandCount());
         logger.info("  3. Run /palladium rollout before enabling risky async features.");
-        logger.info("  4. Docs: https://github.com/tame-gg/keila/tree/main/docs  ·  Site: https://tame.gg/palladium");
+        logger.info("  4. Docs: https://github.com/tame-gg/palladium/tree/main/docs  ·  Site: https://tame.gg/palladium");
         logger.info("  5. Incident rollback: /palladium safe  ·  script: scripts/safeModeProfile.sh");
         logger.info("-------------------------------------------------------------------------------------");
     }

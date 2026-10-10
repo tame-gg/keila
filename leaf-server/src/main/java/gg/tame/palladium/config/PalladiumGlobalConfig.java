@@ -26,14 +26,14 @@ public class PalladiumGlobalConfig {
                 Palladium Config
 
                 Website: https://tame.gg/palladium
-                Docs: https://github.com/tame-gg/keila/tree/main/docs
-                GitHub Repo: https://github.com/tame-gg/keila""",
+                Docs: https://github.com/tame-gg/palladium/tree/main/docs
+                GitHub Repo: https://github.com/tame-gg/palladium""",
             """
                 Palladium 配置
 
                 官网: https://tame.gg/palladium
-                文档: https://github.com/tame-gg/keila/tree/main/docs
-                GitHub 仓库: https://github.com/tame-gg/keila"""));
+                文档: https://github.com/tame-gg/palladium/tree/main/docs
+                GitHub 仓库: https://github.com/tame-gg/palladium"""));
 
         // Pre-structure to force order
         structureConfig();

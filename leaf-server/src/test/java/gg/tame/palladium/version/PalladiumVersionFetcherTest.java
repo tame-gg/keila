@@ -9,7 +9,7 @@ class PalladiumVersionFetcherTest {
 
     @Test
     void repositoryTargetsPalladiumGitHubProject() {
-        assertTrue(PalladiumVersionFetcher.REPOSITORY.equals("tame-gg/keila"));
+        assertTrue(PalladiumVersionFetcher.REPOSITORY.equals("tame-gg/palladium"));
     }
 
     @Test
