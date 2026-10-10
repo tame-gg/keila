@@ -8,7 +8,7 @@ import static io.papermc.paper.ServerBuildInfo.StringRepresentation.VERSION_SIMP
 public class PalladiumVersionFetcher extends AbstractPaperVersionFetcher {
 
     public static final String DOWNLOAD_PAGE = "https://tame.gg/palladium";
-    public static final String REPOSITORY = "tame-gg/keila";
+    public static final String REPOSITORY = "tame-gg/palladium";
     public static final String USER_AGENT = "Palladium/" + versionSimple() + " (" + DOWNLOAD_PAGE + ")";
 
     private static String versionSimple() {
